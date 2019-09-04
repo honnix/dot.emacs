@@ -11,4 +11,5 @@
   (go-guru-hl-identifier-mode)
 )
 
-(add-hook 'go-mode-hook 'my-go-mode-hook)
+(add-hook 'go-mode-hook #'my-go-mode-hook)
+
