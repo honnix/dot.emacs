@@ -1,0 +1,12 @@
+*.elc
+.DS_Store
+archives
+archive-contents
+.session
+auto-save-list/
+ensime/
+ido.last
+*.pyc
+url/
+network-security.data
+transient/
