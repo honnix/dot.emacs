@@ -10,3 +10,4 @@ ido.last
 url/
 network-security.data
 transient/
+*.db
