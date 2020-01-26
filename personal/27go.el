@@ -7,7 +7,7 @@
            "go build -v && go test -v && go vet"))
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "M-*") 'pop-tag-mark)
-  (go-guru-set-scope ".")
+  (setq go-guru-scope ".")
   (go-guru-hl-identifier-mode)
 )
 

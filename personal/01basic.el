@@ -15,10 +15,12 @@
         (concat
          "~/bin" ":"
          "/usr/local/bin" ":"
+         "~/Developer/go/bin" ":"
          (getenv "PATH")))
 
 (setq exec-path (append '("~/bin"
-                          "/usr/local/bin") exec-path))
+                          "/usr/local/bin"
+                          "~/Developer/go/bin") exec-path))
 
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                           ("gnu" . "http://elpa.gnu.org/packages/")
@@ -452,10 +454,11 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
 
 ;; Set colors
-(add-to-list 'custom-theme-load-path
-  (file-name-as-directory "~/.emacs.d/personal/themes"))
-(load-theme 'monokai t t)
-(enable-theme 'monokai)
+;; (add-to-list 'custom-theme-load-path
+;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
+;; (load-theme 'monokai t t)
+;; (enable-theme 'monokai)
+(load-theme 'zenburn t)
 
 ;; Customize moving
 (global-set-key (kbd "C-a") 'beginning-of-line)
@@ -638,6 +641,8 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "<C-M-left>")  'centaur-tabs-backward)
 (global-set-key (kbd "<C-M-right>") 'centaur-tabs-forward)
 (setq centaur-tabs-style "bar"
-	  centaur-tabs-set-icons t
-	  centaur-tabs-set-bar 'left)
+	  centaur-tabs-set-icons t)
 (centaur-tabs-headline-match)
+
+;; treemacs
+(global-set-key (kbd "C-c t")  'treemacs)
