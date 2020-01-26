@@ -35,22 +35,22 @@
 ;;                         'han '("WenQuanYi Zen Hei Mono" . "unicode-bmp"))))
 
 ;; Emacs tabbar
-(if (display-graphic-p)
-    (progn
-      (tabbar-mode)
-      (global-set-key (kbd "<C-M-up>") 'tabbar-backward-group)
-      (global-set-key (kbd "<C-M-down>") 'tabbar-forward-group)
-      (global-set-key (kbd "<C-M-left>") 'tabbar-backward)
-      (global-set-key (kbd "<C-M-right>") 'tabbar-forward)
-      (setq tabbar-background-color "#959A79")
-      (custom-set-faces
-       '(tabbar-default ((t (:inherit variable-pitch :background "#959A79" :foreground "black" :weight bold))))
-       '(tabbar-button ((t (:inherit tabbar-default :foreground "dark red"))))
-       '(tabbar-button-highlight ((t (:inherit tabbar-default))))
-       '(tabbar-highlight ((t (:underline t))))
-       '(tabbar-selected ((t (:inherit tabbar-default :background "#95CA59"))))
-       '(tabbar-separator ((t (:inherit tabbar-default :background "#95CA59"))))
-       '(tabbar-unselected ((t (:inherit tabbar-default)))))))
+;; (if (display-graphic-p)
+;;     (progn
+;;       (tabbar-mode)
+;;       (global-set-key (kbd "<C-M-up>") 'tabbar-backward-group)
+;;       (global-set-key (kbd "<C-M-down>") 'tabbar-forward-group)
+;;       (global-set-key (kbd "<C-M-left>") 'tabbar-backward)
+;;       (global-set-key (kbd "<C-M-right>") 'tabbar-forward)
+;;       (setq tabbar-background-color "#959A79")
+;;       (custom-set-faces
+;;        '(tabbar-default ((t (:inherit variable-pitch :background "#959A79" :foreground "black" :weight bold))))
+;;        '(tabbar-button ((t (:inherit tabbar-default :foreground "dark red"))))
+;;        '(tabbar-button-highlight ((t (:inherit tabbar-default))))
+;;        '(tabbar-highlight ((t (:underline t))))
+;;        '(tabbar-selected ((t (:inherit tabbar-default :background "#95CA59"))))
+;;        '(tabbar-separator ((t (:inherit tabbar-default :background "#95CA59"))))
+;;        '(tabbar-unselected ((t (:inherit tabbar-default)))))))
 
 ;; Move to window easily
 (windmove-default-keybindings)
@@ -626,3 +626,18 @@ that was stored with ska-point-to-register."
 (drag-stuff-global-mode 1)
 (drag-stuff-define-keys)
 
+;; TUI over GUI
+(setq treemacs-no-png-images t)
+
+;; centaur tabs
+(require 'all-the-icons)
+(require 'centaur-tabs)
+(centaur-tabs-mode t)
+(global-set-key (kbd "<C-M-up>")  'centaur-tabs-backward-group)
+(global-set-key (kbd "<C-M-down>")  'centaur-tabs-forward-group)
+(global-set-key (kbd "<C-M-left>")  'centaur-tabs-backward)
+(global-set-key (kbd "<C-M-right>") 'centaur-tabs-forward)
+(setq centaur-tabs-style "bar"
+	  centaur-tabs-set-icons t
+	  centaur-tabs-set-bar 'left)
+(centaur-tabs-headline-match)
