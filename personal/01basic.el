@@ -359,7 +359,7 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c g") 'goto-line)
 
 ;; Which shell to use
-(setq shell-file-name "/bin/zsh")
+(setq shell-file-name "/usr/local/bin/zsh")
 
 ;; Hide shell password
 (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
