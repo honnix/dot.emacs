@@ -5,8 +5,15 @@
 (setq compilation-window-height 8)
 
 ;; Reset some indentation offsets
+(setq c-basic-offset 4)
 (c-set-offset 'inline-open 0)
 (c-set-offset 'inline-close 0)
+
+;; Set defalut style
+(setq c-default-style (quote ((c-mode . "stroustrup")
+                              (c++-mode . "stroustrup")
+                              (java-mode . "java")
+                              (other . "stroustrup"))))
 
 ;; C hook
 ;;; which-func-mode -- display in which function the current line is

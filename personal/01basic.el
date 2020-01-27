@@ -1,15 +1,10 @@
 ;; ============================= customize ============================
-(custom-set-variables
- '(c-basic-offset 4)
- '(tab-width 4)
- '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "stroustrup"))))
- '(case-fold-search t)
- '(completion-on-separator-character t)
-;; '(global-font-lock-mode t nil (font-lock))
- '(load-home-init-file t t)
- '(transient-mark-mode t)
- '(mac-command-modifier 'meta))
+(setq-default custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 ;;=========================================================================
+
+(setq mac-command-modifier 'meta)
 
 (setenv "PATH"
         (concat
@@ -61,7 +56,8 @@
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
-(global-set-key "\C-s" 'swiper)
+(global-set-key "\C-s" 'swiper-isearch)
+(global-set-key "\C-r" 'swiper-isearch-backward)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)

@@ -12,3 +12,4 @@ network-security.data
 transient/
 *.db
 .cache/
+elpa/*-readme.txt
