@@ -647,3 +647,7 @@ that was stored with ska-point-to-register."
 
 ;; fold
 (vimish-fold-global-mode 1)
+
+;; mode-line
+(setq sml/theme 'atom-one-dark)
+(sml/setup)
