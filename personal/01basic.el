@@ -631,14 +631,16 @@ that was stored with ska-point-to-register."
 ;; centaur tabs
 (require 'all-the-icons)
 (require 'centaur-tabs)
-(centaur-tabs-mode t)
 (global-set-key (kbd "<C-M-up>")  'centaur-tabs-backward-group)
 (global-set-key (kbd "<C-M-down>")  'centaur-tabs-forward-group)
 (global-set-key (kbd "<C-M-left>")  'centaur-tabs-backward)
 (global-set-key (kbd "<C-M-right>") 'centaur-tabs-forward)
 (setq centaur-tabs-style "bar"
-	  centaur-tabs-set-icons t)
+      centaur-tabs-set-bar 'under
+      centaur-tabs-set-icons t
+      x-underline-at-descent-line t)
 (centaur-tabs-headline-match)
+(centaur-tabs-mode t)
 
 ;; treemacs
 (global-set-key (kbd "C-c t")  'treemacs)
