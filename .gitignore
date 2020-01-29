@@ -13,3 +13,4 @@ transient/
 *.db
 .cache/
 elpa/*-readme.txt
+vimish-fold/

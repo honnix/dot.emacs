@@ -644,3 +644,6 @@ that was stored with ska-point-to-register."
 
 ;; treemacs
 (global-set-key (kbd "C-c t")  'treemacs)
+
+;; fold
+(vimish-fold-global-mode 1)
