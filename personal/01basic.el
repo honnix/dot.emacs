@@ -625,29 +625,29 @@ that was stored with ska-point-to-register."
 (drag-stuff-global-mode 1)
 (drag-stuff-define-keys)
 
-;; TUI over GUI
-(setq treemacs-no-png-images t)
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :after all-the-icons
+  :bind (("<C-M-up>" . centaur-tabs-backward-group)
+         ("<C-M-down>" . centaur-tabs-forward-group)
+         ("<C-M-left>" . centaur-tabs-backward)
+         ("<C-M-right>" . centaur-tabs-forward))
+  :init
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-set-bar 'under
+        centaur-tabs-set-icons t
+        x-underline-at-descent-line t)
+  :config
+  (centaur-tabs-headline-match)
+  (centaur-tabs-mode t))
 
-;; centaur tabs
-(require 'all-the-icons)
-(require 'centaur-tabs)
-(global-set-key (kbd "<C-M-up>")  'centaur-tabs-backward-group)
-(global-set-key (kbd "<C-M-down>")  'centaur-tabs-forward-group)
-(global-set-key (kbd "<C-M-left>")  'centaur-tabs-backward)
-(global-set-key (kbd "<C-M-right>") 'centaur-tabs-forward)
-(setq centaur-tabs-style "bar"
-      centaur-tabs-set-bar 'under
-      centaur-tabs-set-icons t
-      x-underline-at-descent-line t)
-(centaur-tabs-headline-match)
-(centaur-tabs-mode t)
-
-;; treemacs
 (use-package treemacs
   :ensure t
-  :bind ("C-c t" . treemacs))
+  :bind ("C-c t" . treemacs)
+  :init
+  (setq treemacs-no-png-images t))
 
-;; fold
 (use-package vimish-fold
   :ensure t
   :bind (("C-c v f" . vimish-fold)
@@ -655,17 +655,14 @@ that was stored with ska-point-to-register."
   :config
   (vimish-fold-global-mode 1))
 
-;; mode-line
-(use-package  smart-mode-line-atom-one-dark-theme
-  :ensure t)
 (use-package smart-mode-line
   :ensure t
+  :after smart-mode-line-atom-one-dark-theme
   :init
   (setq sml/theme 'atom-one-dark)
   :config
   (sml/setup))
 
-;; dashboard
 (use-package dashboard
   :ensure t
   :init
