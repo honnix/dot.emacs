@@ -264,9 +264,6 @@ that was stored with ska-point-to-register."
 ;; appointment
 ;; (appt-activate)
 
-(require 'multi-scratch)
-(global-set-key (kbd "C-c s") 'multi-scratch-new)
-
 ;; no separate frame when ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
@@ -517,7 +514,8 @@ that was stored with ska-point-to-register."
   :ensure t
   :init
   (setq table-disable-advising t)
-  :hook (text-mode table-recognize))
+  :config
+  (add-hook 'text-mode-hook 'table-recognize))
 
 (use-package magit
   :ensure t
@@ -546,7 +544,8 @@ that was stored with ska-point-to-register."
   :ensure-system-package aspell
   :init
   (setq ispell-program-name "aspell")
-  :hook (text-mode flyspell-mode))
+  :config
+  (add-hook 'text-mode 'flyspell-mode))
 
 (use-package plantuml-mode
   :ensure t
@@ -625,3 +624,7 @@ that was stored with ska-point-to-register."
         dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
+
+(use-package multi-scratch
+  :load-path "3rd"
+  :bind ("C-c s" . multi-scratch-new))
