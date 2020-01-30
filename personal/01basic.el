@@ -4,13 +4,12 @@
   (load custom-file))
 ;;=========================================================================
 
-;; key mapping for mac
 (setq mac-command-modifier 'meta)
+
 (global-set-key (kbd "<end>") 'move-end-of-line)
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<delete>") 'delete-char)
 
-;; set up UTF-8 environment
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment 'UTF-8)
@@ -43,7 +42,7 @@
   (condition-case nil
       (prin1 (eval (read (current-kill 0)))
              (current-buffer))
-    (error (message "Invalid expression")
+    (error (message "invalid expression")
            (insert (current-kill 0)))))
 (global-set-key (kbd "C-c e") 'eval-and-replace)
 
@@ -54,14 +53,12 @@
     (with-current-buffer buf
       (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
         (revert-buffer t t t) )))
-  (message "Refreshed open files."))
+  (message "refreshed open files"))
 
 ;; move to window easily
 (windmove-default-keybindings)
 
 ;; jump between two points
-(global-set-key (kbd "C-.") 'ska-point-to-register)
-(global-set-key (kbd "C-,") 'ska-jump-to-register)
 (defun ska-point-to-register()
   "Store cursorposition _fast_ in a register.
 Use ska-jump-to-register to jump back to the stored
@@ -77,15 +74,14 @@ that was stored with ska-point-to-register."
   (let ((tmp (point-marker)))
     (jump-to-register 8)
     (set-register 8 tmp)))
+(global-set-key (kbd "C-.") 'ska-point-to-register)
+(global-set-key (kbd "C-,") 'ska-jump-to-register)
 
 (defun my-newline ()
   "New line after current line."
   (interactive)
   (move-end-of-line 1)
-  (newline)
-  )
-(global-set-key (kbd "C-o") 'my-newline)
-
+  (newline))
 (defun my-newline-pre ()
   "New line before current line."
   (interactive)
@@ -93,13 +89,16 @@ that was stored with ska-point-to-register."
   (newline)
   (forward-line -1)
   )
+(global-set-key (kbd "C-o") 'my-newline)
 (global-set-key (kbd "C-S-o") 'my-newline-pre)
 
 (global-font-lock-mode t)
 (global-linum-mode)
 
-;; no beep, visible bell instead; funky on macOSX
-;; (setq visible-bell t)
+(setq visible-bell nil
+      ring-bell-function (lambda ()
+                           (invert-face 'mode-line)
+                           (run-with-timer 0.1 nil 'invert-face 'mode-line)))
 
 (setq inhibit-startup-message t
       column-number-mode t
@@ -242,20 +241,20 @@ that was stored with ska-point-to-register."
       (kill-buffer (current-buffer))))
 
 ;; auto mode list
-(mapc
- (function (lambda (setting)
-	     (setq auto-mode-alist
-		   (cons setting auto-mode-alist))))
- '(("\\.xml$" .  sgml-mode)
-   ("\\\.bash" . sh-mode)
-   ("\\.rdf$" .  sgml-mode)
-   ("\\.session" . emacs-lisp-mode)
-   ("\\.l$" . c-mode)
-   ("\\.h$" . c++-mode)
-   ("\\.css$" . css-mode)
-   ("\\.cfm$" . html-mode)
-   ("gnus" . emacs-lisp-mode)
-   ("\\.idl$" . idl-mode)))
+;; (mapc
+;;  (function (lambda (setting)
+;; 	     (setq auto-mode-alist
+;; 		   (cons setting auto-mode-alist))))
+;;  '(("\\.xml$" .  sgml-mode)
+;;    ("\\\.bash" . sh-mode)
+;;    ("\\.rdf$" .  sgml-mode)
+;;    ("\\.session" . emacs-lisp-mode)
+;;    ("\\.l$" . c-mode)
+;;    ("\\.h$" . c++-mode)
+;;    ("\\.css$" . css-mode)
+;;    ("\\.cfm$" . html-mode)
+;;    ("gnus" . emacs-lisp-mode)
+;;    ("\\.idl$" . idl-mode)))
 
 ;; kill whole line
 (setq-default kill-whole-line t)
@@ -274,166 +273,10 @@ that was stored with ska-point-to-register."
 ;; appointment
 ;; (appt-activate)
 
-;; Multiple scratches
 (require 'multi-scratch)
 (global-set-key (kbd "C-c s") 'multi-scratch-new)
 
-;; ======================================================================
-;; ==================== this is where packages start ====================
-;; ======================================================================
-
-(require 'use-package)
-
-(use-package use-package-ensure-system-package
-  :ensure t)
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
-
-(use-package ivy
-  :ensure t
-  :bind (("\C-s" . swiper-isearch)
-         ("\C-r" . swiper-isearch-backward)
-         ("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file))
-  :init
-  (setq ivy-use-virtual-buffers t
-        enable-recursive-minibuffers t)
-  :config
-  (ivy-mode 1))
-
-(require 'ibuffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; Use human readable Size column instead of original one
-(define-ibuffer-column size-h
-  (:name "Size" :inline t)
-  (cond
-   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-   ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
-   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-   (t (format "%8d" (buffer-size)))))
-
-;; Modify the default ibuffer-formats
-  (setq ibuffer-formats
-	'((mark modified read-only " "
-		(name 50 50 :left :elide)
-		" "
-		(size-h 9 -1 :right)
-		" "
-		(mode 16 16 :left :elide)
-		" "
-		filename-and-process)))
-
-(defun ibuffer-previous-line ()
-    (interactive) (previous-line)
-    (if (<= (line-number-at-pos) 2)
-        (goto-line (- (count-lines (point-min) (point-max)) 2))))
-
-(defun ibuffer-next-line ()
-    (interactive) (next-line)
-    (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
-        (goto-line 3)))
-
-(define-key ibuffer-mode-map (kbd "<up>") 'ibuffer-previous-line)
-(define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-next-line)
-
-(setq ibuffer-saved-filter-groups
-          (quote (("default"
-                   ("emacs" (or
-                             (name . "^\\*scratch\\*$")
-                             (name . "^\\*Messages\\*$")
-                             (name . "^\\*Compile-Log\\*$")
-                             (name . "^\\*Completions\\*$")
-                             (name . "^\\*Help\\*$")
-                             (name . "^\\*Kill Ring\\*$")
-                             (name . "^\\*Packages\\*$")
-                             (mode . emacs-lisp-mode)))
-                   ("dired" (mode . dired-mode))
-                   ("magit" (name . "^\\*magit.*$"))
-                   ("scala" (mode . scala-mode))
-                   ("ttl" (mode . n3-mode))
-                   ("python" (mode . python-mode))
-                   ("go" (mode . go-mode))
-                   ("prolog" (mode . prolog-mode))))))
-
-(add-hook 'ibuffer-mode-hook
-              (lambda ()
-                (ibuffer-switch-to-saved-filter-groups "default")))
-
-(defadvice ibuffer-generate-filter-groups (after reverse-ibuffer-groups ()
-                                                 activate)
-  (setq ad-return-value (nreverse ad-return-value)))
-
-;; Load session
-(use-package session
-  :ensure t
-  :config
-  (session-initialize))
-
-(use-package ido
-  :ensure t
-  :config
-  (ido-mode t))
-
-(use-package dired-single
-  :ensure t
-  :config
-  (define-key dired-mode-map [return] 'dired-single-buffer)
-  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-  (define-key dired-mode-map "^"
-    (function
-     (lambda nil (interactive) (dired-single-buffer "..")))))
-
-(use-package hl-line
-  :config
-  (global-hl-line-mode 1))
-
-(use-package browse-kill-ring
-  :ensure t
-  :bind ("C-c k" . browse-kill-ring)
-  :config
-  (browse-kill-ring-default-keybindings))
-
-(use-package iy-go-to-char
-  :ensure t
-  :bind (("C-c f" . iy-go-to-char)
-         ("C-c F" . iy-go-to-char-backward)
-         ("C-c ;" . iy-go-to-char-continue)
-         ("C-c ," . iy-go-to-char-continue-backward)))
-
-(use-package redo+
-  :ensure t
-  :bind ("C-?"  . redo))
-
-;; do not use Emacs built-in page down/up
-(use-package pager
-  :ensure t
-  :bind (("C-v" . pager-page-down)
-         ([next] . pager-page-down)
-         ("M-v" . pager-page-up)
-         ([prior] . pager-page-up)
-         ([M-up] . pager-row-up)
-         ([M-kp-8] . pager-row-up)
-         ([M-down] . pager-row-down)
-         ([M-kp-2] . pager-row-down)))
-
-(use-package tramp
-  :ensure t
-  :init
-  (setq tramp-default-method "ssh"))
-
-(use-package table
-  :ensure t
-  :init
-  (setq table-disable-advising t)
-  :hook (text-mode table-recognize))
-
-;; No separate frame when ediff
+;; no separate frame when ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; winner-mode to support undo/redo window layout
@@ -444,34 +287,17 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c n") 'highlight-symbol-next)
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
 
-;; Set colors
 ;; (add-to-list 'custom-theme-load-path
 ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
 ;; (load-theme 'monokai t t)
 ;; (enable-theme 'monokai)
 (load-theme 'zenburn t)
 
-;; Customize moving
+;; customize moving
 (global-set-key (kbd "C-a") 'beginning-of-line)
 (global-set-key (kbd "C-e") 'end-of-line)
 
-;; Empty initial scratch buffer
 (setq initial-scratch-message "")
-
-;; ;; Switch to *scratch* buffer quickly
-;; (defun switch-buffer-scratch ()
-;;   "Switch to the scratch buffer. If the buffer doesn't exist,
-;; create it and write the initial message into it."
-;;   (interactive)
-;;   (let* ((scratch-buffer-name "*scratch*")
-;;          (scratch-buffer (get-buffer scratch-buffer-name)))
-;;     (unless scratch-buffer
-;;       (setq scratch-buffer (get-buffer-create scratch-buffer-name))
-;;       (with-current-buffer scratch-buffer
-;;         (text-mode)
-;;         (insert initial-scratch-message)))
-;;     (switch-to-buffer scratch-buffer)))
-;; (global-set-key (kbd "C-c s") 'switch-buffer-scratch)
 
 ;; VIM for good
 (defun isearch-yank-regexp (regexp)
@@ -546,6 +372,161 @@ that was stored with ska-point-to-register."
 
 (global-set-key (kbd "C-*") 'isearch-current-symbol)
 (global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
+
+;; set frame size
+(set-frame-height (selected-frame) 40)
+(set-frame-width (selected-frame) 120)
+
+;; ======================================================================
+;; ==================== this is where packages start ====================
+;; ======================================================================
+
+(require 'use-package)
+
+(use-package use-package-ensure-system-package
+  :ensure t)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+(use-package ivy
+  :ensure t
+  :bind (("\C-s" . swiper-isearch)
+         ("\C-r" . swiper-isearch-backward)
+         ("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :init
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  :config
+  (ivy-mode 1))
+
+(use-package ibuffer
+  :ensure t
+  :bind ("C-x C-b" . ibuffer)
+  :init
+  ;; modify the default ibuffer-formats
+  (setq ibuffer-formats
+	'((mark modified read-only " "
+		(name 50 50 :left :elide)
+		" "
+		(size-h 9 -1 :right)
+		" "
+		(mode 16 16 :left :elide)
+		" "
+		filename-and-process))
+        ibuffer-saved-filter-groups
+        (quote (("default"
+                 ("emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")
+                           (name . "^\\*Compile-Log\\*$")
+                           (name . "^\\*Completions\\*$")
+                           (name . "^\\*Help\\*$")
+                           (name . "^\\*Kill Ring\\*$")
+                           (name . "^\\*Packages\\*$")
+                           (mode . emacs-lisp-mode)))
+                 ("dired" (mode . dired-mode))
+                 ("magit" (name . "^\\*magit.*$"))
+                 ("scala" (mode . scala-mode))
+                 ("ttl" (mode . n3-mode))
+                 ("python" (mode . python-mode))
+                 ("go" (mode . go-mode))
+                 ("prolog" (mode . prolog-mode))))))
+  :config
+  ;; use human readable size column instead of original one
+  (define-ibuffer-column size-h
+    (:name "Size" :inline t)
+    (cond
+     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+     ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+     ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+     (t (format "%8d" (buffer-size)))))
+  (defun ibuffer-previous-line ()
+    (interactive) (previous-line)
+    (if (<= (line-number-at-pos) 2)
+        (goto-line (- (count-lines (point-min) (point-max)) 2))))
+  (defun ibuffer-next-line ()
+    (interactive) (next-line)
+    (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
+        (goto-line 3)))
+  (define-key ibuffer-mode-map (kbd "<up>") 'ibuffer-previous-line)
+  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-next-line)
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-switch-to-saved-filter-groups "default")))
+  (defadvice ibuffer-generate-filter-groups (after reverse-ibuffer-groups ()
+                                                   activate)
+    (setq ad-return-value (nreverse ad-return-value))))
+
+(use-package session
+  :ensure t
+  :config
+  (session-initialize))
+
+(use-package ido
+  :ensure t
+  :config
+  (ido-mode t))
+
+(use-package dired-single
+  :ensure t
+  :config
+  (define-key dired-mode-map [return] 'dired-single-buffer)
+  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+  (define-key dired-mode-map "^"
+    (function
+     (lambda nil (interactive) (dired-single-buffer "..")))))
+
+(use-package hl-line
+  :config
+  (global-hl-line-mode 1))
+
+(use-package browse-kill-ring
+  :ensure t
+  :bind ("C-c k" . browse-kill-ring)
+  :config
+  (browse-kill-ring-default-keybindings))
+
+(use-package iy-go-to-char
+  :ensure t
+  :bind (("C-c f" . iy-go-to-char)
+         ("C-c F" . iy-go-to-char-backward)
+         ("C-c ;" . iy-go-to-char-continue)
+         ("C-c ," . iy-go-to-char-continue-backward)))
+
+(use-package redo+
+  :ensure t
+  :bind ("C-?"  . redo))
+
+;; do not use Emacs built-in page down/up
+(use-package pager
+  :ensure t
+  :bind (("C-v" . pager-page-down)
+         ([next] . pager-page-down)
+         ("M-v" . pager-page-up)
+         ([prior] . pager-page-up)
+         ([M-up] . pager-row-up)
+         ([M-kp-8] . pager-row-up)
+         ([M-down] . pager-row-down)
+         ([M-kp-2] . pager-row-down)))
+
+(use-package tramp
+  :ensure t
+  :init
+  (setq tramp-default-method "ssh"))
+
+(use-package table
+  :ensure t
+  :init
+  (setq table-disable-advising t)
+  :hook (text-mode table-recognize))
 
 (use-package magit
   :ensure t
@@ -653,8 +634,3 @@ that was stored with ska-point-to-register."
         dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
-
-;; set frame size
-;; keep this at the end of the file!
-(set-frame-height (selected-frame) 40)
-(set-frame-width (selected-frame) 120)
