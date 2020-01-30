@@ -17,11 +17,18 @@
                           "/usr/local/bin"
                           "~/Developer/go/bin") exec-path))
 
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                          ("gnu" . "http://elpa.gnu.org/packages/")
-                          ("melpa" . "http://melpa.org/packages/")
-                          ;; ("melpa-stable" . "http://stable.melpa.org/packages/")
-                          ))
+;; Evaluate and replace the text
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+
 
 ;; Set font
 ;; (if (not (eq system-type 'darwin))
@@ -574,37 +581,36 @@ that was stored with ska-point-to-register."
 (set-frame-height (selected-frame) 40)
 (set-frame-width (selected-frame) 120)
 
-;; plantuml jar path
-(setq plantuml-jar-path "/usr/local/opt/plantuml/libexec/plantuml.jar")
+(use-package plantuml-mode
+  :ensure t
+  :init
+  (setq plantuml-jar-path
+        "/usr/local/opt/plantuml/libexec/plantuml.jar"))
 
 ;; Delete all whitespace up the first non-whitespace character
-(global-set-key (kbd "<M-backspace>") 'hungry-delete-backward)
-(global-set-key (kbd "<M-delete>") 'hungry-delete-forward)
+(use-package hungry-delete
+  :ensure t
+  :bind (("<M-backspace>" . hungry-delete-backward)
+         ("<M-delete>" . hungry-delete-forward)))
 
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . 'mc/edit-lines)
+         ("C-S-<mouse-1>" . 'mc/add-cursor-on-click)
+         ("C->" . 'mc/mark-next-like-this)
+         ("C-<" . 'mc/mark-previous-like-this)
+         ("C-c C-<" . 'mc/mark-all-like-this)))
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
 
-;; Evaluate and replace the text
-(defun eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
-(global-set-key (kbd "C-c e") 'eval-and-replace)
-
-(global-flycheck-mode)
-
-(drag-stuff-global-mode 1)
-(drag-stuff-define-keys)
+(use-package drag-stuff
+  :ensure t
+  :config
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
 
 (use-package centaur-tabs
   :ensure t
@@ -632,7 +638,7 @@ that was stored with ska-point-to-register."
 (use-package vimish-fold
   :ensure t
   :bind (("C-c v f" . vimish-fold)
-         ("C-c v v" . 'vimish-fold-delete))
+         ("C-c v v" . vimish-fold-delete))
   :config
   (vimish-fold-global-mode 1))
 

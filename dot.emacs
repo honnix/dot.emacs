@@ -1,7 +1,8 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+                          ("gnu" . "http://elpa.gnu.org/packages/")
+                          ("melpa" . "http://melpa.org/packages/")
+                          ;; ("melpa-stable" . "http://stable.melpa.org/packages/")
+                          ))
 (package-initialize)
 
 ;============================load paths===================================
