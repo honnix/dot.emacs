@@ -117,15 +117,6 @@ that was stored with ska-point-to-register."
 (setq initial-major-mode 'text-mode
       major-mode 'text-mode)
 
-;; screen lines mode
-(autoload 'screen-lines-mode "screen-lines"
-  "Toggle Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-on-screen-lines-mode "screen-lines"
-  "Turn on Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-off-screen-lines-mode "screen-lines"
-  "Turn off Screen Lines minor mode for the current buffer." t)
-(add-hook 'text-mode-hook 'turn-on-screen-lines-mode)
-
 ;; user information
 (setq user-full-name "Hongxin Liang"
       user-login-name "honnix"
@@ -294,8 +285,8 @@ that was stored with ska-point-to-register."
 (load-theme 'zenburn t)
 
 ;; customize moving
-(global-set-key (kbd "C-a") 'beginning-of-line)
-(global-set-key (kbd "C-e") 'end-of-line)
+;; (global-set-key (kbd "C-a") 'beginning-of-line)
+;; (global-set-key (kbd "C-e") 'end-of-line)
 
 (setq initial-scratch-message "")
 
