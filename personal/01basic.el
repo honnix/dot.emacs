@@ -553,33 +553,33 @@ that was stored with ska-point-to-register."
         (revert-buffer t t t) )))
   (message "Refreshed open files."))
 
-;; magit
-(global-set-key (kbd "C-x RET") 'magit-status)
+(use-package magit
+  :ensure t
+  :bind ("C-x RET" . 'magit-status))
 
-;; Autopair
-(require 'autopair)
-(autopair-global-mode)
+(use-package autopair
+  :ensure t
+  :config
+  (autopair-global-mode))
 
-;; Yasnippet to replace msf-abbrev which is rather dead
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
 
-;; company
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay .3)
-(setq company-dabbrev-downcase nil)
+(use-package company
+  :ensure t
+  :init
+  (setq company-idle-delay .3
+        company-dabbrev-downcase nil)
+  :config
+  (global-company-mode))
 
-;; Spell check
-(setq ispell-program-name "aspell")
-(eval-after-load "flyspell"
-  (lambda ()
-     (define-key flyspell-mode-map (kbd "C-;") nil)
-     (define-key flyspell-mode-map (kbd "C-.") nil)))
-
-;; Set frame size
-;; keep this at the end of the file!
-(set-frame-height (selected-frame) 40)
-(set-frame-width (selected-frame) 120)
+;; spell checks
+(use-package flyspell
+  :ensure t
+  :init
+  (setq ispell-program-name "aspell"))
 
 (use-package plantuml-mode
   :ensure t
@@ -587,7 +587,7 @@ that was stored with ska-point-to-register."
   (setq plantuml-jar-path
         "/usr/local/opt/plantuml/libexec/plantuml.jar"))
 
-;; Delete all whitespace up the first non-whitespace character
+;; delete all whitespace up the first non-whitespace character
 (use-package hungry-delete
   :ensure t
   :bind (("<M-backspace>" . hungry-delete-backward)
@@ -658,3 +658,8 @@ that was stored with ska-point-to-register."
         dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
+
+;; set frame size
+;; keep this at the end of the file!
+(set-frame-height (selected-frame) 40)
+(set-frame-width (selected-frame) 120)
