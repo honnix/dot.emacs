@@ -14,3 +14,4 @@ transient/
 .cache/
 elpa/*-readme.txt
 vimish-fold/
+recentf

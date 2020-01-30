@@ -651,3 +651,10 @@ that was stored with ska-point-to-register."
 ;; mode-line
 (setq sml/theme 'atom-one-dark)
 (sml/setup)
+
+
+;; dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
