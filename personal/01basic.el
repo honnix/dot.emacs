@@ -4,7 +4,18 @@
   (load custom-file))
 ;;=========================================================================
 
+;; key mapping for mac
 (setq mac-command-modifier 'meta)
+(global-set-key (kbd "<end>") 'move-end-of-line)
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<delete>") 'delete-char)
+
+;; set up UTF-8 environment
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment 'UTF-8)
+(setq locale-coding-system 'utf-8
+      default-input-method 'MacOSX)
 
 (setenv "PATH"
         (concat
@@ -17,6 +28,13 @@
                           "/usr/local/bin"
                           "~/Developer/go/bin") exec-path))
 
+;; set font
+;; (if (not (eq system-type 'darwin))
+;;     (progn
+;;       (set-frame-font "DejaVu Sans Mono-10")
+;;       (set-fontset-font (frame-parameter nil 'font)
+;;                         'han '("WenQuanYi Zen Hei Mono" . "unicode-bmp"))))
+ 
 ;; Evaluate and replace the text
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -29,28 +47,50 @@
            (insert (current-kill 0)))))
 (global-set-key (kbd "C-c e") 'eval-and-replace)
 
+(defun revert-all-buffers ()
+  "Refreshes all open buffers from their respective files."
+  (interactive)
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
+        (revert-buffer t t t) )))
+  (message "Refreshed open files."))
 
-;; Set font
-;; (if (not (eq system-type 'darwin))
-;;     (progn
-;;       (set-frame-font "DejaVu Sans Mono-10")
-;;       (set-fontset-font (frame-parameter nil 'font)
-;;                         'han '("WenQuanYi Zen Hei Mono" . "unicode-bmp"))))
-
-;; Move to window easily
+;; move to window easily
 (windmove-default-keybindings)
 
-;; Simply ivy configuration
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-(global-set-key "\C-s" 'swiper-isearch)
-(global-set-key "\C-r" 'swiper-isearch-backward)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;; jump between two points
+(global-set-key (kbd "C-.") 'ska-point-to-register)
+(global-set-key (kbd "C-,") 'ska-jump-to-register)
+(defun ska-point-to-register()
+  "Store cursorposition _fast_ in a register.
+Use ska-jump-to-register to jump back to the stored
+position."
+  (interactive)
+;;   (setq zmacs-region-stays t)
+  (point-to-register 8))
+(defun ska-jump-to-register()
+  "Switches between current cursorposition and position
+that was stored with ska-point-to-register."
+  (interactive)
+;;   (setq zmacs-region-stays t)
+  (let ((tmp (point-marker)))
+    (jump-to-register 8)
+    (set-register 8 tmp)))
 
-;; Use ibuffer as default buffer list processor
+(use-package ivy
+  :ensure t
+  :bind (("\C-s" . swiper-isearch)
+         ("\C-r" . swiper-isearch-backward)
+         ("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :init
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  :config
+  (ivy-mode 1))
+
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -115,17 +155,14 @@
   (setq ad-return-value (nreverse ad-return-value)))
 
 ;; Load session
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
+(use-package session
+  :ensure t
+  :hook (after-init session-initialize))
 
-;; key mapping for mac
-(global-set-key (kbd "<end>") 'move-end-of-line)
-(global-set-key (kbd "<home>") 'move-beginning-of-line)
-(global-set-key (kbd "<delete>") 'delete-char)
-
-;; Load ido
-(require 'ido)
-(ido-mode t)
+(use-package ido
+  :ensure t
+  :config
+  (ido-mode t))
 
 ;; Use a single buffer for dired mode
 (require 'dired-single)
@@ -146,46 +183,22 @@
   ;; it's not loaded yet, so add our bindings to the load-hook
   (add-hook 'dired-load-hook 'my-dired-init))
 
-;; Highlight current editing line
-;; (require 'hl-line)
-;; (global-hl-line-mode 1)
+(use-package hl-line
+  :config
+  (global-hl-line-mode 1))
 
-;; Browse kill ring
-(require 'browse-kill-ring)
-(global-set-key (kbd "C-c k") 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
+(use-package browse-kill-ring
+  :ensure t
+  :bind ("C-c k" . browse-kill-ring)
+  :config
+  (browse-kill-ring-default-keybindings))
 
-;; Jump between two points
-(global-set-key (kbd "C-.") 'ska-point-to-register)
-(global-set-key (kbd "C-,") 'ska-jump-to-register)
-(defun ska-point-to-register()
-  "Store cursorposition _fast_ in a register. 
-Use ska-jump-to-register to jump back to the stored 
-position."
-  (interactive)
-;;   (setq zmacs-region-stays t)
-  (point-to-register 8))
-(defun ska-jump-to-register()
-  "Switches between current cursorposition and position
-that was stored with ska-point-to-register."
-  (interactive)
-;;   (setq zmacs-region-stays t)
-  (let ((tmp (point-marker)))
-    (jump-to-register 8)
-    (set-register 8 tmp)))
-
-(require 'iy-go-to-char)
-(global-set-key (kbd "C-c f") 'iy-go-to-char)
-(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
-(global-set-key (kbd "C-c ;") 'iy-go-to-char-continue)
-(global-set-key (kbd "C-c ,") 'iy-go-to-char-continue-backward)
-
-;; Setup UTF-8 environment
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-language-environment 'UTF-8)
-(setq locale-coding-system 'utf-8)
-(setq default-input-method 'MacOSX)
+(use-package iy-go-to-char
+  :ensure t
+  :bind (("C-c f" . iy-go-to-char)
+         ("C-c F" . iy-go-to-char-backward)
+         ("C-c ;" . iy-go-to-char-continue)
+         ("C-c ," . iy-go-to-char-continue-backward)))
 
 (defun my-newline ()
   "New line after current line."
@@ -544,18 +557,9 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-*") 'isearch-current-symbol)
 (global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
 
-(defun revert-all-buffers ()
-  "Refreshes all open buffers from their respective files."
-  (interactive)
-  (dolist (buf (buffer-list))
-    (with-current-buffer buf
-      (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
-        (revert-buffer t t t) )))
-  (message "Refreshed open files."))
-
 (use-package magit
   :ensure t
-  :bind ("C-x RET" . 'magit-status))
+  :bind ("C-x RET" . magit-status))
 
 (use-package autopair
   :ensure t
