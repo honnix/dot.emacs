@@ -643,18 +643,34 @@ that was stored with ska-point-to-register."
 (centaur-tabs-mode t)
 
 ;; treemacs
-(global-set-key (kbd "C-c t")  'treemacs)
+(use-package treemacs
+  :ensure t
+  :bind ("C-c t" . treemacs))
 
 ;; fold
-(vimish-fold-global-mode 1)
+(use-package vimish-fold
+  :ensure t
+  :bind (("C-c v f" . vimish-fold)
+         ("C-c v v" . 'vimish-fold-delete))
+  :config
+  (vimish-fold-global-mode 1))
 
 ;; mode-line
-(setq sml/theme 'atom-one-dark)
-(sml/setup)
-
+(use-package  smart-mode-line-atom-one-dark-theme
+  :ensure t)
+(use-package smart-mode-line
+  :ensure t
+  :init
+  (setq sml/theme 'atom-one-dark)
+  :config
+  (sml/setup))
 
 ;; dashboard
 (use-package dashboard
   :ensure t
+  :init
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
