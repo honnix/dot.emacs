@@ -17,16 +17,16 @@
 (setq locale-coding-system 'utf-8
       default-input-method 'MacOSX)
 
-(setenv "PATH"
-        (concat
-         "~/bin" ":"
-         "/usr/local/bin" ":"
-         "~/Developer/go/bin" ":"
-         (getenv "PATH")))
+;; (setenv "PATH"
+;;         (concat
+;;          "~/bin" ":"
+;;          "/usr/local/bin" ":"
+;;          "~/Developer/go/bin" ":"
+;;          (getenv "PATH")))
 
-(setq exec-path (append '("~/bin"
-                          "/usr/local/bin"
-                          "~/Developer/go/bin") exec-path))
+;; (setq exec-path (append '("~/bin"
+;;                           "/usr/local/bin"
+;;                           "~/Developer/go/bin") exec-path))
 
 ;; set font
 ;; (if (not (eq system-type 'darwin))
@@ -77,6 +77,19 @@ that was stored with ska-point-to-register."
   (let ((tmp (point-marker)))
     (jump-to-register 8)
     (set-register 8 tmp)))
+
+;; ==================== this is where packages start ====================
+
+(require 'use-package)
+
+(use-package use-package-ensure-system-package
+  :ensure t)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 (use-package ivy
   :ensure t
@@ -157,7 +170,8 @@ that was stored with ska-point-to-register."
 ;; Load session
 (use-package session
   :ensure t
-  :hook (after-init session-initialize))
+  :config
+  (session-initialize))
 
 (use-package ido
   :ensure t
@@ -579,9 +593,9 @@ that was stored with ska-point-to-register."
   :config
   (global-company-mode))
 
-;; spell checks
 (use-package flyspell
   :ensure t
+  :ensure-system-package aspell
   :init
   (setq ispell-program-name "aspell"))
 
