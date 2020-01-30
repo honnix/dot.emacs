@@ -78,7 +78,209 @@ that was stored with ska-point-to-register."
     (jump-to-register 8)
     (set-register 8 tmp)))
 
+(defun my-newline ()
+  "New line after current line."
+  (interactive)
+  (move-end-of-line 1)
+  (newline)
+  )
+(global-set-key (kbd "C-o") 'my-newline)
+
+(defun my-newline-pre ()
+  "New line before current line."
+  (interactive)
+  (move-beginning-of-line 1)
+  (newline)
+  (forward-line -1)
+  )
+(global-set-key (kbd "C-S-o") 'my-newline-pre)
+
+(global-font-lock-mode t)
+(global-linum-mode)
+
+;; no beep, visible bell instead; funky on macOSX
+;; (setq visible-bell t)
+
+(setq inhibit-startup-message t
+      column-number-mode t
+      mouse-yank-at-point t)
+
+;; no indent by tabs
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4
+      tab-stop-list (number-sequence 4 120 4))
+
+;; for Chinese punctuation
+(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil)
+
+;; major mode
+(setq initial-major-mode 'text-mode
+      major-mode 'text-mode)
+
+;; screen lines mode
+(autoload 'screen-lines-mode "screen-lines"
+  "Toggle Screen Lines minor mode for the current buffer." t)
+(autoload 'turn-on-screen-lines-mode "screen-lines"
+  "Turn on Screen Lines minor mode for the current buffer." t)
+(autoload 'turn-off-screen-lines-mode "screen-lines"
+  "Turn off Screen Lines minor mode for the current buffer." t)
+(add-hook 'text-mode-hook 'turn-on-screen-lines-mode)
+
+;; user information
+(setq user-full-name "Hongxin Liang"
+      user-login-name "honnix"
+      user-mail-address "hxliang1982@gmail.com")
+
+;; just show matching parenthesis, no jump
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+
+;; Show buffer name
+(setq frame-title-format
+      '("" invocation-name ": "
+        (:eval
+         (if (buffer-file-name)
+             (abbreviate-file-name (buffer-file-name))
+           "%b@emacs"))))
+
+;; mark with Shift+direction
+;(pc-selection-mode)
+
+;; display date and time
+(setq display-time-day-and-date t
+      display-time-24hr-format t
+      display-time-use-mail-icon t
+      display-time-interval 10)
+(display-time)
+
+;; scroll before we reach the end of the screen
+(setq scroll-step 1
+      scroll-margin 3
+      scroll-conservatively 10000)
+
+;; start 'emacs server'
+(server-start)
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; no menu unless it is macOSX
+(if (not (eq system-type 'darwin))
+    (menu-bar-mode -1))
+
+;; speed up moving through VERY large file
+;(setq lazy-lock-defer-on-scrolling t)
+;(setq font-lock-support-mode 'lazy-lock-mode)
+;(setq font-lock-maximum-decoration t)
+
+;; How to deel with the errors in .emacs file
+;; (condition-case err
+;; 	(progn
+;; 	  (require 'xxx))
+;;   (error
+;;    (message "Can't load xxx-mode %s" (cdr err))))
+
+;; no backup files
+(setq-default make-backup-files nil)
+
+;; drive the wheel mouse
+(mouse-wheel-mode 1)
+;; move up mouse when cursor comes
+(mouse-avoidance-mode 'animate)
+
+;; Use clipboard when copy/paste in X
+;; (setq x-select-enable-clipboard t)
+
+;; whenever there are more than one files with the same
+;; name, use directory as prefix, not foobar<?>
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; y/n for short
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; at most 120 charactors per line
+(set-fill-column 120)
+
+;; other global set keys
+(global-set-key (kbd "C-c r") 'query-replace-regexp)
+(global-set-key (kbd "C-;") 'set-mark-command)
+(global-set-key (kbd "C-c g") 'goto-line)
+
+;; which shell to use
+(setq shell-file-name "/usr/local/bin/zsh")
+
+;; hide shell password
+(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
+
+;; auto complete
+(global-set-key [(meta ?/)] 'hippie-expand)
+(setq hippie-expand-try-functions-list 
+      '(try-expand-dabbrev
+        try-expand-dabbrev-visible
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+
+;; kill shell buffer when shell exits
+(add-hook 'shell-mode-hook 'my-shell-mode-hook-func)
+(defun my-shell-mode-hook-func ()
+  (set-process-sentinel (get-buffer-process (current-buffer))
+                        'my-shell-mode-kill-buffer-on-exit))
+(defun my-shell-mode-kill-buffer-on-exit (process state)
+  (message "%s" state)
+  (if (or
+       (string-match "exited abnormally with code.*" state)
+       (string-match "finished" state))
+      (kill-buffer (current-buffer))))
+
+;; auto mode list
+(mapc
+ (function (lambda (setting)
+	     (setq auto-mode-alist
+		   (cons setting auto-mode-alist))))
+ '(("\\.xml$" .  sgml-mode)
+   ("\\\.bash" . sh-mode)
+   ("\\.rdf$" .  sgml-mode)
+   ("\\.session" . emacs-lisp-mode)
+   ("\\.l$" . c-mode)
+   ("\\.h$" . c++-mode)
+   ("\\.css$" . css-mode)
+   ("\\.cfm$" . html-mode)
+   ("gnus" . emacs-lisp-mode)
+   ("\\.idl$" . idl-mode)))
+
+;; kill whole line
+(setq-default kill-whole-line t)
+
+;; set EOL style
+;; (setq inhibit-eol-conversion 'gbk-dos)
+
+;; select current line
+(global-set-key (kbd "C-c l")
+                '(lambda ()
+                   (interactive)
+                   (move-beginning-of-line nil)
+                   (set-mark-command nil)
+                   (move-end-of-line nil)))
+
+;; appointment
+;; (appt-activate)
+
+;; Multiple scratches
+(require 'multi-scratch)
+(global-set-key (kbd "C-c s") 'multi-scratch-new)
+
+;; ======================================================================
 ;; ==================== this is where packages start ====================
+;; ======================================================================
 
 (require 'use-package)
 
@@ -178,24 +380,14 @@ that was stored with ska-point-to-register."
   :config
   (ido-mode t))
 
-;; Use a single buffer for dired mode
-(require 'dired-single)
-(defun my-dired-init ()
-  "Bunch of stuff to run for dired, either immediately or when it's
-        loaded."
-  ;; <add other stuff here>
+(use-package dired-single
+  :ensure t
+  :config
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
   (define-key dired-mode-map "^"
     (function
      (lambda nil (interactive) (dired-single-buffer "..")))))
-
-;; if dired's already loaded, then the keymap will be bound
-(if (boundp 'dired-mode-map)
-    ;; we're good to go; just add our bindings
-    (my-dired-init)
-  ;; it's not loaded yet, so add our bindings to the load-hook
-  (add-hook 'dired-load-hook 'my-dired-init))
 
 (use-package hl-line
   :config
@@ -214,244 +406,32 @@ that was stored with ska-point-to-register."
          ("C-c ;" . iy-go-to-char-continue)
          ("C-c ," . iy-go-to-char-continue-backward)))
 
-(defun my-newline ()
-  "New line after current line."
-  (interactive)
-  (move-end-of-line 1)
-  (newline)
-  )
-(global-set-key (kbd "C-o") 'my-newline)
+(use-package redo+
+  :ensure t
+  :bind ("C-?"  . redo))
 
-(defun my-newline-pre ()
-  "New line before current line."
-  (interactive)
-  (move-beginning-of-line 1)
-  (newline)
-  (forward-line -1)
-  )
-(global-set-key (kbd "C-S-o") 'my-newline-pre)
+;; do not use Emacs built-in page down/up
+(use-package pager
+  :ensure t
+  :bind (("C-v" . pager-page-down)
+         ([next] . pager-page-down)
+         ("M-v" . pager-page-up)
+         ([prior] . pager-page-up)
+         ([M-up] . pager-row-up)
+         ([M-kp-8] . pager-row-up)
+         ([M-down] . pager-row-down)
+         ([M-kp-2] . pager-row-down)))
 
-;; Hilight
-(global-font-lock-mode t)
+(use-package tramp
+  :ensure t
+  :init
+  (setq tramp-default-method "ssh"))
 
-;; Line numbers
-(global-linum-mode)
-
-;; No beep, visible bell instead
-;; (setq visible-bell t)
-
-;; No startup message
-(setq inhibit-startup-message t)
-
-;; We need column number too
-(setq column-number-mode t)
-
-;; Yank at cursor point
-(setq mouse-yank-at-point t)
-
-;; No indent by tabs
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)
-(setq tab-stop-list (number-sequence 4 120 4))
-
-;; For Chinese punctuation
-(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
-(setq sentence-end-double-space nil)
-
-;; Major mode
-(setq initial-major-mode 'text-mode)
-(setq major-mode 'text-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
-
-;; Screen lines mode
-(autoload 'screen-lines-mode "screen-lines"
-  "Toggle Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-on-screen-lines-mode "screen-lines"
-  "Turn on Screen Lines minor mode for the current buffer." t)
-(autoload 'turn-off-screen-lines-mode "screen-lines"
-  "Turn off Screen Lines minor mode for the current buffer." t)
-(add-hook 'text-mode-hook 'turn-on-screen-lines-mode)
-
-;; User information
-(setq user-full-name "Hongxin Liang")
-(setq user-mail-address "hxliang1982@gmail.com")
-
-;; Just show, no jump
-(show-paren-mode t)
-(setq show-paren-style 'parentheses)
-
-;; Show buffer name
-(setq frame-title-format
-      '("" invocation-name ": "
-        (:eval
-         (if (buffer-file-name)
-             (abbreviate-file-name (buffer-file-name))
-           "%b@emacs"))))
-
-;; Mark with Shift+direction
-;(pc-selection-mode)
-
-;; Whenever there are more than one files with the same
-;; name, use directory as prefix, not foobar<?>
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-;; y/n for short
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Display date and time
-(setq display-time-day-and-date t)
-(setq display-time-24hr-format t)
-(setq display-time-use-mail-icon t)
-(setq display-time-interval 10)
-(display-time)
-
-;; Scroll before we reach the end of the screen
-(setq scroll-step 1
-      scroll-margin 3
-      scroll-conservatively 10000)
-
-;; Start 'emacs server'
-(server-start)
-
-;; No toolbar
-(tool-bar-mode -1)
-
-;; No menu
-(if (not (eq system-type 'darwin))
-    (menu-bar-mode -1))
-
-;; No scroll bar
-(scroll-bar-mode -1)
-
-;; Speed up moving through VERY large file
-;(setq lazy-lock-defer-on-scrolling t)
-;(setq font-lock-support-mode 'lazy-lock-mode)
-;(setq font-lock-maximum-decoration t)
-
-;; How to deel with the errors in .emacs file
-;; (condition-case err
-;; 	(progn
-;; 	  (require 'xxx))
-;;   (error
-;;    (message "Can't load xxx-mode %s" (cdr err))))
-
-;; No backup files
-(setq-default make-backup-files nil)
-
-;; Drive the wheel mouse
-(mouse-wheel-mode 1)
-
-;; Use clipboard when copy/paste in X
-;; (setq x-select-enable-clipboard t)
-
-;; Move up mouse when cursor comes
-(mouse-avoidance-mode 'animate)
-
-;; Redo support
-(require 'redo+)
-(global-set-key (kbd "C-?") 'redo)
-
-;; At most 120 charactors per line
-(set-fill-column 120)
-
-;; Do not use Emacs built-in page down/up
-(require 'pager)
-(global-set-key (kbd "C-v") 'pager-page-down)
-(global-set-key [next] 'pager-page-down)
-(global-set-key (kbd "M-v") 'pager-page-up)
-(global-set-key [prior] 'pager-page-up)
-(global-set-key '[M-up] 'pager-row-up)
-(global-set-key '[M-kp-8] 'pager-row-up)
-(global-set-key '[M-down] 'pager-row-down)
-(global-set-key '[M-kp-2] 'pager-row-down)
-
-;; Other global set keys
-(global-set-key (kbd "C-c r") 'query-replace-regexp)
-(global-set-key (kbd "C-;") 'set-mark-command)
-(global-set-key (kbd "C-c g") 'goto-line)
-
-;; Which shell to use
-(setq shell-file-name "/usr/local/bin/zsh")
-
-;; Hide shell password
-(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
-
-;; Auto complete
-(global-set-key [(meta ?/)] 'hippie-expand)
-(setq hippie-expand-try-functions-list 
-      '(try-expand-dabbrev
-        try-expand-dabbrev-visible
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-all-abbrevs
-        try-expand-list
-        try-expand-line
-        try-complete-lisp-symbol-partially
-        try-complete-lisp-symbol))
-
-(require 'tramp)
-(setq tramp-default-method "ssh")
-
-;; Kill shell buffer when shell exits
-(add-hook 'shell-mode-hook 'my-shell-mode-hook-func)
-(defun my-shell-mode-hook-func ()
-  (set-process-sentinel (get-buffer-process (current-buffer))
-                        'my-shell-mode-kill-buffer-on-exit))
-(defun my-shell-mode-kill-buffer-on-exit (process state)
-  (message "%s" state)
-  (if (or
-       (string-match "exited abnormally with code.*" state)
-       (string-match "finished" state))
-      (kill-buffer (current-buffer))))
-
-;; Auto mode list
-(mapc
- (function (lambda (setting)
-	     (setq auto-mode-alist
-		   (cons setting auto-mode-alist))))
- '(("\\.xml$" .  sgml-mode)
-   ("\\\.bash" . sh-mode)
-   ("\\.rdf$" .  sgml-mode)
-   ("\\.session" . emacs-lisp-mode)
-   ("\\.l$" . c-mode)
-   ("\\.h$" . c++-mode)
-   ("\\.css$" . css-mode)
-   ("\\.cfm$" . html-mode)
-   ("gnus" . emacs-lisp-mode)
-   ("\\.idl$" . idl-mode)))
-
-;; Kill whole line
-(setq-default kill-whole-line t)
-
-;; Set EOL style
-;; (setq inhibit-eol-conversion 'gbk-dos)
-
-;; Select current line
-(global-set-key (kbd "C-c l")
-                '(lambda ()
-                   (interactive)
-                   (move-beginning-of-line nil)
-                   (set-mark-command nil)
-                   (move-end-of-line nil)))
-
-;; Delete line without kill-ring effect
-(global-set-key (kbd "C-S-k")
-                '(lambda ()
-                   (interactive)
-                   (delete-region (point)
-                                  (progn (forward-line 1) (point)))))
-
-;; Insert table, after waiting for a long time, Emacs
-;; finally fixed this bug
-(setq table-disable-advising t)
-(require 'table)
-(add-to-list 'text-mode-hook 'table-recognize)
-
-;; Appointment
-(appt-activate)
+(use-package table
+  :ensure t
+  :init
+  (setq table-disable-advising t)
+  :hook (text-mode table-recognize))
 
 ;; No separate frame when ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -492,10 +472,6 @@ that was stored with ska-point-to-register."
 ;;         (insert initial-scratch-message)))
 ;;     (switch-to-buffer scratch-buffer)))
 ;; (global-set-key (kbd "C-c s") 'switch-buffer-scratch)
-
-;; Multiple scratches
-(require 'multi-scratch)
-(global-set-key (kbd "C-c s") 'multi-scratch-new)
 
 ;; VIM for good
 (defun isearch-yank-regexp (regexp)
@@ -597,7 +573,8 @@ that was stored with ska-point-to-register."
   :ensure t
   :ensure-system-package aspell
   :init
-  (setq ispell-program-name "aspell"))
+  (setq ispell-program-name "aspell")
+  :hook (text-mode flyspell-mode))
 
 (use-package plantuml-mode
   :ensure t
