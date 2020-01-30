@@ -1,4 +1,3 @@
-;; Java hook
 ;; (add-hook 'java-mode-hook
 ;;           '(lambda ()
 ;;              (cscope:hook)
