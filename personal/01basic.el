@@ -22,7 +22,6 @@
                           ("melpa" . "http://melpa.org/packages/")
                           ;; ("melpa-stable" . "http://stable.melpa.org/packages/")
                           ))
-(package-initialize)
 
 ;; Set font
 ;; (if (not (eq system-type 'darwin))
@@ -30,24 +29,6 @@
 ;;       (set-frame-font "DejaVu Sans Mono-10")
 ;;       (set-fontset-font (frame-parameter nil 'font)
 ;;                         'han '("WenQuanYi Zen Hei Mono" . "unicode-bmp"))))
-
-;; Emacs tabbar
-;; (if (display-graphic-p)
-;;     (progn
-;;       (tabbar-mode)
-;;       (global-set-key (kbd "<C-M-up>") 'tabbar-backward-group)
-;;       (global-set-key (kbd "<C-M-down>") 'tabbar-forward-group)
-;;       (global-set-key (kbd "<C-M-left>") 'tabbar-backward)
-;;       (global-set-key (kbd "<C-M-right>") 'tabbar-forward)
-;;       (setq tabbar-background-color "#959A79")
-;;       (custom-set-faces
-;;        '(tabbar-default ((t (:inherit variable-pitch :background "#959A79" :foreground "black" :weight bold))))
-;;        '(tabbar-button ((t (:inherit tabbar-default :foreground "dark red"))))
-;;        '(tabbar-button-highlight ((t (:inherit tabbar-default))))
-;;        '(tabbar-highlight ((t (:underline t))))
-;;        '(tabbar-selected ((t (:inherit tabbar-default :background "#95CA59"))))
-;;        '(tabbar-separator ((t (:inherit tabbar-default :background "#95CA59"))))
-;;        '(tabbar-unselected ((t (:inherit tabbar-default)))))))
 
 ;; Move to window easily
 (windmove-default-keybindings)
@@ -666,8 +647,8 @@ that was stored with ska-point-to-register."
 (use-package dashboard
   :ensure t
   :init
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-items '((recents  . 5)))
+  (setq dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
