@@ -1,40 +1,37 @@
-;; ============================= customize ============================
+;; =============================================================================
+;; ============================ load use-package ===============================
+;; =============================================================================
+(eval-when-compile
+  (require 'use-package))
+
+(use-package use-package-ensure-system-package
+  :ensure t)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+;; =============================================================================
+;; =============================================================================
+
+;; =============================== customize ===================================
 (setq-default custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
-  (load custom-file))
-;;=========================================================================
+  (use-package cus-edit
+    :preface (provide 'cus-edit)
+    :config
+    (load custom-file)))
+;;==============================================================================
+;;==============================================================================
 
-(setq mac-command-modifier 'meta)
-
-(global-set-key (kbd "<end>") 'move-end-of-line)
-(global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<delete>") 'delete-char)
 
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-language-environment 'UTF-8)
-(setq locale-coding-system 'utf-8
-      default-input-method 'MacOSX)
-
-;; (setenv "PATH"
-;;         (concat
-;;          "~/bin" ":"
-;;          "/usr/local/bin" ":"
-;;          "~/Developer/go/bin" ":"
-;;          (getenv "PATH")))
-
-;; (setq exec-path (append '("~/bin"
-;;                           "/usr/local/bin"
-;;                           "~/Developer/go/bin") exec-path))
-
-;; set font
-;; (if (not (eq system-type 'darwin))
-;;     (progn
-;;       (set-frame-font "DejaVu Sans Mono-10")
-;;       (set-fontset-font (frame-parameter nil 'font)
-;;                         'han '("WenQuanYi Zen Hei Mono" . "unicode-bmp"))))
+(setq locale-coding-system 'utf-8)
  
-;; Evaluate and replace the text
+;; evaluate and replace the text
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
@@ -54,9 +51,6 @@
       (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
         (revert-buffer t t t) )))
   (message "refreshed open files"))
-
-;; move to window easily
-(windmove-default-keybindings)
 
 ;; jump between two points
 (defun ska-point-to-register()
@@ -92,9 +86,7 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-o") 'my-newline)
 (global-set-key (kbd "C-S-o") 'my-newline-pre)
 
-(global-font-lock-mode t)
-(global-linum-mode)
-
+;; flash mode line as visiual indication
 (setq visible-bell nil
       ring-bell-function (lambda ()
                            (invert-face 'mode-line)
@@ -113,18 +105,10 @@ that was stored with ska-point-to-register."
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
 
-;; major mode
-(setq initial-major-mode 'text-mode
-      major-mode 'text-mode)
-
 ;; user information
 (setq user-full-name "Hongxin Liang"
       user-login-name "honnix"
       user-mail-address "hxliang1982@gmail.com")
-
-;; just show matching parenthesis, no jump
-(show-paren-mode t)
-(setq show-paren-style 'parentheses)
 
 ;; Show buffer name
 (setq frame-title-format
@@ -134,30 +118,10 @@ that was stored with ska-point-to-register."
              (abbreviate-file-name (buffer-file-name))
            "%b@emacs"))))
 
-;; mark with Shift+direction
-;(pc-selection-mode)
-
-;; display date and time
-(setq display-time-day-and-date t
-      display-time-24hr-format t
-      display-time-use-mail-icon t
-      display-time-interval 10)
-(display-time)
-
 ;; scroll before we reach the end of the screen
 (setq scroll-step 1
       scroll-margin 3
       scroll-conservatively 10000)
-
-;; start 'emacs server'
-(server-start)
-
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-;; no menu unless it is macOSX
-(if (not (eq system-type 'darwin))
-    (menu-bar-mode -1))
 
 ;; speed up moving through VERY large file
 ;(setq lazy-lock-defer-on-scrolling t)
@@ -171,21 +135,8 @@ that was stored with ska-point-to-register."
 ;;   (error
 ;;    (message "Can't load xxx-mode %s" (cdr err))))
 
-;; no backup files
-(setq-default make-backup-files nil)
-
-;; drive the wheel mouse
-(mouse-wheel-mode 1)
-;; move up mouse when cursor comes
-(mouse-avoidance-mode 'animate)
-
 ;; Use clipboard when copy/paste in X
 ;; (setq x-select-enable-clipboard t)
-
-;; whenever there are more than one files with the same
-;; name, use directory as prefix, not foobar<?>
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ;; y/n for short
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -200,9 +151,6 @@ that was stored with ska-point-to-register."
 
 ;; which shell to use
 (setq shell-file-name "/usr/local/bin/zsh")
-
-;; hide shell password
-(add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt)
 
 ;; auto complete
 (global-set-key [(meta ?/)] 'hippie-expand)
@@ -219,6 +167,127 @@ that was stored with ska-point-to-register."
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
+;; kill whole line
+(setq-default kill-whole-line t)
+
+;; set EOL style
+;; (setq inhibit-eol-conversion 'gbk-dos)
+
+;; select current line
+(global-set-key (kbd "C-c l")
+                '(lambda ()
+                   (interactive)
+                   (move-beginning-of-line nil)
+                   (set-mark-command nil)
+                   (move-end-of-line nil)))
+
+;; Highlight symbol
+(global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
+(global-set-key (kbd "C-c n") 'highlight-symbol-next)
+(global-set-key (kbd "C-c p") 'highlight-symbol-prev)
+
+;; customize moving
+;; (global-set-key (kbd "C-a") 'beginning-of-line)
+;; (global-set-key (kbd "C-e") 'end-of-line)
+
+;; =============================================================================
+;; ======================== this is where packages start =======================
+;; =============================================================================
+
+(use-package mule
+  :preface (provide 'mule)
+  :init
+  (setq default-input-method 'MacOSX)
+  :config
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8))
+
+(use-package mule-cmds
+  :preface (provide 'mule-cmds)
+  :config
+  (set-language-environment 'UTF-8))
+
+(use-package server
+  :ensure t
+  :config
+ (server-start))
+
+(use-package ns-win
+  :preface (provide 'ns-win)
+  :init
+  (setq mac-command-modifier 'meta))
+
+(use-package simple
+  :preface (provide 'simple)
+  :bind (("<end>" . move-end-of-line)
+         ("<home>" . move-beginning-of-line)))
+
+(use-package files
+  :preface (provide 'files)
+  :init
+  (setq-default make-backup-files nil))
+
+(use-package mwheel
+  :preface (provide 'mwheel)
+  :config
+  (mouse-wheel-mode 1))
+
+;; move up mouse when cursor comes
+(use-package avoid
+  :ensure t
+  :config
+  (mouse-avoidance-mode 'animate))
+
+;; hide shell password
+(use-package comint
+  :preface (provide 'comint)
+  :commands (comint-output-filter-functions comint-watch-for-password-prompt)
+  :init
+  (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
+
+(use-package custom
+  :preface (provide 'custom)
+  :config
+  ;; (add-to-list 'custom-theme-load-path
+  ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
+  ;; (load-theme 'monokai t t)
+  ;; (enable-theme 'monokai)
+  (load-theme 'zenburn t))
+
+;; whenever there are more than one files with the same
+;; name, use directory as prefix, not foobar<?>
+(use-package uniquify
+  :preface (provide 'uniquify)
+  :init
+  (setq uniquify-buffer-name-style 'forward))
+
+(use-package tool-bar
+  :preface (provide 'tool-bar)
+  :config
+  (tool-bar-mode -1))
+
+(use-package scroll-bar
+  :preface (provide 'scroll-bar)
+  :config
+  (scroll-bar-mode -1))
+
+(use-package menu-bar
+  :unless (eq system-type 'darwin)
+  :preface (provide 'menu-bar)
+  :config
+  (menu-bar-mode -1))
+
+;; display date and time
+(use-package time
+  :ensure t
+  :init
+  (setq display-time-day-and-date t
+        display-time-24hr-format t
+        display-time-use-mail-icon t
+        display-time-interval 10)
+  :config
+  (display-time))
+
 (use-package shell
   :ensure t
   :init
@@ -234,156 +303,128 @@ that was stored with ska-point-to-register."
         (kill-buffer (current-buffer))))
   :hook (shell-mode . my-shell-mode-hook-func))
 
-;; auto mode list
-;; (mapc
-;;  (function (lambda (setting)
-;; 	     (setq auto-mode-alist
-;; 		   (cons setting auto-mode-alist))))
-;;  '(("\\.xml$" .  sgml-mode)
-;;    ("\\\.bash" . sh-mode)
-;;    ("\\.rdf$" .  sgml-mode)
-;;    ("\\.session" . emacs-lisp-mode)
-;;    ("\\.l$" . c-mode)
-;;    ("\\.h$" . c++-mode)
-;;    ("\\.css$" . css-mode)
-;;    ("\\.cfm$" . html-mode)
-;;    ("gnus" . emacs-lisp-mode)
-;;    ("\\.idl$" . idl-mode)))
+(use-package linum
+  :ensure t
+  :config
+  (global-linum-mode))
 
-;; kill whole line
-(setq-default kill-whole-line t)
+(use-package text-mode
+  :preface (provide 'text-mode)
+  :init
+  (setq initial-major-mode 'text-mode
+        major-mode 'text-mode))
 
-;; set EOL style
-;; (setq inhibit-eol-conversion 'gbk-dos)
+(use-package windmove
+  :ensure t
+  :config
+  (windmove-default-keybindings))
 
-;; select current line
-(global-set-key (kbd "C-c l")
-                '(lambda ()
-                   (interactive)
-                   (move-beginning-of-line nil)
-                   (set-mark-command nil)
-                   (move-end-of-line nil)))
-
-;; appointment
-;; (appt-activate)
+;; just show matching parenthesis, no jump
+(use-package paren
+  :ensure t
+  :init
+  (setq show-paren-style 'parentheses)
+  :config
+  (show-paren-mode t))
 
 ;; no separate frame when ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(use-package ediff
+  :ensure t
+  :init
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+
+;; appointment
+(use-package appt
+  :preface (provide 'appt)
+  :disabled
+  :config
+  (appt-activate))
 
 ;; winner-mode to support undo/redo window layout
-(winner-mode 1)
+(use-package winner
+  :ensure t
+  :config
+  (winner-mode 1))
 
-;; Highlight symbol
-(global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
-(global-set-key (kbd "C-c n") 'highlight-symbol-next)
-(global-set-key (kbd "C-c p") 'highlight-symbol-prev)
+(use-package startup
+  :preface (provide 'startup)
+  :init
+  (setq initial-scratch-message ""))
 
-;; (add-to-list 'custom-theme-load-path
-;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
-;; (load-theme 'monokai t t)
-;; (enable-theme 'monokai)
-(load-theme 'zenburn t)
-
-;; customize moving
-;; (global-set-key (kbd "C-a") 'beginning-of-line)
-;; (global-set-key (kbd "C-e") 'end-of-line)
-
-(setq initial-scratch-message "")
-
-;; VIM for good
-(defun isearch-yank-regexp (regexp)
+(use-package isearch
+  :preface (provide 'isearch)
+  :bind (("C-*" . isearch-current-symbol)
+         ("C-#" . isearch-backward-current-symbol))
+  :config
+  (defun isearch-yank-regexp (regexp)
     "Pull REGEXP into search regexp." 
     (let ((isearch-regexp nil)) ;; Dynamic binding of global.
       (isearch-yank-string regexp))
     (isearch-search-and-update))
   
-(defun isearch-yank-symbol (&optional partialp backward)
-  "Put symbol at current point into search string.
+  (defun isearch-yank-symbol (&optional partialp backward)
+    "Put symbol at current point into search string.
     
     If PARTIALP is non-nil, find all partial matches."
-  (interactive "P")
-  
-  (let (from to bound sym)
-    (setq sym
-          ;; this block taken directly from find-tag-default
-          ;; we couldn't use the function because we need the internal from and to values
-          (when (or (progn
-                      ;; Look at text around `point'.
+    (interactive "P")
+    
+    (let (from to bound sym)
+      (setq sym
+            ;; this block taken directly from find-tag-default
+            ;; we couldn't use the function because we need the internal from and to values
+            (when (or (progn
+                        ;; Look at text around `point'.
+                        (save-excursion
+                          (skip-syntax-backward "w_") (setq from (point)))
+                        (save-excursion
+                          (skip-syntax-forward "w_") (setq to (point)))
+                        (> to from))
+                      ;; Look between `line-beginning-position' and `point'.
                       (save-excursion
-                        (skip-syntax-backward "w_") (setq from (point)))
+                        (and (setq bound (line-beginning-position))
+                             (skip-syntax-backward "^w_" bound)
+                             (> (setq to (point)) bound)
+                             (skip-syntax-backward "w_")
+                             (setq from (point))))
+                      ;; Look between `point' and `line-end-position'.
                       (save-excursion
-                        (skip-syntax-forward "w_") (setq to (point)))
-                      (> to from))
-                    ;; Look between `line-beginning-position' and `point'.
-                    (save-excursion
-                      (and (setq bound (line-beginning-position))
-                           (skip-syntax-backward "^w_" bound)
-                           (> (setq to (point)) bound)
-                           (skip-syntax-backward "w_")
-                           (setq from (point))))
-                    ;; Look between `point' and `line-end-position'.
-                    (save-excursion
-                      (and (setq bound (line-end-position))
-                           (skip-syntax-forward "^w_" bound)
-                           (< (setq from (point)) bound)
-                           (skip-syntax-forward "w_")
-                           (setq to (point)))))
-            (buffer-substring-no-properties from to)))
-    (cond ((null sym)
-           (message "No symbol at point"))
-          ((null backward)
-           (goto-char (1+ from)))
-          (t
-           (goto-char (1- to))))
-    (isearch-search)
-    (if partialp
-        (isearch-yank-string sym)
-      (isearch-yank-regexp
-       (concat "\\_<" (regexp-quote sym) "\\_>")))))
+                        (and (setq bound (line-end-position))
+                             (skip-syntax-forward "^w_" bound)
+                             (< (setq from (point)) bound)
+                             (skip-syntax-forward "w_")
+                             (setq to (point)))))
+              (buffer-substring-no-properties from to)))
+      (cond ((null sym)
+             (message "No symbol at point"))
+            ((null backward)
+             (goto-char (1+ from)))
+            (t
+             (goto-char (1- to))))
+      (isearch-search)
+      (if partialp
+          (isearch-yank-string sym)
+        (isearch-yank-regexp
+         (concat "\\_<" (regexp-quote sym) "\\_>")))))
 
-(defun isearch-current-symbol (&optional partialp)
-  "Incremental search forward with symbol under point.
+  (defun isearch-current-symbol (&optional partialp)
+    "Incremental search forward with symbol under point.
 
     Prefixed with \\[universal-argument] will find all partial
     matches."
-  (interactive "P")
-  (let ((start (point)))
-    (isearch-forward-regexp nil 1)
-    (isearch-yank-symbol partialp)))
+    (interactive "P")
+    (let ((start (point)))
+      (isearch-forward-regexp nil 1)
+      (isearch-yank-symbol partialp)))
 
-(defun isearch-backward-current-symbol (&optional partialp)
-  "Incremental search backward with symbol under point.
+  (defun isearch-backward-current-symbol (&optional partialp)
+    "Incremental search backward with symbol under point.
 
     Prefixed with \\[universal-argument] will find all partial
     matches."
-  (interactive "P")
-  (let ((start (point)))
-    (isearch-backward-regexp nil 1)
-    (isearch-yank-symbol partialp)))
-
-(global-set-key (kbd "C-*") 'isearch-current-symbol)
-(global-set-key (kbd "C-#") 'isearch-backward-current-symbol)
-
-;; set frame size
-(set-frame-height (selected-frame) 40)
-(set-frame-width (selected-frame) 120)
-
-;; ======================================================================
-;; ==================== this is where packages start ====================
-;; ======================================================================
-
-(require 'use-package)
-
-(use-package use-package-ensure-system-package
-  :ensure t)
-
-(use-package exec-path-from-shell
-  :ensure t
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+    (interactive "P")
+    (let ((start (point)))
+      (isearch-backward-regexp nil 1)
+      (isearch-yank-symbol partialp))))
 
 (use-package ivy
   :ensure t
@@ -631,3 +672,10 @@ that was stored with ska-point-to-register."
 (use-package multi-scratch
   :load-path "3rd"
   :bind ("C-c s" . multi-scratch-new))
+
+;; =============================================================================
+;; ======================== the last things should happen=======================
+;; =============================================================================
+;; set frame size
+(set-frame-height (selected-frame) 40)
+(set-frame-width (selected-frame) 120)
