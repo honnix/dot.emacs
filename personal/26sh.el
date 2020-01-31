@@ -1,7 +1,7 @@
-(add-hook 'sh-mode-hook
-          '(lambda ()
-             (my-sh-mode-key-bind)))
-
-(defun my-sh-mode-key-bind ()
-  (interactive)
-  (local-unset-key (kbd "C-c C-c")))
+(use-package sh-script
+  :ensure t
+  :mode (("\\.sh\\'" . sh-mode)
+         ("\\.bash\\'" . sh-mode)
+         ("\\.zshrc\\'" . sh-mode)
+         ("\\.zshenv\\'" . sh-mode))
+  :bind ([remap sh-case] . comment-dwim))

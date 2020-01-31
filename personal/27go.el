@@ -1,8 +1,8 @@
 (use-package go-mode
   :ensure t
-  :defer t
-  :init
-  (autoload 'go-mode "go-mode" nil t)
+  :mode "\\.go\\'"
+  :hook (go-mode . my-go-mode-hook)
+  
   :config
   (defun my-go-mode-hook ()
     (add-hook 'before-save-hook 'gofmt-before-save)
@@ -15,5 +15,4 @@
     (local-set-key (kbd "M-*") 'pop-tag-mark)
     (setq go-guru-scope ".")
     (go-guru-hl-identifier-mode)
-    )
-  (add-hook 'go-mode-hook #'my-go-mode-hook))
+    ))

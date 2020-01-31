@@ -3,7 +3,6 @@
   :config
   (ctypes-auto-parse-mode 1))
 
-(setq compilation-window-height 8)
 
 (setq c-basic-offset 4)
 (c-set-offset 'inline-open 0)

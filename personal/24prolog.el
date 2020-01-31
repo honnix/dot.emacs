@@ -1,16 +1,9 @@
 (use-package prolog
   :load-path "3rd"
+  :commands (run-prolog prolog-mode)
+  :mode ("\\.pl\\'" . prolog-mode)
+  :bind ("C-c C-c" . comment-dwim)
   :init
-  (autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
-  (autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
-  (autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
   (setq prolog-system 'swi)
-  (setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
-                                  ("\\.m$" . mercury-mode))
-                                auto-mode-alist))
   :config
-  (defun my-prolog-mode-key-binding ()
-    (interactive)
-    (local-unset-key (kbd "C-c C-c"))
-    )
-  (add-hook 'prolog-mode-hook 'my-prolog-mode-key-binding))
+  (unbind-key "C-c C-c" prolog-mode-map))

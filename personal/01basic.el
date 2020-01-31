@@ -82,6 +82,14 @@ that was stored with ska-point-to-register."
   (move-beginning-of-line nil)
   (set-mark-command nil)
   (move-end-of-line nil))
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise (not now) insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;	(t (self-insert-command (or arg 1)))))
+    ))
 ;; =============================================================================
 ;; =============================================================================
 
@@ -101,6 +109,9 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c n") 'highlight-symbol-next)
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
 (global-set-key (kbd "C-c l") 'my-select-current-line)
+(global-set-key (kbd "C-c C-c") 'comment-dwim)
+(global-set-key (kbd "C-%") 'match-paren)
+
 ;; (global-set-key (kbd "C-a") 'beginning-of-line)
 ;; (global-set-key (kbd "C-e") 'end-of-line)
 ;; =============================================================================
@@ -473,6 +484,7 @@ that was stored with ska-point-to-register."
                            (name . "^\\*Packages\\*$")
                            (mode . emacs-lisp-mode)))
                  ("dired" (mode . dired-mode))
+                 ("yaml" (mode . yaml-mode))
                  ("magit" (mode . magit-mode))
                  ("scala" (mode . scala-mode))
                  ("ttl" (mode . n3-mode))
@@ -631,7 +643,7 @@ that was stored with ska-point-to-register."
 (use-package centaur-tabs
   :ensure t
   :demand
-  :requires all-the-icons
+  :after all-the-icons
   :bind (("<C-M-up>" . centaur-tabs-backward-group)
          ("<C-M-down>" . centaur-tabs-forward-group)
          ("<C-M-left>" . centaur-tabs-backward)
@@ -660,7 +672,7 @@ that was stored with ska-point-to-register."
 
 (use-package smart-mode-line
   :ensure t
-  :requires smart-mode-line-atom-one-dark-theme
+  :after smart-mode-line-atom-one-dark-theme
   :init
   (setq sml/theme 'atom-one-dark)
   :config
@@ -678,6 +690,20 @@ that was stored with ska-point-to-register."
 (use-package multi-scratch
   :load-path "3rd"
   :bind ("C-c s" . multi-scratch-new))
+
+(use-package compile
+  :ensure t
+  :init
+  (setq compilation-window-height 8
+        compilation-finish-functions
+      (lambda (buf str)
+        (if (string-match "exited abnormally" str)
+            ;;there were errors
+            (message "COMPILATION ERROR!, press C-x ` to visit")
+          ;;no errors, make the compilation window go away in 0.5 seconds
+          (if (string-match "*compilation*" buf)
+              (run-at-time 0.5 nil 'delete-windows-on buf))
+          (message "no compilation error.")))))
 
 ;; =============================================================================
 ;; ======================== the last things should happen=======================
