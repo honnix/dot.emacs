@@ -27,10 +27,9 @@
 ;;==============================================================================
 ;;==============================================================================
 
-(global-set-key (kbd "<delete>") 'delete-char)
-
-(setq locale-coding-system 'utf-8)
- 
+;; =============================================================================
+;; ============================ custom functions ===============================
+;; =============================================================================
 ;; evaluate and replace the text
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -41,7 +40,6 @@
              (current-buffer))
     (error (message "invalid expression")
            (insert (current-kill 0)))))
-(global-set-key (kbd "C-c e") 'eval-and-replace)
 
 (defun revert-all-buffers ()
   "Refreshes all open buffers from their respective files."
@@ -52,24 +50,19 @@
         (revert-buffer t t t) )))
   (message "refreshed open files"))
 
-;; jump between two points
 (defun ska-point-to-register()
   "Store cursorposition _fast_ in a register.
 Use ska-jump-to-register to jump back to the stored
 position."
   (interactive)
-;;   (setq zmacs-region-stays t)
   (point-to-register 8))
 (defun ska-jump-to-register()
   "Switches between current cursorposition and position
 that was stored with ska-point-to-register."
   (interactive)
-;;   (setq zmacs-region-stays t)
   (let ((tmp (point-marker)))
     (jump-to-register 8)
     (set-register 8 tmp)))
-(global-set-key (kbd "C-.") 'ska-point-to-register)
-(global-set-key (kbd "C-,") 'ska-jump-to-register)
 
 (defun my-newline ()
   "New line after current line."
@@ -81,118 +74,81 @@ that was stored with ska-point-to-register."
   (interactive)
   (move-beginning-of-line 1)
   (newline)
-  (forward-line -1)
-  )
+  (forward-line -1))
+
+(defun my-select-current-line ()
+  "Select current line."
+  (interactive)
+  (move-beginning-of-line nil)
+  (set-mark-command nil)
+  (move-end-of-line nil))
+;; =============================================================================
+;; =============================================================================
+
+;; =============================================================================
+;; ============================== key bindings =================================
+;; =============================================================================
+(global-set-key (kbd "<delete>") 'delete-char)
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+(global-set-key (kbd "C-.") 'ska-point-to-register)
+(global-set-key (kbd "C-,") 'ska-jump-to-register)
 (global-set-key (kbd "C-o") 'my-newline)
 (global-set-key (kbd "C-S-o") 'my-newline-pre)
+(global-set-key (kbd "C-c r") 'query-replace-regexp)
+(global-set-key (kbd "C-;") 'set-mark-command)
+(global-set-key (kbd "C-c g") 'goto-line)
+(global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
+(global-set-key (kbd "C-c n") 'highlight-symbol-next)
+(global-set-key (kbd "C-c p") 'highlight-symbol-prev)
+(global-set-key (kbd "C-c l") 'my-select-current-line)
+;; (global-set-key (kbd "C-a") 'beginning-of-line)
+;; (global-set-key (kbd "C-e") 'end-of-line)
+;; =============================================================================
+;; =============================================================================
 
-;; flash mode line as visiual indication
-(setq visible-bell nil
-      ring-bell-function (lambda ()
-                           (invert-face 'mode-line)
-                           (run-with-timer 0.1 nil 'invert-face 'mode-line)))
-
-(setq inhibit-startup-message t
-      column-number-mode t
-      mouse-yank-at-point t)
-
-;; no indent by tabs
+;; =============================================================================
+;; ============================== set variables ================================
+;; =============================================================================
 (setq-default indent-tabs-mode nil)
-(setq tab-width 4
-      tab-stop-list (number-sequence 4 120 4))
 
-;; for Chinese punctuation
+(setq locale-coding-system 'utf-8)
+(setq shell-file-name "/usr/local/bin/zsh")
+(setq tab-width 4)
+
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
 
-;; user information
 (setq user-full-name "Hongxin Liang"
       user-login-name "honnix"
       user-mail-address "hxliang1982@gmail.com")
-
-;; Show buffer name
-(setq frame-title-format
-      '("" invocation-name ": "
-        (:eval
-         (if (buffer-file-name)
-             (abbreviate-file-name (buffer-file-name))
-           "%b@emacs"))))
 
 ;; scroll before we reach the end of the screen
 (setq scroll-step 1
       scroll-margin 3
       scroll-conservatively 10000)
 
-;; speed up moving through VERY large file
-;(setq lazy-lock-defer-on-scrolling t)
-;(setq font-lock-support-mode 'lazy-lock-mode)
-;(setq font-lock-maximum-decoration t)
-
-;; How to deel with the errors in .emacs file
-;; (condition-case err
-;; 	(progn
-;; 	  (require 'xxx))
-;;   (error
-;;    (message "Can't load xxx-mode %s" (cdr err))))
-
-;; Use clipboard when copy/paste in X
-;; (setq x-select-enable-clipboard t)
-
 ;; y/n for short
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; at most 120 charactors per line
-(set-fill-column 120)
-
-;; other global set keys
-(global-set-key (kbd "C-c r") 'query-replace-regexp)
-(global-set-key (kbd "C-;") 'set-mark-command)
-(global-set-key (kbd "C-c g") 'goto-line)
-
-;; which shell to use
-(setq shell-file-name "/usr/local/bin/zsh")
-
-;; auto complete
-(global-set-key [(meta ?/)] 'hippie-expand)
-(setq hippie-expand-try-functions-list 
-      '(try-expand-dabbrev
-        try-expand-dabbrev-visible
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-all-abbrevs
-        try-expand-list
-        try-expand-line
-        try-complete-lisp-symbol-partially
-        try-complete-lisp-symbol))
-
-;; kill whole line
-(setq-default kill-whole-line t)
-
-;; set EOL style
-;; (setq inhibit-eol-conversion 'gbk-dos)
-
-;; select current line
-(global-set-key (kbd "C-c l")
-                '(lambda ()
-                   (interactive)
-                   (move-beginning-of-line nil)
-                   (set-mark-command nil)
-                   (move-end-of-line nil)))
-
-;; Highlight symbol
-(global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
-(global-set-key (kbd "C-c n") 'highlight-symbol-next)
-(global-set-key (kbd "C-c p") 'highlight-symbol-prev)
-
-;; customize moving
-;; (global-set-key (kbd "C-a") 'beginning-of-line)
-;; (global-set-key (kbd "C-e") 'end-of-line)
+;; =============================================================================
+;; =============================================================================
 
 ;; =============================================================================
 ;; ======================== this is where packages start =======================
 ;; =============================================================================
+
+;; Use clipboard when copy/paste in X
+(use-package select
+  :ensure t
+  :disabled
+  :init
+  (setq select-enable-clipboard t))
+
+;; appointment
+(use-package appt
+  :preface (provide 'appt)
+  :disabled
+  :config
+  (appt-activate))
 
 (use-package mule
   :preface (provide 'mule)
@@ -217,20 +173,55 @@ that was stored with ska-point-to-register."
   :init
   (setq mac-command-modifier 'meta))
 
+(use-package hippie-expand
+  :preface (provide 'hippie-expand)
+  :bind ([(meta ?/)] . hippie-expand)
+  :init
+  (setq hippie-expand-try-functions-list
+        '(try-expand-dabbrev
+          try-expand-dabbrev-visible
+          try-expand-dabbrev-all-buffers
+          try-expand-dabbrev-from-kill
+          try-complete-file-name-partially
+          try-complete-file-name
+          try-expand-all-abbrevs
+          try-expand-list
+          try-expand-line
+          try-complete-lisp-symbol-partially
+          try-complete-lisp-symbol)))
+
 (use-package simple
   :preface (provide 'simple)
   :bind (("<end>" . move-end-of-line)
-         ("<home>" . move-beginning-of-line)))
+         ("<home>" . move-beginning-of-line))
+  :init
+  (setq-default kill-whole-line t
+                column-number-mode t)
+  :config
+  ;; at most 120 charactors per line
+  (set-fill-column 120))
 
 (use-package files
   :preface (provide 'files)
   :init
-  (setq-default make-backup-files nil))
+  (setq-default make-backup-files nil)
+  :config
+  (setq frame-title-format
+        '("" invocation-name ": "
+          (:eval
+           (if (buffer-file-name)
+               (abbreviate-file-name (buffer-file-name))
+             "%b@emacs")))))
 
 (use-package mwheel
   :preface (provide 'mwheel)
   :config
   (mouse-wheel-mode 1))
+
+(use-package mouse
+  :preface (provide 'mouse)
+  :init
+  (setq mouse-yank-at-point t))
 
 ;; move up mouse when cursor comes
 (use-package avoid
@@ -261,6 +252,25 @@ that was stored with ska-point-to-register."
   :init
   (setq uniquify-buffer-name-style 'forward))
 
+(use-package indent
+  :preface (provide 'indent)
+  :config
+  (use-package subr
+    :preface (provide 'subr)
+    :init
+    (setq tab-stop-list (number-sequence 4 120 4))))
+
+;; flash mode line as visiual indication
+(use-package faces
+  :preface (provide 'faces)
+  :config
+  (use-package timer
+    :preface (provide 'timer)
+    :config
+    (setq visible-bell nil
+          ring-bell-function (lambda ()
+                               (invert-face 'mode-line)
+                               (run-with-timer 0.1 nil 'invert-face 'mode-line)))))
 (use-package tool-bar
   :preface (provide 'tool-bar)
   :config
@@ -290,7 +300,8 @@ that was stored with ska-point-to-register."
 
 (use-package shell
   :ensure t
-  :init
+  :hook (shell-mode . my-shell-mode-hook-func)
+  :config
   ;; kill shell buffer when shell exits
   (defun my-shell-mode-hook-func ()
     (set-process-sentinel (get-buffer-process (current-buffer))
@@ -300,8 +311,7 @@ that was stored with ska-point-to-register."
     (if (or
          (string-match "exited abnormally with code.*" state)
          (string-match "finished" state))
-        (kill-buffer (current-buffer))))
-  :hook (shell-mode . my-shell-mode-hook-func))
+        (kill-buffer (current-buffer)))))
 
 (use-package linum
   :ensure t
@@ -333,13 +343,6 @@ that was stored with ska-point-to-register."
   :init
   (setq ediff-window-setup-function 'ediff-setup-windows-plain))
 
-;; appointment
-(use-package appt
-  :preface (provide 'appt)
-  :disabled
-  :config
-  (appt-activate))
-
 ;; winner-mode to support undo/redo window layout
 (use-package winner
   :ensure t
@@ -349,7 +352,8 @@ that was stored with ska-point-to-register."
 (use-package startup
   :preface (provide 'startup)
   :init
-  (setq initial-scratch-message ""))
+  (setq initial-scratch-message ""
+        inhibit-startup-message t))
 
 (use-package isearch
   :preface (provide 'isearch)
@@ -441,7 +445,11 @@ that was stored with ska-point-to-register."
 
 (use-package ibuffer
   :ensure t
-  :bind ("C-x C-b" . ibuffer)
+  :bind (("C-x C-b" . ibuffer)
+         :map ibuffer-mode-map
+         ("<up>" . ibuffer-previous-line)
+         ("<down" . ibuffer-next-line))
+  :hook (ibuffer-mode . switch-to-default-group)
   :init
   ;; modify the default ibuffer-formats
   (setq ibuffer-formats
@@ -465,13 +473,15 @@ that was stored with ska-point-to-register."
                            (name . "^\\*Packages\\*$")
                            (mode . emacs-lisp-mode)))
                  ("dired" (mode . dired-mode))
-                 ("magit" (name . "^\\*magit.*$"))
+                 ("magit" (mode . magit-mode))
                  ("scala" (mode . scala-mode))
                  ("ttl" (mode . n3-mode))
                  ("python" (mode . python-mode))
                  ("go" (mode . go-mode))
                  ("prolog" (mode . prolog-mode))))))
   :config
+  (defun switch-to-default-group ()
+    (ibuffer-switch-to-saved-filter-groups "default"))
   ;; use human readable size column instead of original one
   (define-ibuffer-column size-h
     (:name "Size" :inline t)
@@ -488,11 +498,6 @@ that was stored with ska-point-to-register."
     (interactive) (next-line)
     (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
         (goto-line 3)))
-  (define-key ibuffer-mode-map (kbd "<up>") 'ibuffer-previous-line)
-  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-next-line)
-  (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-switch-to-saved-filter-groups "default")))
   (defadvice ibuffer-generate-filter-groups (after reverse-ibuffer-groups ()
                                                    activate)
     (setq ad-return-value (nreverse ad-return-value))))
@@ -509,12 +514,14 @@ that was stored with ska-point-to-register."
 
 (use-package dired-single
   :ensure t
+  :bind (:map dired-mode-map
+              ([return] . dired-single-buffer)
+              ([mouse-1] . dired-single-buffer-mouse)
+              ("^" . go-to-parent))
   :config
-  (define-key dired-mode-map [return] 'dired-single-buffer)
-  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-  (define-key dired-mode-map "^"
-    (function
-     (lambda nil (interactive) (dired-single-buffer "..")))))
+  (defun go-to-parent ()
+    (interactive)
+    (dired-single-buffer "..")))
 
 (use-package hl-line
   :config
@@ -535,7 +542,7 @@ that was stored with ska-point-to-register."
 
 (use-package redo+
   :ensure t
-  :bind ("C-?"  . redo))
+  :bind ("C-?" . redo))
 
 ;; do not use Emacs built-in page down/up
 (use-package pager
@@ -558,8 +565,7 @@ that was stored with ska-point-to-register."
   :ensure t
   :init
   (setq table-disable-advising t)
-  :config
-  (add-hook 'text-mode-hook 'table-recognize))
+  :hook (text-mode . table-recognize))
 
 (use-package magit
   :ensure t
@@ -588,11 +594,11 @@ that was stored with ska-point-to-register."
   :ensure-system-package aspell
   :init
   (setq ispell-program-name "aspell")
-  :config
-  (add-hook 'text-mode 'flyspell-mode))
+  :hook (text-mode . flyspell-mode))
 
 (use-package plantuml-mode
   :ensure t
+  :disabled
   :init
   (setq plantuml-jar-path
         "/usr/local/opt/plantuml/libexec/plantuml.jar"))
@@ -625,7 +631,7 @@ that was stored with ska-point-to-register."
 (use-package centaur-tabs
   :ensure t
   :demand
-  :after all-the-icons
+  :requires all-the-icons
   :bind (("<C-M-up>" . centaur-tabs-backward-group)
          ("<C-M-down>" . centaur-tabs-forward-group)
          ("<C-M-left>" . centaur-tabs-backward)
@@ -654,7 +660,7 @@ that was stored with ska-point-to-register."
 
 (use-package smart-mode-line
   :ensure t
-  :after smart-mode-line-atom-one-dark-theme
+  :requires smart-mode-line-atom-one-dark-theme
   :init
   (setq sml/theme 'atom-one-dark)
   :config
