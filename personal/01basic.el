@@ -8,12 +8,13 @@
   :ensure t)
 
 (use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
   :ensure t
   :init
-  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-check-startup-files nil
+        exec-path-from-shell-arguments (list "-l"))
   :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-initialize))
 ;; =============================================================================
 ;; =============================================================================
 
