@@ -1,7 +1,9 @@
 (use-package markdown-mode
   :ensure t
-  :defer t
-  :init
-  (autoload 'markdown-mode "markdown-mode.el" nil t)
-  (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-  :hook (pandoc-mode flyspell-mode))
+  :ensure-system-package multimarkdown
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown")
+  :hook (markdown-mode . flyspell-mode))

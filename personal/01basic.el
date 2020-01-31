@@ -219,17 +219,20 @@ that was stored with ska-point-to-register."
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-;; kill shell buffer when shell exits
-(add-hook 'shell-mode-hook 'my-shell-mode-hook-func)
-(defun my-shell-mode-hook-func ()
-  (set-process-sentinel (get-buffer-process (current-buffer))
-                        'my-shell-mode-kill-buffer-on-exit))
-(defun my-shell-mode-kill-buffer-on-exit (process state)
-  (message "%s" state)
-  (if (or
-       (string-match "exited abnormally with code.*" state)
-       (string-match "finished" state))
-      (kill-buffer (current-buffer))))
+(use-package shell
+  :ensure t
+  :init
+  ;; kill shell buffer when shell exits
+  (defun my-shell-mode-hook-func ()
+    (set-process-sentinel (get-buffer-process (current-buffer))
+                          'my-shell-mode-kill-buffer-on-exit))
+  (defun my-shell-mode-kill-buffer-on-exit (process state)
+    (message "%s" state)
+    (if (or
+         (string-match "exited abnormally with code.*" state)
+         (string-match "finished" state))
+        (kill-buffer (current-buffer))))
+  :hook (shell-mode . my-shell-mode-hook-func))
 
 ;; auto mode list
 ;; (mapc
