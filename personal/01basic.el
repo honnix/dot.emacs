@@ -475,7 +475,7 @@ that was stored with ska-point-to-register."
 		" "
 		filename-and-process))
         ibuffer-saved-filter-groups
-        (quote (("default"
+        '(("default"
                  ("emacs" (or
                            (name . "^\\*scratch\\*$")
                            (name . "^\\*Messages\\*$")
@@ -487,12 +487,30 @@ that was stored with ska-point-to-register."
                            (mode . emacs-lisp-mode)))
                  ("dired" (mode . dired-mode))
                  ("yaml" (mode . yaml-mode))
-                 ("magit" (mode . magit-mode))
+                 ("vc" (or
+                        (mode . git-commit-mode)
+                        (mode . git-commit-major-mode)
+                        (mode . git-rebase-mode)
+                        (mode . magit-mode)
+                        (mode . magit-cherry-mode)
+                        (mode . magit-diff-mode)
+                        (mode . magit-log-mode)
+                        (mode . magit-log-select-mode)
+                        (mode . magit-merge-preview-mode)
+                        (mode . magit-popup-mode)
+                        (mode . magit-process-mode)
+                        (mode . magit-refs-mode)
+                        (mode . magit-reflog-mode)
+                        (mode . magit-revision-mode)
+                        (mode . magit-stash-mode)
+                        (mode . magit-stashes-mode)
+                        (mode . magit-status-mode)
+                        (mode . diff-mode)))
                  ("scala" (mode . scala-mode))
                  ("ttl" (mode . n3-mode))
                  ("python" (mode . python-mode))
                  ("go" (mode . go-mode))
-                 ("prolog" (mode . prolog-mode))))))
+                 ("prolog" (mode . prolog-mode)))))
   :config
   (defun switch-to-default-group ()
     (ibuffer-switch-to-saved-filter-groups "default"))
@@ -512,8 +530,8 @@ that was stored with ska-point-to-register."
     (interactive) (next-line)
     (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
         (goto-line 3)))
-  (defadvice ibuffer-generate-filter-groups (after reverse-ibuffer-groups ()
-                                                   activate)
+  (defadvice ibuffer-generate-filter-groups
+      (after reverse-ibuffer-groups () activate)
     (setq ad-return-value (nreverse ad-return-value))))
 
 (use-package session
@@ -685,7 +703,8 @@ that was stored with ska-point-to-register."
   :init
   (setq dashboard-set-heading-icons t
         dashboard-set-file-icons t
-        dashboard-items '((recents  . 5)))
+        dashboard-items '((recents  . 5)
+                          (projects . 5)))
   :config
   (dashboard-setup-startup-hook))
 
