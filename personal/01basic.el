@@ -183,7 +183,8 @@ that was stored with ska-point-to-register."
 (use-package ns-win
   :preface (provide 'ns-win)
   :init
-  (setq mac-command-modifier 'meta))
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super))
 
 (use-package hippie-expand
   :preface (provide 'hippie-expand)
@@ -705,6 +706,12 @@ that was stored with ska-point-to-register."
           (if (string-match "*compilation*" buf)
               (run-at-time 0.5 nil 'delete-windows-on buf))
           (message "no compilation error.")))))
+
+(use-package projectile
+  :ensure t
+  :bind-keymap ("s-p" . projectile-command-map)
+  :config
+  (projectile-mode +1))
 
 ;; =============================================================================
 ;; ======================== the last things should happen=======================
