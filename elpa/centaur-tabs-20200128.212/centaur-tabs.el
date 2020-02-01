@@ -5,7 +5,7 @@
 ;; Filename: centaur-tabs.el
 ;; Description: Provide an out of box configuration to use highly customizable tabs.
 ;; URL: https://github.com/ema2159/centaur-tabs
-;; Package-Version: 20200119.2059
+;; Package-Version: 20200128.212
 ;; Author: Emmanuel Bustos <ema2159@gmail.com>
 ;; Maintainer: Emmanuel Bustos <ema2159@gmail.com>
 ;; Created: 2019-21-19 22:14:34
@@ -2282,6 +2282,7 @@ Should be buffer local and speed up calculation of buffer groups.")
      (string-prefix-p "*tramp" name)
      (string-prefix-p " *Mini" name)
      (string-prefix-p "*help" name)
+     (string-prefix-p "*straight" name)
      (string-prefix-p " *temp" name)
      (string-prefix-p "*Help" name)
 

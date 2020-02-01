@@ -105,7 +105,6 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-S-o") 'my-newline-pre)
 (global-set-key (kbd "C-c r") 'query-replace-regexp)
 (global-set-key (kbd "C-;") 'set-mark-command)
-(global-set-key (kbd "C-c g") 'goto-line)
 (global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
 (global-set-key (kbd "C-c n") 'highlight-symbol-next)
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
@@ -579,12 +578,11 @@ that was stored with ska-point-to-register."
   :config
   (browse-kill-ring-default-keybindings))
 
-(use-package iy-go-to-char
+(use-package avy
   :ensure t
-  :bind (("C-c f" . iy-go-to-char)
-         ("C-c F" . iy-go-to-char-backward)
-         ("C-c ;" . iy-go-to-char-continue)
-         ("C-c ," . iy-go-to-char-continue-backward)))
+  :bind (("C-c f" . avy-goto-char-timer)
+         ("C-c g" . avy-goto-line)
+         ("C-c C-j" . avy-resume)))
 
 (use-package redo+
   :ensure t
