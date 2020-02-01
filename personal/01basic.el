@@ -729,6 +729,8 @@ that was stored with ska-point-to-register."
 (use-package projectile
   :ensure t
   :bind-keymap ("s-p" . projectile-command-map)
+  :init
+  (setq projectile-completion-system 'ivy)
   :config
   (projectile-mode +1))
 

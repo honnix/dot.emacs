@@ -15,4 +15,5 @@ transient/
 elpa/*-readme.txt
 vimish-fold/
 recentf
-/projectile-bookmarks.eld
+projectile-bookmarks.eld
+projectile.cache
