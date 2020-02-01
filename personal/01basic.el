@@ -454,7 +454,21 @@ that was stored with ska-point-to-register."
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
   :config
-  (ivy-mode 1))
+  (ivy-mode 1)
+  (counsel-mode 1))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :config
+  (counsel-mode 1))
+
+(use-package swiper
+  :ensure t
+  :bind (("\C-s" . swiper-isearch)
+         ("\C-r" . swiper-isearch-backward)))
 
 (use-package ibuffer
   :ensure t
