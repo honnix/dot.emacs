@@ -672,10 +672,13 @@ that was stored with ska-point-to-register."
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
+(use-package all-the-icons
+  :ensure t)
+
 (use-package centaur-tabs
   :ensure t
   :demand
-  :after all-the-icons
+  :requires all-the-icons
   :bind (("<C-M-up>" . centaur-tabs-backward-group)
          ("<C-M-down>" . centaur-tabs-forward-group)
          ("<C-M-left>" . centaur-tabs-backward)
@@ -702,9 +705,12 @@ that was stored with ska-point-to-register."
   :config
   (vimish-fold-global-mode 1))
 
+(use-package smart-mode-line-atom-one-dark-theme
+  :ensure t)
+
 (use-package smart-mode-line
   :ensure t
-  :after smart-mode-line-atom-one-dark-theme
+  :requires smart-mode-line-atom-one-dark-theme
   :init
   (setq sml/theme 'atom-one-dark)
   :config
