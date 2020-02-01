@@ -444,11 +444,7 @@ that was stored with ska-point-to-register."
 
 (use-package ivy
   :ensure t
-  :bind (("\C-s" . swiper-isearch)
-         ("\C-r" . swiper-isearch-backward)
-         ("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file))
+  :bind (("C-c C-r" . ivy-resume))
   :init
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
@@ -753,6 +749,11 @@ that was stored with ska-point-to-register."
   (setq projectile-completion-system 'ivy)
   :config
   (projectile-mode +1))
+
+(use-package counsel-projectile
+  :ensure t
+  :bind (:map projectile-command-map
+              ("SPC" . counsel-projectile)))
 
 ;; =============================================================================
 ;; ======================== the last things should happen=======================
