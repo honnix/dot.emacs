@@ -638,7 +638,9 @@ that was stored with ska-point-to-register."
   :ensure-system-package aspell
   :init
   (setq ispell-program-name "aspell")
-  :hook (text-mode . flyspell-mode))
+  :hook (text-mode . flyspell-mode)
+  :config
+  (unbind-key "C-;" flyspell-mode-map))
 
 (use-package plantuml-mode
   :ensure t
