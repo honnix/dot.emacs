@@ -4,7 +4,7 @@ Everything included in this repository has been verified to work with
 [Emacs Plus](https://github.com/d12frosted/homebrew-emacs-plus) latest version.
 
 ## Structure
-q
+
 * `3rd` contains packages from 3rd parties', and these packages can not be found in
   emacs package repositories or the versions there are too old
 
