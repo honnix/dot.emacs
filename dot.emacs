@@ -5,11 +5,6 @@
                           ))
 (package-initialize)
 
-;============================load paths===================================
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/3rd"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/personal"))
-;;=========================================================================
-
 (mapc 'load
       (directory-files
        (expand-file-name "~/.emacs.d/personal") t "\\.el$"))
