@@ -578,6 +578,7 @@
   :ensure t
   :init
   (setq dashboard-set-heading-icons t
+        dashboard-startup-banner 2
         dashboard-set-file-icons t
         dashboard-items '((recents  . 5)
                           (projects . 5)))
