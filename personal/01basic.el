@@ -216,7 +216,8 @@ that was stored with ska-point-to-register."
 (use-package files
   :preface (provide 'files)
   :init
-  (setq-default make-backup-files nil)
+  (setq-default make-backup-files nil
+                require-final-newline t)
   :config
   (setq frame-title-format
         '("" invocation-name ": "
@@ -754,6 +755,15 @@ that was stored with ska-point-to-register."
   :ensure t
   :bind (:map projectile-command-map
               ("SPC" . counsel-projectile)))
+
+(use-package expand-region
+  :ensure t
+  :bind ("M-C-w" . er/expand-region))
+
+(use-package delsel
+  :ensure t
+  :config
+  (pending-delete-mode t))
 
 ;; =============================================================================
 ;; ======================== the last things should happen=======================

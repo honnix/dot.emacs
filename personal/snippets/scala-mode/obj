@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: object
-# key: obj
-# --
-object ${1:name} {
-  $0
-}

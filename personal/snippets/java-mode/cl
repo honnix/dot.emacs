@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: class
-# key: cl
-# --
-public class ${1:name} {
-    $0
-}
