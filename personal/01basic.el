@@ -688,6 +688,8 @@ that was stored with ska-point-to-register."
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
         centaur-tabs-set-icons t
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker "\xf111"
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
