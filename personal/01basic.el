@@ -280,6 +280,8 @@ that was stored with ska-point-to-register."
   (use-package timer
     :preface (provide 'timer)
     :config
+    ;; zenburn region background is a bit hard to see
+    (set-face-attribute 'region nil :background "#666")
     (setq visible-bell nil
           ring-bell-function (lambda ()
                                (invert-face 'mode-line)
@@ -758,7 +760,8 @@ that was stored with ska-point-to-register."
 
 (use-package expand-region
   :ensure t
-  :bind ("M-C-w" . er/expand-region))
+  :bind (("M-C-w" . er/expand-region)
+         ("M-C--" . er/contract-region)))
 
 (use-package delsel
   :ensure t
