@@ -5,6 +5,10 @@
   :init
   (setq select-enable-clipboard t))
 
+(use-package bindings
+  :preface (provide 'bindings)
+  :bind ("M-o" . mode-line-other-buffer))
+
 ;; appointment
 (use-package appt
   :preface (provide 'appt)
