@@ -8,8 +8,6 @@
   :bind (("C-c C-f c" . go-remove-unused-imports)
          ("M-." . godef-jump)
          ("M-*" . pop-tag-mark))
-  :hook ((go-mode . my-go-mode-hook)
-		 (before-save . gofmt-before-save))
   :config
   (add-to-list 'company-backends 'company-go)
   (if (not (string-match "go" compile-command))
