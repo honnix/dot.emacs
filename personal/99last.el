@@ -2,5 +2,5 @@
 ;; ======================== the last things should happen=======================
 ;; =============================================================================
 ;; set frame size
-(set-frame-height (selected-frame) 40)
-(set-frame-width (selected-frame) 120)
+(set-frame-height (selected-frame) 60)
+(set-frame-width (selected-frame) 180)

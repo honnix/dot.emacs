@@ -584,8 +584,8 @@
   (setq dashboard-set-heading-icons t
         dashboard-startup-banner 2
         dashboard-set-file-icons t
-        dashboard-items '((recents  . 5)
-                          (projects . 5)))
+        dashboard-items '((recents  . 10)
+                          (projects . 10)))
   :config
   (dashboard-setup-startup-hook))
 
