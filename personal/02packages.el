@@ -29,11 +29,6 @@
   :config
   (set-language-environment 'UTF-8))
 
-(use-package server
-  :ensure t
-  :config
- (server-start))
-
 (use-package ns-win
   :preface (provide 'ns-win)
   :init
@@ -632,3 +627,8 @@
   :ensure t
   :config
   (pending-delete-mode t))
+
+(use-package server
+  :ensure t
+  :config
+ (server-start))
