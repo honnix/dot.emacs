@@ -381,6 +381,9 @@
                  ("ttl" (mode . n3-mode))
                  ("python" (mode . python-mode))
                  ("go" (mode . go-mode))
+                 ("js" (or
+                        (mode . js-mode)
+                        (mode . js2-mode)))
                  ("prolog" (mode . prolog-mode)))))
   :config
   (defun switch-to-default-group ()
