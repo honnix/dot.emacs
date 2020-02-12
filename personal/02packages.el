@@ -1,3 +1,9 @@
+;;; 02packages.el --- configure all packages
+
+;;; Commentary:
+
+;;; Code:
+
 ;; Use clipboard when copy/paste in X
 (use-package select
   :ensure t
@@ -628,7 +634,12 @@
   :config
   (pending-delete-mode t))
 
+(use-package insert-shebang
+  :ensure t)
+
 (use-package server
   :ensure t
   :config
  (server-start))
+
+;;; 02packages.el ends here

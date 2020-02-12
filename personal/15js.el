@@ -1,3 +1,9 @@
+;;; 15js.el --- javascript stuff
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package js2-mode
   :ensure t
   :mode "\\.js\\'"
@@ -36,3 +42,5 @@
   :after js2-mode
   :init
   (setq-default js-indent-level 2))
+
+;;; 15js.el ends here
