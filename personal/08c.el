@@ -1,3 +1,9 @@
+;;; 08c.el --- c
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package ctypes
   :ensure t
   :config
@@ -19,3 +25,5 @@
 
 (use-package cc-styles
   :preface (provide 'cc-styles))
+
+;;; 08c.el ends here

@@ -1,4 +1,4 @@
-;;; 15js.el --- javascript stuff
+;;; 15js.el --- javascript
 
 ;;; Commentary:
 

@@ -1,3 +1,9 @@
+;;; 06python.el.el --- python
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package elpy
   :ensure t
   :mode ("\\.py\\'" . python-mode)
@@ -7,3 +13,5 @@
 		python-indent-offset 4)
   :config
   (elpy-enable))
+
+;;; 06python.el ends here

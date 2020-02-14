@@ -1,3 +1,9 @@
+;;; 27go.el --- go
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package go-guru
   :ensure t
   :init
@@ -18,3 +24,5 @@
 		(set (make-local-variable 'compile-command)
 			 "go build -v && go test -v && go vet"))
 	(go-guru-hl-identifier-mode)))
+
+;;; 27go.el ends here

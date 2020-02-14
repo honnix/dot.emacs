@@ -1,3 +1,9 @@
+;;; 17markdown.el --- markdown
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package markdown-mode
   :ensure t
   :ensure-system-package multimarkdown
@@ -8,3 +14,5 @@
   :hook (markdown-mode . flyspell-mode)
   :init
   (setq markdown-command "multimarkdown"))
+
+;;; 17markdown.el ends here

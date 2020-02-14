@@ -1,3 +1,9 @@
+;;; mine.el --- my theme
+
+;;; Commentary:
+
+;;; Code:
+
 (eval-when-compile    (require 'color-theme))
 (defun my-color-theme ()
   "Color theme by Liang Hongxin, created 2007-09-18."
@@ -305,3 +311,5 @@
      (woman-unknown-face ((t (:foreground "LightSalmon"))))
      (zmacs-region ((t (:background "dark cyan" :foreground "cyan")))))))
 (add-to-list 'color-themes '(my-color-theme  "THEME NAME" "YOUR NAME"))
+
+;;; mine.el ends here
