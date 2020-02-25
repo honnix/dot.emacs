@@ -385,7 +385,8 @@
                  ("js" (or
                         (mode . js-mode)
                         (mode . js2-mode)))
-                 ("prolog" (mode . prolog-mode)))))
+                 ("prolog" (mode . prolog-mode))
+				 ("markdown" (mode . markdown-mode)))))
   :config
   (defun switch-to-default-group ()
     (ibuffer-switch-to-saved-filter-groups "default"))
