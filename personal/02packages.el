@@ -338,14 +338,14 @@
   :init
   ;; modify the default ibuffer-formats
   (setq ibuffer-formats
-	'((mark modified read-only " "
-		(name 50 50 :left :elide)
-		" "
-		(size-h 9 -1 :right)
-		" "
-		(mode 16 16 :left :elide)
-		" "
-		filename-and-process))
+        '((mark modified read-only " "
+                (name 50 50 :left :elide)
+                " "
+                (size-h 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                filename-and-process))
         ibuffer-saved-filter-groups
         '(("default"
                  ("emacs" (or
@@ -386,7 +386,7 @@
                         (mode . js-mode)
                         (mode . js2-mode)))
                  ("prolog" (mode . prolog-mode))
-				 ("markdown" (mode . markdown-mode)))))
+                                 ("markdown" (mode . markdown-mode)))))
   :config
   (defun switch-to-default-group ()
     (ibuffer-switch-to-saved-filter-groups "default"))

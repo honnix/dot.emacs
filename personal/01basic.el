@@ -18,7 +18,7 @@
   :ensure t
   :init
   (setq exec-path-from-shell-check-startup-files nil
-		exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH"))
+                exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH"))
         ;; exec-path-from-shell-arguments (list "-l"))
   :config
   (exec-path-from-shell-initialize))
@@ -95,8 +95,8 @@ that was stored with ska-point-to-register."
   "Go to the matching paren if on a paren; otherwise (not now) insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;	(t (self-insert-command (or arg 1)))))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;       (t (self-insert-command (or arg 1)))))
     ))
 ;; =============================================================================
 ;; =============================================================================

@@ -14,8 +14,8 @@
   :requires go-guru
   :hook (go-mode . my-go-mode-hook)
   :init
-  (setq-default indent-tabs-mode 1
-				tab-width 4)
+  (setq indent-tabs-mode 1
+        tab-width 4)
   :bind (("C-c C-f c" . go-remove-unused-imports))
   :config
   (defun my-go-mode-hook ()
