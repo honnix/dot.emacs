@@ -87,11 +87,19 @@ The car is the scope, the cdr is a `treemacs-scope-shelf'.")
 
 (define-inline treemacs-current-scope-shelf (&optional scope)
   "Return the current scope shelf, containing the active workspace and buffer.
-Use either the given SCOPE or `treemacs-current-scope' otherwise."
+Use either the given SCOPE or `treemacs-current-scope' otherwise.
+
+Can be used with `setf'."
   (declare (side-effect-free t))
   (inline-letevals (scope)
     (inline-quote
      (cdr (assoc (or ,scope (treemacs-current-scope)) treemacs--buffer-storage)))))
+(gv-define-setter treemacs-current-scope-shelf (val)
+  `(let* ((current-scope (treemacs-current-scope))
+          (shelf-mapping (assoc current-scope treemacs--buffer-storage)))
+     (if (cdr shelf-mapping)
+         (setf (cdr shelf-mapping) ,val)
+       (push (cons current-scope ,val) treemacs--buffer-storage))))
 
 (defclass treemacs-scope () () :abstract t)
 
@@ -139,6 +147,7 @@ This is meant for programmatic use. For an interactive selection see
 Kill all treemacs buffers and windows and reset the buffer store.
 
 NEW-SCOPE-TYPE: T: treemacs-scope"
+  (treemacs-scope->cleanup treemacs--current-scope-type)
   (setf treemacs--current-scope-type new-scope-type)
   (dolist (frame (frame-list))
     (dolist (window (window-list frame))
@@ -146,7 +155,8 @@ NEW-SCOPE-TYPE: T: treemacs-scope"
         (delete-window window))))
   (dolist (it treemacs--buffer-storage)
     (treemacs-scope-shelf->kill-buffer (cdr it)))
-  (setf treemacs--buffer-storage nil))
+  (setf treemacs--buffer-storage nil)
+  (treemacs-scope->setup new-scope-type))
 
 (defun treemacs--on-buffer-kill ()
   "Cleanup to run when a treemacs buffer is killed."

@@ -237,6 +237,10 @@ Necessary since root icons are not rectangular."
         `(progn
            (ignore icon-path)
            (ignore icons-dir)))
+     ;; prefer to have icons as empty strings with a display property for compatibility
+     ;; in e.g. dired, where an actual text icon would break `dired-goto-file-1'
+     (unless (get-text-property 0 'display gui-icon)
+       (setf gui-icon (propertize " " 'display gui-icon)))
      ,@(->> (-filter #'symbolp extensions)
             (--map `(progn (add-to-list 'treemacs--icon-symbols ',it)
                            (defvar ,(intern (format "treemacs-icon-%s" it)) nil))))
@@ -306,6 +310,7 @@ Necessary since root icons are not rectangular."
     (treemacs-create-icon :file "vagrant.png"     :extensions ("vagrantfile"))
     (treemacs-create-icon :file "jinja2.png"      :extensions ("j2" "jinja2"))
     (treemacs-create-icon :file "video.png"       :extensions ("webm" "mp4" "avi" "mkv" "flv" "mov" "wmv" "mpg" "mpeg" "mpv"))
+    (treemacs-create-icon :file "audio.png"       :extensions ("mp3" "ogg" "oga" "wav" "flac"))
     (treemacs-create-icon :file "tex.png"         :extensions ("tex"))
     (treemacs-create-icon :file "racket.png"      :extensions ("racket" "rkt" "rktl" "rktd" "scrbl" "scribble" "plt"))
     (treemacs-create-icon :file "erlang.png"      :extensions ("erl" "hrl"))
@@ -361,7 +366,7 @@ Resizing the icons only works if Emacs was built with ImageMagick support. If
 this is not the case this function will report an error.
 
 Custom icons are not taken into account, only the size of treemacs' own icons
-is changed."
+png are changed."
   (interactive "nIcon size in pixels: ")
   (setq treemacs--icon-size size)
   (treemacs--maphash (treemacs-theme->gui-icons treemacs--current-theme) (_ icon)
@@ -370,11 +375,12 @@ is changed."
           (img-unselected (get-text-property 0 'img-unselected icon))
           (width          treemacs--icon-size)
           (height         treemacs--icon-size))
-      (when (s-ends-with? "root.png" (plist-get (cdr display) :file))
-        (treemacs--root-icon-size-adjust width height))
-      (dolist (property (list display img-selected img-unselected))
-        (plist-put (cdr property) :height height)
-        (plist-put (cdr property) :width width)))))
+      (when (eq 'image (car-safe display))
+        (when (s-ends-with? "root.png" (plist-get (cdr display) :file))
+          (treemacs--root-icon-size-adjust width height))
+        (dolist (property (list display img-selected img-unselected))
+          (plist-put (cdr property) :height height)
+          (plist-put (cdr property) :width width))))))
 
 (defun treemacs--select-icon-set ()
   "Select the right set of icons for the current buffer.

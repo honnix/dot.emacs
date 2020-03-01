@@ -137,8 +137,9 @@
   (use-package timer
     :preface (provide 'timer)
     :config
-    ;; zenburn region background is a bit hard to see
+    ;; zenburn region and hl-line background is a bit hard to see
     (set-face-attribute 'region nil :background "#666")
+    (set-face-attribute 'hl-line nil :background "#222")
     (setq visible-bell nil
           ring-bell-function (lambda ()
                                (invert-face 'mode-line)
@@ -563,7 +564,13 @@
   :ensure t
   :bind ("C-c t" . treemacs)
   :init
-  (setq treemacs-no-png-images t))
+  (setq treemacs-indentation 1)
+  :config
+  (treemacs-resize-icons 15))
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
 
 (use-package vimish-fold
   :ensure t
