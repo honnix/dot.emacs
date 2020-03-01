@@ -5,9 +5,7 @@
 ;;; Code:
 
 (use-package go-guru
-  :ensure t
-  :init
-  (setq go-guru-scope "."))
+  :ensure t)
 
 (use-package go-mode
   :ensure t
