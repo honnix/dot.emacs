@@ -130,20 +130,28 @@
     :init
     (setq tab-stop-list (number-sequence 4 120 4))))
 
-;; flash mode line as visiual indication
 (use-package faces
   :preface (provide 'faces)
   :config
-  (use-package timer
-    :preface (provide 'timer)
-    :config
-    ;; zenburn region and hl-line background is a bit hard to see
-    (set-face-attribute 'region nil :background "#666")
-    (set-face-attribute 'hl-line nil :background "#222")
-    (setq visible-bell nil
-          ring-bell-function (lambda ()
-                               (invert-face 'mode-line)
-                               (run-with-timer 0.1 nil 'invert-face 'mode-line)))))
+  ;; zenburn region background is a bit hard to see
+  (set-face-attribute 'region nil :background "#666"))
+
+(use-package timer
+  :preface (provide 'timer)
+  :after faces
+  :config
+  (setq visible-bell nil
+        ring-bell-function (lambda ()
+                             (invert-face 'mode-line)
+                             (run-with-timer 0.1 nil 'invert-face 'mode-line))))
+
+(use-package hl-line
+  :after faces
+  :config
+  (global-hl-line-mode 1)
+  ;; make it work better with zenburn
+  (set-face-attribute 'hl-line nil :background "#222"))
+
 (use-package tool-bar
   :preface (provide 'tool-bar)
   :config
@@ -431,10 +439,6 @@
   (defun go-to-parent ()
     (interactive)
     (dired-single-buffer "..")))
-
-(use-package hl-line
-  :config
-  (global-hl-line-mode 1))
 
 (use-package browse-kill-ring
   :ensure t
