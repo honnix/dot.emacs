@@ -150,7 +150,7 @@
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
-  (set-face-attribute 'hl-line nil :background "grey32")
+  (set-face-attribute 'hl-line nil :background "grey32"))
 
 (use-package tool-bar
   :preface (provide 'tool-bar)
@@ -653,7 +653,9 @@
   :ensure t
   ;; uncomment to enable gopls http debug server
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
-  :commands (lsp lsp-deferred))
+  :commands (lsp lsp-deferred)
+  :config
+  (set-face-attribute 'lsp-face-highlight-textual nil :background "#666"))
 
 (use-package company-lsp
   :ensure t
@@ -662,6 +664,6 @@
 (use-package server
   :ensure t
   :config
- (server-start))
+  (server-start))
 
 ;;; 02packages.el ends here
