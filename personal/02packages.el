@@ -150,7 +150,7 @@
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
-  (set-face-attribute 'hl-line nil :background "#222"))
+  (set-face-attribute 'hl-line nil :background "grey32")
 
 (use-package tool-bar
   :preface (provide 'tool-bar)
