@@ -19,3 +19,4 @@ projectile-bookmarks.eld
 projectile.cache
 /.mc-lists.el
 flycheck_*
+/.lsp-session-v1

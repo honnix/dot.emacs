@@ -649,6 +649,16 @@
 (use-package insert-shebang
   :ensure t)
 
+(use-package lsp-mode
+  :ensure t
+  ;; uncomment to enable gopls http debug server
+  ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
+  :commands (lsp lsp-deferred))
+
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
+
 (use-package server
   :ensure t
   :config

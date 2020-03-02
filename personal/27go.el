@@ -4,23 +4,17 @@
 
 ;;; Code:
 
-(use-package go-guru
-  :ensure t)
-
 (use-package go-mode
   :ensure t
-  :requires go-guru
-  :hook (go-mode . my-go-mode-hook)
-  :init
-  (setq indent-tabs-mode 1
-        tab-width 4)
-  :bind (("C-c C-f c" . go-remove-unused-imports))
+  :ensure-system-package gopls
+  :hook ((go-mode . my-go-mode-hook)
+		 (go-mode . lsp-deferred)
+         (before-save . lsp-format-buffer)
+         (before-save . lsp-organize-imports))
   :config
   (defun my-go-mode-hook ()
-	(add-to-list 'company-backends 'company-go)
-	(if (not (string-match "go" compile-command))
-		(set (make-local-variable 'compile-command)
-			 "go build -v && go test -v && go vet"))
-	(go-guru-hl-identifier-mode)))
+    (if (not (string-match "go" compile-command))
+        (set (make-local-variable 'compile-command)
+             "go build -v && go test -v && go vet"))))
 
 ;;; 27go.el ends here
