@@ -6,6 +6,7 @@
 
 (use-package elpy
   :ensure t
+  :requires bind-key
   :init
   (setq python-indent-guess-indent-offset-verbose nil
         python-indent-offset 4)
