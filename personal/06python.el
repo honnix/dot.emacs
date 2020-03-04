@@ -6,12 +6,12 @@
 
 (use-package elpy
   :ensure t
-  :mode ("\\.py\\'" . python-mode)
-  :bind ([remap python-shell-send-buffer] . comment-dwim)
   :init
   (setq python-indent-guess-indent-offset-verbose nil
         python-indent-offset 4)
   :config
-  (elpy-enable))
+  (elpy-enable)
+  (unbind-key "C-c C-c" python-mode-map)
+  (unbind-key "C-c C-c" elpy-mode-map))
 
 ;;; 06python.el ends here
