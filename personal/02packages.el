@@ -134,7 +134,7 @@
   :preface (provide 'faces)
   :config
   ;; zenburn region background is a bit hard to see
-  (set-face-attribute 'region nil :background "#666"))
+  (set-face-attribute 'region nil :background "gray13"))
 
 (use-package timer
   :preface (provide 'timer)
@@ -150,7 +150,7 @@
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
-  (set-face-attribute 'hl-line nil :background "grey32"))
+  (set-face-attribute 'hl-line nil :background "gray32"))
 
 (use-package tool-bar
   :preface (provide 'tool-bar)
@@ -655,7 +655,7 @@
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
   :commands (lsp lsp-deferred)
   :config
-  (set-face-attribute 'lsp-face-highlight-textual nil :background "#666"))
+  (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
 
 (use-package company-lsp
   :ensure t
