@@ -100,8 +100,10 @@
   (mouse-avoidance-mode 'animate))
 
 ;; hide shell password
+;; fixme: this somehow doesn't work under emacs27 branch
 (use-package comint
   :preface (provide 'comint)
+  :disabled
   :commands (comint-output-filter-functions comint-watch-for-password-prompt)
   :init
   (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
