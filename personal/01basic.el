@@ -147,7 +147,7 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c n") 'highlight-symbol-next)
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
 (global-set-key (kbd "C-c l") 'my-select-current-line)
-(global-set-key (kbd "C-c C-c") 'comment-dwim)
+;; (global-set-key (kbd "C-c C-c") 'comment-dwim)
 (global-set-key (kbd "C-%") 'match-paren)
 (global-set-key (kbd "<s-left>") 'backward-global-mark)
 (global-set-key (kbd "<s-right>") 'forward-global-mark)

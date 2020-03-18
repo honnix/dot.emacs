@@ -655,6 +655,7 @@
   :ensure t
   ;; uncomment to enable gopls http debug server
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
+  :init
   :commands (lsp lsp-deferred)
   :config
   (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
@@ -662,6 +663,17 @@
 (use-package company-lsp
   :ensure t
   :commands company-lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :bind (:map lsp-ui-mode-map
+         ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+         ([remap xref-find-references] . lsp-ui-peek-find-references)))
+
+(use-package autorevert
+  :ensure t
+  :init
+  (setq auto-revert-check-vc-info t))
 
 (use-package server
   :ensure t
