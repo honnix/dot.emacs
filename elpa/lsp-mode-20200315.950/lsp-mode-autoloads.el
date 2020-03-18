@@ -53,6 +53,13 @@ Explain a clang-tidy ERROR by scraping documentation from llvm.org.
 
 ;;;***
 
+;;;### (autoloads nil "lsp-dls" "lsp-dls.el" (0 0 0 0))
+;;; Generated autoloads from lsp-dls.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-dls" '("lsp-dls-")))
+
+;;;***
+
 ;;;### (autoloads nil "lsp-elm" "lsp-elm.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-elm.el
 
@@ -83,6 +90,13 @@ Load all of the provided PROJECTS.
 \(fn PROJECTS)" nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-fsharp" '("lsp-fsharp-")))
+
+;;;***
+
+;;;### (autoloads nil "lsp-gdscript" "lsp-gdscript.el" (0 0 0 0))
+;;; Generated autoloads from lsp-gdscript.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-gdscript" '("lsp-gdscript-")))
 
 ;;;***
 
@@ -147,11 +161,16 @@ argument ask the user to select which language server to start.
 (autoload 'lsp-deferred "lsp-mode" "\
 Entry point that defers server startup until buffer is visible.
 `lsp-deferred' will wait until the buffer is visible before invoking `lsp'.
-This avoids overloading the server with many files when starting Emacs.
+This avoids overloading the server with many files when starting Emacs." nil nil)
 
-\(fn)" nil nil)
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-mode" '("dash-expand:&lsp-" "lsp-" "make-lsp-client" "when-lsp-workspace" "with-lsp-workspace")))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-mode" '("lsp-" "dash-expand:&lsp-" "make-lsp-client" "with-lsp-workspace" "when-lsp-workspace")))
+;;;***
+
+;;;### (autoloads nil "lsp-perl" "lsp-perl.el" (0 0 0 0))
+;;; Generated autoloads from lsp-perl.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-perl" '("lsp-perl-language-server-")))
 
 ;;;***
 
@@ -208,7 +227,7 @@ This avoids overloading the server with many files when starting Emacs.
 ;;;### (autoloads nil "lsp-vhdl" "lsp-vhdl.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-vhdl.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-vhdl" '("lsp-vhdl-" "ghdl-ls-bin-name" "vhdl-" "hdl-checker-bin-name")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-vhdl" '("ghdl-ls-bin-name" "hdl-checker-bin-name" "lsp-vhdl-" "vhdl-")))
 
 ;;;***
 

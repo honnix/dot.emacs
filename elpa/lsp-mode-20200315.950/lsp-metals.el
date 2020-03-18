@@ -117,7 +117,9 @@ more customizations like using environment variables."
   (erase-buffer)
   (insert html)
   (shr-render-region (point-min) (point-max))
-  (setq-local buffer-read-only t))
+  (goto-char (point-min))
+  (view-mode 1)
+  (setq view-exit-action 'kill-buffer))
 
 (defun lsp-metals--generate-doctor-buffer-name (workspace)
   (format "*Metals Doctor: %s*" (process-id (lsp--workspace-cmd-proc workspace))))
@@ -255,7 +257,11 @@ server via `window/logMessage'."
                   :major-modes '(scala-mode)
                   :priority -1
                   :custom-capabilities `((experimental (decorationProvider . t)
-                                                       (debuggingProvider . ,(fboundp 'dap-mode))))
+                                                       (debuggingProvider . ,(fboundp 'dap-mode))
+                                                       (didFocusProvider . t)
+                                                       (executeClientCommandProvider . t)
+                                                       (doctorProvider . "html")
+                                                       (statusBarProvider . "on")))
                   :notification-handlers (ht ("metals/executeClientCommand" #'lsp-metals--execute-client-command)
                                              ("metals/publishDecorations" #'lsp-metals--publish-decorations)
                                              ("metals/treeViewDidChange" #'ignore)
