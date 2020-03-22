@@ -514,10 +514,10 @@
 
 (use-package plantuml-mode
   :ensure t
-  :disabled
   :init
-  (setq plantuml-jar-path
-        "/usr/local/opt/plantuml/libexec/plantuml.jar"))
+  (setq plantuml-jar-path "/usr/local/bin/plantuml.jar"
+        plantuml-default-exec-mode 'jar
+        plantuml-output-type "txt"))
 
 ;; delete all whitespace up the first non-whitespace character
 (use-package hungry-delete
