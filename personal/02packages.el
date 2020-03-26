@@ -640,8 +640,8 @@
 
 (use-package expand-region
   :ensure t
-  :bind (("M-C-w" . er/expand-region)
-         ("M-C--" . er/contract-region)))
+  :bind (("C-M-w" . er/expand-region)
+         ("C-M--" . er/contract-region)))
 
 (use-package delsel
   :ensure t
@@ -668,7 +668,10 @@
   :ensure t
   :bind (:map lsp-ui-mode-map
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-         ([remap xref-find-references] . lsp-ui-peek-find-references)))
+         ([remap xref-find-references] . lsp-ui-peek-find-references))
+  :init
+  (setq lsp-ui-peek-fontify 'always
+        lsp-ui-doc-position 'top))
 
 (use-package autorevert
   :ensure t
