@@ -203,6 +203,7 @@
 
 (use-package text-mode
   :preface (provide 'text-mode)
+  :hook (text-mode . auto-fill-mode)
   :init
   (setq initial-major-mode 'text-mode
         major-mode 'text-mode))

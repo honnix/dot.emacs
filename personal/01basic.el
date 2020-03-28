@@ -166,7 +166,6 @@ that was stored with ska-point-to-register."
 
 (setq locale-coding-system 'utf-8)
 (setq shell-file-name "/usr/local/bin/zsh")
-(setq tab-width 4)
 
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
