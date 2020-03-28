@@ -161,7 +161,8 @@ that was stored with ska-point-to-register."
 ;; ============================== set variables ================================
 ;; =============================================================================
 (setq-default indent-tabs-mode nil
-              tab-width 4)
+              tab-width 4
+              fill-column 100)
 
 (setq locale-coding-system 'utf-8)
 (setq shell-file-name "/usr/local/bin/zsh")
