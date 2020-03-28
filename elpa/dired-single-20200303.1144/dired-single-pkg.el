@@ -1,0 +1,2 @@
+;;; Generated package description from /Users/honnix/.emacs.d/elpa/dired-single-20200303.1144/dired-single.el  -*- no-byte-compile: t -*-
+(define-package "dired-single" "20200303.1144" "Reuse the current dired buffer to visit a directory" 'nil :commit "90ade369ba478fdebf61957f837c0b10cef128b1" :keywords '("dired" "reuse" "buffer") :authors '(("Joe Casadonte" . "emacs@northbound-train.com")) :maintainer '("crocket" . "crockabiscuit@gmail.com"))

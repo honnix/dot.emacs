@@ -669,10 +669,12 @@
   :ensure t
   :bind (:map lsp-ui-mode-map
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-         ([remap xref-find-references] . lsp-ui-peek-find-references))
+         ([remap xref-find-references] . lsp-ui-peek-find-references)
+         ("C-M-d" . lsp-ui-doc-show))
   :init
   (setq lsp-ui-peek-fontify 'always
-        lsp-ui-doc-position 'top))
+        ;; lsp-ui-doc-position 'top
+        lsp-ui-doc-enable nil))
 
 (use-package autorevert
   :ensure t
