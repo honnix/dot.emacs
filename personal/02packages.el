@@ -357,18 +357,31 @@
                 " "
                 (mode 16 16 :left :elide)
                 " "
-                filename-and-process))
-        ibuffer-saved-filter-groups
+                filename-and-process)))
+  :config
+  (defun switch-to-default-group ()
+    (ibuffer-switch-to-saved-filter-groups "default"))
+  ;; use human readable size column instead of original one
+  (define-ibuffer-column size-h
+    (:name "Size" :inline t)
+    (cond
+     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+     ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+     ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+     (t (format "%8d" (buffer-size)))))
+  (defun ibuffer-previous-line ()
+    (interactive) (previous-line)
+    (if (<= (line-number-at-pos) 2)
+        (goto-line (- (count-lines (point-min) (point-max)) 2))))
+  (defun ibuffer-next-line ()
+    (interactive) (next-line)
+    (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
+        (goto-line 3))))
+
+(use-package ibuf-ext
+  :init
+  (setq ibuffer-saved-filter-groups
         '(("default"
-                 ("emacs" (or
-                           (name . "^\\*scratch\\*$")
-                           (name . "^\\*Messages\\*$")
-                           (name . "^\\*Compile-Log\\*$")
-                           (name . "^\\*Completions\\*$")
-                           (name . "^\\*Help\\*$")
-                           (name . "^\\*Kill Ring\\*$")
-                           (name . "^\\*Packages\\*$")
-                           (mode . emacs-lisp-mode)))
                  ("dired" (mode . dired-mode))
                  ("yaml" (mode . yaml-mode))
                  ("vc" (or
@@ -390,34 +403,33 @@
                         (mode . magit-stashes-mode)
                         (mode . magit-status-mode)
                         (mode . diff-mode)))
+                 ("lsp" (or
+                         (name . "^\\*LSP.*\\*$")
+                         (name . "^\\*lsp.*\\*$")
+                         (name . "^\\*gopls.*\\*$")
+                         (name . "^\\*pyls.*\\*$")))
+                 ("emacs" (or
+                           (name . "^\\*dashboard\\*$")
+                           (name . "^\\*Messages\\*$")
+                           (name . "^\\*Compile-Log\\*$")
+                           (name . "^\\*Completions\\*$")
+                           (name . "^\\*Help\\*$")
+                           (name . "^\\*Kill Ring\\*$")
+                           (name . "^\\*Packages\\*$")
+                           (mode . emacs-lisp-mode)))
+                 ("scratch" (or
+                             (name . "^\\*scratch\\*$")
+                             (name . "^\\*multi-scratch.*\\*$")))
                  ("scala" (mode . scala-mode))
                  ("ttl" (mode . n3-mode))
-                 ("python" (mode . python-mode))
-                 ("go" (mode . go-mode))
                  ("js" (or
                         (mode . js-mode)
                         (mode . js2-mode)))
                  ("prolog" (mode . prolog-mode))
-                                 ("markdown" (mode . markdown-mode)))))
+                 ("markdown" (mode . markdown-mode))
+                 ("python" (mode . python-mode))
+                 ("go" (mode . go-mode)))))
   :config
-  (defun switch-to-default-group ()
-    (ibuffer-switch-to-saved-filter-groups "default"))
-  ;; use human readable size column instead of original one
-  (define-ibuffer-column size-h
-    (:name "Size" :inline t)
-    (cond
-     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-     ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
-     ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-     (t (format "%8d" (buffer-size)))))
-  (defun ibuffer-previous-line ()
-    (interactive) (previous-line)
-    (if (<= (line-number-at-pos) 2)
-        (goto-line (- (count-lines (point-min) (point-max)) 2))))
-  (defun ibuffer-next-line ()
-    (interactive) (next-line)
-    (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
-        (goto-line 3)))
   (defadvice ibuffer-generate-filter-groups
       (after reverse-ibuffer-groups () activate)
     (setq ad-return-value (nreverse ad-return-value))))
