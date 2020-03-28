@@ -656,6 +656,7 @@
   ;; uncomment to enable gopls http debug server
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
   :init
+  (setq lsp-idle-delay 0.500)
   :commands (lsp lsp-deferred)
   :config
   (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))

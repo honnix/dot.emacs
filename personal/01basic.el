@@ -179,6 +179,10 @@ that was stored with ska-point-to-register."
       scroll-margin 3
       scroll-conservatively 10000)
 
+;; https://github.com/emacs-lsp/lsp-mode#performance
+(setq gc-cons-threshold 200000000
+      read-process-output-max (* 2048 1024))
+
 ;; y/n for short
 (fset 'yes-or-no-p 'y-or-n-p)
 
