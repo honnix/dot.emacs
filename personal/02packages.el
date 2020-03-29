@@ -357,8 +357,8 @@
   :ensure t
   :bind (("C-x C-b" . ibuffer)
          :map ibuffer-mode-map
-         ("<up>" . ibuffer-previous-line)
-         ("<down" . ibuffer-next-line))
+         ("<up>" . ibuffer-backward-line)
+         ("<down>" . ibuffer-forward-line))
   :hook (ibuffer-mode . switch-to-default-group)
   :init
   ;; modify the default ibuffer-formats
@@ -382,14 +382,15 @@
      ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
      ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
      (t (format "%8d" (buffer-size)))))
-  (defun ibuffer-previous-line ()
-    (interactive) (previous-line)
-    (if (<= (line-number-at-pos) 2)
-        (goto-line (- (count-lines (point-min) (point-max)) 2))))
-  (defun ibuffer-next-line ()
-    (interactive) (next-line)
-    (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
-        (goto-line 3))))
+  ;; (defun ibuffer-previous-line ()
+  ;;   (interactive) (previous-line)
+  ;;   (if (<= (line-number-at-pos) 2)
+  ;;       (goto-line (- (count-lines (point-min) (point-max)) 2))))
+  ;; (defun ibuffer-next-line ()
+  ;;   (interactive) (next-line)
+  ;;   (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
+  ;;       (goto-line 3)))
+  )
 
 (use-package ibuf-ext
   :init
@@ -502,7 +503,7 @@
 (use-package table
   :ensure t
   :init
-  (setq table-disable-advising t)
+  ;; (setq table-disable-advising t)
   :hook (text-mode . table-recognize))
 
 (use-package magit
