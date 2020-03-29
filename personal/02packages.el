@@ -12,18 +12,18 @@
   (setq select-enable-clipboard t))
 
 (use-package bindings
-  :preface (provide 'bindings)
+  :ensure nil
   :bind ("M-o" . mode-line-other-buffer))
 
 ;; appointment
 (use-package appt
-  :preface (provide 'appt)
+  :ensure nil
   :disabled
   :config
   (appt-activate))
 
 (use-package mule
-  :preface (provide 'mule)
+  :ensure nil
   :init
   (setq default-input-method 'MacOSX)
   :config
@@ -31,18 +31,19 @@
   (set-keyboard-coding-system 'utf-8))
 
 (use-package mule-cmds
-  :preface (provide 'mule-cmds)
+  :ensure nil
+  :commands (set-language-environment)
   :config
   (set-language-environment 'UTF-8))
 
 (use-package ns-win
-  :preface (provide 'ns-win)
+  :ensure nil
   :init
   (setq mac-command-modifier 'meta
         mac-option-modifier 'super))
 
 (use-package hippie-expand
-  :preface (provide 'hippie-expand)
+  :ensure nil
   :bind ([(meta ?/)] . hippie-expand)
   :init
   (setq hippie-expand-try-functions-list
@@ -59,7 +60,7 @@
           try-complete-lisp-symbol)))
 
 (use-package simple
-  :preface (provide 'simple)
+  :ensure nil
   :bind (("<end>" . move-end-of-line)
          ("<home>" . move-beginning-of-line))
   :init
@@ -69,7 +70,7 @@
   (unbind-key "M-y"))
 
 (use-package files
-  :preface (provide 'files)
+  :ensure nil
   :init
   (setq-default make-backup-files nil
                 require-final-newline t)
@@ -82,12 +83,12 @@
              "%b@emacs")))))
 
 (use-package mwheel
-  :preface (provide 'mwheel)
+  :ensure nil
   :config
   (mouse-wheel-mode 1))
 
 (use-package mouse
-  :preface (provide 'mouse)
+  :ensure nil
   :init
   (setq mouse-yank-at-point t))
 
@@ -98,16 +99,14 @@
   (mouse-avoidance-mode 'animate))
 
 ;; hide shell password
-;; fixme: this somehow doesn't work under emacs27 branch
 (use-package comint
-  :preface (provide 'comint)
-  :disabled
+  :ensure nil
   :commands (comint-output-filter-functions comint-watch-for-password-prompt)
   :init
   (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
 
 (use-package custom
-  :preface (provide 'custom)
+  :ensure nil
   :config
   ;; (add-to-list 'custom-theme-load-path
   ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
@@ -118,9 +117,10 @@
 ;; whenever there are more than one files with the same
 ;; name, use directory as prefix, not foobar<?>
 (use-package uniquify
-  :preface (provide 'uniquify)
+  :ensure nil
   :init
   (setq uniquify-buffer-name-style 'forward))
+
 
 (use-package indent
   :preface (provide 'indent)
@@ -131,13 +131,13 @@
     (setq tab-stop-list (number-sequence 4 120 4))))
 
 (use-package faces
-  :preface (provide 'faces)
+  :ensure nil
   :config
   ;; zenburn region background is a bit hard to see
   (set-face-attribute 'region nil :background "gray13"))
 
 (use-package timer
-  :preface (provide 'timer)
+  :ensure nil
   :after faces
   :config
   (setq visible-bell nil
@@ -153,18 +153,18 @@
   (set-face-attribute 'hl-line nil :background "gray32"))
 
 (use-package tool-bar
-  :preface (provide 'tool-bar)
+  :ensure nil
   :config
   (tool-bar-mode -1))
 
 (use-package scroll-bar
-  :preface (provide 'scroll-bar)
+  :ensure nil
   :config
   (scroll-bar-mode -1))
 
 (use-package menu-bar
   :unless (eq system-type 'darwin)
-  :preface (provide 'menu-bar)
+  :ensure nil
   :config
   (menu-bar-mode -1))
 
@@ -205,7 +205,7 @@
   (global-display-fill-column-indicator-mode))
 
 (use-package text-mode
-  :preface (provide 'text-mode)
+  :ensure nil
   :hook (text-mode . auto-fill-mode)
   :init
   (setq initial-major-mode 'text-mode
@@ -218,7 +218,7 @@
         highlight-indent-guides-responsive 'top))
 
 (use-package prog-mode
-  :preface (provide 'prog-mode)
+  :ensure nil
   :hook (prog-mode . highlight-indent-guides-mode))
 
 (use-package windmove
@@ -247,13 +247,14 @@
   (winner-mode 1))
 
 (use-package startup
-  :preface (provide 'startup)
+  :ensure nil
+  :commands (statup)
   :init
   (setq initial-scratch-message ""
         inhibit-startup-message t))
 
 (use-package isearch
-  :preface (provide 'isearch)
+  :ensure nil
   :bind (("C-*" . isearch-current-symbol)
          ("C-#" . isearch-backward-current-symbol))
   :config
@@ -533,7 +534,7 @@
   (global-company-mode))
 
 (use-package company-dabbrev
-  :preface (provide 'company-dabbrev)
+  :ensure nil
   :init
   (setq company-dabbrev-downcase nil))
 
