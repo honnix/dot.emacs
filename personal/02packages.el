@@ -522,10 +522,17 @@
 (use-package company
   :ensure t
   :init
-  (setq company-idle-delay .3
-        company-dabbrev-downcase nil)
+  (setq company-idle-delay 0.0
+        company-minimum-prefix-length 1)
+  :bind (("C-n" . company-select-next)
+         ("C-p". company-select-previous))
   :config
   (global-company-mode))
+
+(use-package company-dabbrev
+  :preface (provide 'company-dabbrev)
+  :init
+  (setq company-dabbrev-downcase nil))
 
 (use-package flyspell
   :ensure t
