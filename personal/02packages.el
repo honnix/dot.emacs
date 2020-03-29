@@ -66,8 +66,6 @@
   (setq-default kill-whole-line t
                 column-number-mode t)
   :config
-  ;; at most 120 charactors per line
-  (set-fill-column 120)
   (unbind-key "M-y"))
 
 (use-package files
@@ -196,10 +194,15 @@
          (string-match "finished" state))
         (kill-buffer (current-buffer)))))
 
-(use-package linum
+(use-package display-line-numbers
   :ensure t
   :config
-  (global-linum-mode))
+  (global-display-line-numbers-mode))
+
+(use-package display-fill-column-indicator
+  :ensure t
+  :config
+  (global-display-fill-column-indicator-mode))
 
 (use-package text-mode
   :preface (provide 'text-mode)
@@ -207,6 +210,16 @@
   :init
   (setq initial-major-mode 'text-mode
         major-mode 'text-mode))
+
+(use-package highlight-indent-guides
+  :ensure t
+  :init
+  (setq highlight-indent-guides-method 'character
+        highlight-indent-guides-responsive 'top))
+
+(use-package prog-mode
+  :preface (provide 'prog-mode)
+  :hook (prog-mode . highlight-indent-guides-mode))
 
 (use-package windmove
   :ensure t
@@ -245,7 +258,7 @@
          ("C-#" . isearch-backward-current-symbol))
   :config
   (defun isearch-yank-regexp (regexp)
-    "Pull REGEXP into search regexp." 
+    "Pull REGEXP into search regexp."
     (let ((isearch-regexp nil)) ;; Dynamic binding of global.
       (isearch-yank-string regexp))
     (isearch-search-and-update))
