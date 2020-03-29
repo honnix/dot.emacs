@@ -521,10 +521,12 @@
 
 (use-package company
   :ensure t
+  :demand t
   :init
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1)
-  :bind (("C-n" . company-select-next)
+  :bind (:map company-active-map
+         ("C-n" . company-select-next)
          ("C-p". company-select-previous))
   :config
   (global-company-mode))
