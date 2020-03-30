@@ -201,12 +201,12 @@
 
 (use-package display-fill-column-indicator
   :ensure t
-  :config
-  (global-display-fill-column-indicator-mode))
+  :commands (display-fill-column-indicator-mode))
 
 (use-package text-mode
   :ensure nil
-  :hook (text-mode . auto-fill-mode)
+  :hook ((text-mode . auto-fill-mode)
+         (text-mode . display-fill-column-indicator-mode))
   :init
   (setq initial-major-mode 'text-mode
         major-mode 'text-mode))
@@ -219,7 +219,8 @@
 
 (use-package prog-mode
   :ensure nil
-  :hook (prog-mode . highlight-indent-guides-mode))
+  :hook ((prog-mode . highlight-indent-guides-mode)
+         (prog-mode . display-fill-column-indicator-mode)))
 
 (use-package windmove
   :ensure t
