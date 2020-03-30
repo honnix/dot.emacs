@@ -478,6 +478,7 @@
 
 (use-package avy
   :ensure t
+  :commands (avy-process)
   :bind (("C-c f" . avy-goto-char-timer)
          ("C-c g" . avy-goto-line)
          ("C-c C-j" . avy-resume)))
