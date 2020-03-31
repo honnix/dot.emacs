@@ -105,14 +105,31 @@
   :init
   (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
 
-(use-package custom
-  :ensure nil
+;; (use-package custom
+;;   :ensure nil
+;;   :config
+;;   ;; (add-to-list 'custom-theme-load-path
+;;   ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
+;;   ;; (load-theme 'monokai t t)
+;;   ;; (enable-theme 'monokai)
+;;   (load-theme 'zenburn t))
+
+(use-package doom-themes
+  :ensure t
   :config
-  ;; (add-to-list 'custom-theme-load-path
-  ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
-  ;; (load-theme 'monokai t t)
-  ;; (enable-theme 'monokai)
-  (load-theme 'zenburn t))
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 ;; whenever there are more than one files with the same
 ;; name, use directory as prefix, not foobar<?>
@@ -120,7 +137,6 @@
   :ensure nil
   :init
   (setq uniquify-buffer-name-style 'forward))
-
 
 (use-package indent
   :preface (provide 'indent)
@@ -130,27 +146,28 @@
     :init
     (setq tab-stop-list (number-sequence 4 120 4))))
 
-(use-package faces
-  :ensure nil
-  :config
-  ;; zenburn region background is a bit hard to see
-  (set-face-attribute 'region nil :background "gray13"))
+;; (use-package faces
+;;   :ensure nil
+;;   :config
+;;   ;; zenburn region background is a bit hard to see
+;;   (set-face-attribute 'region nil :background "gray13"))
 
-(use-package timer
-  :ensure nil
-  :after faces
-  :config
-  (setq visible-bell nil
-        ring-bell-function (lambda ()
-                             (invert-face 'mode-line)
-                             (run-with-timer 0.1 nil 'invert-face 'mode-line))))
+;; (use-package timer
+;;   :ensure nil
+;;   :after faces
+;;   :config
+;;   (setq visible-bell nil
+;;         ring-bell-function (lambda ()
+;;                              (invert-face 'mode-line)
+;;                              (run-with-timer 0.1 nil 'invert-face 'mode-line))))
 
 (use-package hl-line
   :after faces
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
-  (set-face-attribute 'hl-line nil :background "gray32"))
+  ;;(set-face-attribute 'hl-line nil :background "gray32"))
+  )
 
 (use-package tool-bar
   :ensure nil
@@ -696,7 +713,9 @@
   (setq lsp-idle-delay 0.500)
   :commands (lsp lsp-deferred)
   :config
-  (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
+  ;; zenburn region background is a bit hard to see
+  ;; (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
+  )
 
 (use-package company-lsp
   :ensure t
