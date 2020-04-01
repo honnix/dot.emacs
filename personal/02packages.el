@@ -125,7 +125,9 @@
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (use-package doom-themes-ext-treemacs
+    :init
+    (setq doom-themes-treemacs-theme "doom-colors")) ; use the colorful treemacs theme)
   (doom-themes-treemacs-config)
 
   ;; Corrects (and improves) org-mode's native fontification.

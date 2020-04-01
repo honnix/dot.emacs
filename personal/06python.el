@@ -1,4 +1,4 @@
-;;; 06python.el.el --- python
+;;; 06python.el --- python
 
 ;;; Commentary:
 
@@ -6,7 +6,7 @@
 
 (use-package elpy
   :ensure t
-  :requires bind-key
+  ;; :requires bind-key
   :hook (python-mode . lsp-deferred)
   :init
   (setq python-indent-guess-indent-offset-verbose nil
