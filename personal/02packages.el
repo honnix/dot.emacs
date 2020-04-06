@@ -232,6 +232,7 @@
 
 (use-package highlight-indent-guides
   :ensure t
+  :delight highlight-indent-guides-mode
   :init
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-responsive 'top))
@@ -350,6 +351,7 @@
 
 (use-package ivy
   :ensure t
+  :delight ivy-mode
   :demand
   :bind (("C-c C-r" . ivy-resume))
   :init
@@ -361,6 +363,7 @@
 
 (use-package counsel
   :ensure t
+  :delight counsel-mode
   :demand
   :after ivy
   :bind (("M-x" . counsel-M-x)
@@ -535,6 +538,7 @@
 
 (use-package autopair
   :ensure t
+  :delight autopair-mode
   :config
   (autopair-global-mode))
 
@@ -597,6 +601,7 @@
 
 (use-package drag-stuff
   :ensure t
+  :delight drag-stuff-mode
   :config
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
@@ -660,7 +665,8 @@
         dashboard-startup-banner 2
         dashboard-set-file-icons t
         dashboard-items '((recents  . 20)
-                          (projects . 20)))
+                          (projects . 20)
+                          (bookmarks . 20)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -684,6 +690,7 @@
 
 (use-package projectile
   :ensure t
+  :delight '(:eval (concat " " (projectile-project-name)))
   :bind-keymap ("s-p" . projectile-command-map)
   :init
   (setq projectile-completion-system 'ivy)
@@ -737,11 +744,13 @@
 
 (use-package autorevert
   :ensure t
+  :delight auto-revert-mode
   :init
   (setq auto-revert-check-vc-info t))
 
 (use-package git-gutter
   :ensure t
+  :delight git-gutter-mode
   :config
   (global-git-gutter-mode +1))
 

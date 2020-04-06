@@ -13,6 +13,9 @@
 (use-package use-package-ensure-system-package
   :ensure t)
 
+(use-package delight
+  :ensure t)
+
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
   :ensure t
