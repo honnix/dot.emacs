@@ -455,6 +455,7 @@
            ("scratch" (or
                        (name . "^\\*scratch\\*$")
                        (name . "^\\*multi-scratch.*\\*$")))
+           ("java" (mode . java-mode))
            ("scala" (mode . scala-mode))
            ("ttl" (mode . n3-mode))
            ("js" (or
@@ -738,6 +739,11 @@
   :ensure t
   :init
   (setq auto-revert-check-vc-info t))
+
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1))
 
 (use-package server
   :ensure t
