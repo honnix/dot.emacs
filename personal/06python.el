@@ -13,9 +13,9 @@
   :init
   (setq python-indent-guess-indent-offset-verbose nil
         python-indent-offset 4)
+  :config
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)
         elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-  :config
   (defun my-py-before-save-hook ()
     (when (eq major-mode 'python-mode)
       (lsp-format-buffer)
