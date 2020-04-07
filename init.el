@@ -1,4 +1,4 @@
-;;; dot.emacs --- entrypoint
+;;; init.el --- entrypoint
 
 ;;; Commentary:
 
@@ -15,4 +15,4 @@
       (directory-files
        (expand-file-name "~/.emacs.d/personal") t "\\.el$"))
 
-;;; dot.emacs ends here
+;;; init.el ends here
