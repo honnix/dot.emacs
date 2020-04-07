@@ -133,6 +133,15 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package doom-modeline
+  :ensure t
+  :demand
+  :init
+  (setq doom-modeline-minor-modes t)
+  (setq doom-modeline-vcs-max-length 20)
+  :config
+  (doom-modeline-mode 1))
+
 ;; whenever there are more than one files with the same
 ;; name, use directory as prefix, not foobar<?>
 (use-package uniquify
@@ -646,17 +655,6 @@
          ("C-c v v" . vimish-fold-delete))
   :config
   (vimish-fold-global-mode 1))
-
-(use-package smart-mode-line-atom-one-dark-theme
-  :ensure t)
-
-(use-package smart-mode-line
-  :ensure t
-  :requires smart-mode-line-atom-one-dark-theme
-  :init
-  (setq sml/theme 'atom-one-dark)
-  :config
-  (sml/setup))
 
 (use-package dashboard
   :ensure t
