@@ -553,6 +553,7 @@
 
 (use-package yasnippet
   :ensure t
+  :delight yas-global-mode
   :config
   (yas-global-mode 1))
 
@@ -635,7 +636,8 @@
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
-  (centaur-tabs-mode t))
+  (centaur-tabs-mode t)
+  (centaur-tabs-group-by-projectile-project))
 
 (use-package treemacs
   :ensure t
