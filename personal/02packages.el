@@ -6,13 +6,13 @@
 
 ;; Use clipboard when copy/paste in X
 (use-package select
-  :ensure t
+  :ensure nil
   :disabled
   :init
   (setq select-enable-clipboard t))
 
 (use-package bindings
-  :ensure nil
+  :preface (provide 'bindings)
   :bind ("M-o" . mode-line-other-buffer))
 
 ;; appointment
@@ -31,8 +31,8 @@
   (set-keyboard-coding-system 'utf-8))
 
 (use-package mule-cmds
-  :ensure nil
-  :commands (set-language-environment)
+  :preface (provide 'mule-cmds)
+  :demand
   :config
   (set-language-environment 'UTF-8))
 
@@ -42,9 +42,9 @@
   (setq mac-command-modifier 'meta
         mac-option-modifier 'super))
 
-(use-package hippie-expand
+(use-package hippie-exp
   :ensure nil
-  :bind ([(meta ?/)] . hippie-expand)
+  :bind ("M-/" . hippie-expand)
   :init
   (setq hippie-expand-try-functions-list
         '(try-expand-dabbrev
