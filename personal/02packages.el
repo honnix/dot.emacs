@@ -32,7 +32,6 @@
 
 (use-package mule-cmds
   :preface (provide 'mule-cmds)
-  :demand
   :config
   (set-language-environment 'UTF-8))
 
@@ -94,7 +93,7 @@
 
 ;; move up mouse when cursor comes
 (use-package avoid
-  :ensure t
+  :ensure nil
   :config
   (mouse-avoidance-mode 'animate))
 
@@ -103,7 +102,7 @@
   :ensure nil
   :commands (comint-output-filter-functions comint-watch-for-password-prompt)
   :init
-  (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
+  (add-hook 'comint-output-filter-functions #'comint-watch-for-password-prompt))
 
 ;; (use-package custom
 ;;   :ensure nil
@@ -116,10 +115,11 @@
 
 (use-package doom-themes
   :ensure t
-  :config
+  :init
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  :config
   (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
@@ -135,10 +135,9 @@
 
 (use-package doom-modeline
   :ensure t
-  :demand
   :init
-  (setq doom-modeline-minor-modes t)
-  (setq doom-modeline-vcs-max-length 20)
+  (setq doom-modeline-minor-modes t
+        doom-modeline-vcs-max-length 20)
   :config
   (doom-modeline-mode 1))
 
@@ -173,7 +172,7 @@
 ;;                              (run-with-timer 0.1 nil 'invert-face 'mode-line))))
 
 (use-package hl-line
-  :after faces
+  ;; :after faces
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
@@ -198,7 +197,7 @@
 
 ;; display date and time
 (use-package time
-  :ensure t
+  :ensure nil
   :init
   (setq display-time-day-and-date t
         display-time-24hr-format t
@@ -208,7 +207,7 @@
   (display-time))
 
 (use-package shell
-  :ensure t
+  :ensure nil
   :hook (shell-mode . my-shell-mode-hook-func)
   :config
   ;; kill shell buffer when shell exits
@@ -223,16 +222,16 @@
         (kill-buffer (current-buffer)))))
 
 (use-package display-line-numbers
-  :ensure t
+  :ensure nil
   :config
   (global-display-line-numbers-mode))
 
 (use-package display-fill-column-indicator
-  :ensure t
-  :commands (display-fill-column-indicator-mode))
+  :ensure nil)
 
 (use-package text-mode
   :ensure nil
+  :after display-fill-column-indicator
   :hook ((text-mode . auto-fill-mode)
          (text-mode . display-fill-column-indicator-mode))
   :init
@@ -248,17 +247,18 @@
 
 (use-package prog-mode
   :ensure nil
+  :after (display-fill-column-indicator highlight-indent-guides)
   :hook ((prog-mode . highlight-indent-guides-mode)
          (prog-mode . display-fill-column-indicator-mode)))
 
 (use-package windmove
-  :ensure t
+  :ensure nil
   :config
   (windmove-default-keybindings))
 
 ;; just show matching parenthesis, no jump
 (use-package paren
-  :ensure t
+  :ensure nil
   :init
   (setq show-paren-style 'parentheses)
   :config
@@ -266,19 +266,18 @@
 
 ;; no separate frame when ediff
 (use-package ediff
-  :ensure t
+  :ensure nil
   :init
   (setq ediff-window-setup-function 'ediff-setup-windows-plain))
 
 ;; winner-mode to support undo/redo window layout
 (use-package winner
-  :ensure t
+  :ensure nil
   :config
   (winner-mode 1))
 
 (use-package startup
-  :ensure nil
-  :commands (statup)
+  :preface (provide 'startup)
   :init
   (setq initial-scratch-message ""
         inhibit-startup-message t))
@@ -367,8 +366,7 @@
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
   :config
-  (ivy-mode 1)
-  (counsel-mode 1))
+  (ivy-mode 1))
 
 (use-package counsel
   :ensure t
@@ -387,7 +385,7 @@
          ("\C-r" . swiper-isearch-backward)))
 
 (use-package ibuffer
-  :ensure t
+  :ensure nil
   :bind (("C-x C-b" . ibuffer)
          :map ibuffer-mode-map
          ("<up>" . ibuffer-backward-line)
@@ -426,6 +424,7 @@
   )
 
 (use-package ibuf-ext
+  :ensure nil
   :init
   (setq ibuffer-saved-filter-groups
         '(("default"
@@ -488,12 +487,16 @@
   (session-initialize))
 
 (use-package ido
-  :ensure t
+  :ensure nil
   :config
   (ido-mode t))
 
+(use-package dired
+  :ensure nil)
+
 (use-package dired-single
   :ensure t
+  :after dired
   :bind (:map dired-mode-map
               ([return] . dired-single-buffer)
               ([mouse-1] . dired-single-buffer-mouse)
@@ -511,7 +514,6 @@
 
 (use-package avy
   :ensure t
-  :commands (avy-process)
   :bind (("C-c f" . avy-goto-char-timer)
          ("C-c g" . avy-goto-line)
          ("C-c C-j" . avy-resume)))
@@ -531,12 +533,14 @@
          ([M-kp-2] . pager-row-down)))
 
 (use-package tramp
-  :ensure t
+  :ensure nil
+  :defer t
   :init
   (setq tramp-default-method "ssh"))
 
 (use-package table
-  :ensure t
+  :ensure nil
+  :after text-mode
   :init
   ;; (setq table-disable-advising t)
   :hook (text-mode . table-recognize))
@@ -577,6 +581,7 @@
 (use-package flyspell
   :ensure t
   :ensure-system-package aspell
+  :after text-mode
   :init
   (setq ispell-program-name "aspell")
   :hook (text-mode . flyspell-mode)
@@ -648,7 +653,6 @@
   (treemacs-resize-icons 15))
 
 (use-package treemacs-projectile
-  :after treemacs projectile
   :ensure t)
 
 (use-package vimish-fold
@@ -675,7 +679,7 @@
   :bind ("C-c s" . multi-scratch-new))
 
 (use-package compile
-  :ensure t
+  :ensure nil
   :init
   (setq compilation-window-height 8
         compilation-finish-functions
@@ -699,6 +703,7 @@
 
 (use-package counsel-projectile
   :ensure t
+  :after projectile
   :bind (:map projectile-command-map
               ("SPC" . counsel-projectile)))
 
@@ -713,7 +718,8 @@
   (pending-delete-mode t))
 
 (use-package insert-shebang
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package lsp-mode
   :ensure t
@@ -743,7 +749,8 @@
         lsp-ui-doc-enable nil))
 
 (use-package autorevert
-  :ensure t
+  :ensure nil
+  :defer t
   :delight auto-revert-mode
   :init
   (setq auto-revert-check-vc-info t))
@@ -755,10 +762,11 @@
   (global-git-gutter-mode +1))
 
 (use-package git-timemachine
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package server
-  :ensure t
+  :ensure nil
   :config
   (server-start))
 
