@@ -719,6 +719,7 @@
 
 (use-package insert-shebang
   :ensure t
+  :disabled
   :defer t)
 
 (use-package lsp-mode
