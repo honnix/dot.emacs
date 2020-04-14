@@ -759,6 +759,8 @@
 (use-package git-gutter
   :ensure t
   :delight git-gutter-mode
+  :init
+  (setq git-gutter:verbosity 0)
   :config
   (global-git-gutter-mode +1))
 
