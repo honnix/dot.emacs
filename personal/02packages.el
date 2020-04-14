@@ -11,6 +11,11 @@
   :init
   (setq select-enable-clipboard t))
 
+(use-package env
+  :ensure nil
+  :config
+  (setenv "PYTHONIOENCODING" "utf-8"))
+
 (use-package bindings
   :preface (provide 'bindings)
   :bind ("M-o" . mode-line-other-buffer))
