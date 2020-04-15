@@ -562,12 +562,13 @@
 
 (use-package yasnippet
   :ensure t
-  :delight yas-global-mode
+  :delight yas-minor-mode
   :config
   (yas-global-mode 1))
 
 (use-package company
   :ensure t
+  :delight company-mode
   :demand t
   :init
   (setq company-idle-delay 0.0
@@ -616,6 +617,7 @@
 
 (use-package flycheck
   :ensure t
+  :delight flycheck-mode
   :config
   (global-flycheck-mode))
 
