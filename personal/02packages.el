@@ -480,7 +480,10 @@
                        (name . "^\\*scratch\\*$")
                        (name . "^\\*multi-scratch.*\\*$")))
            ("python" (mode . python-mode))
-           ("go" (mode . go-mode)))))
+           ("go" (or
+                  (mode . go-mode)
+                  (mode . go-dot-mod-mode)
+                  (name . "^go.sum$"))))))
   :config
   (defadvice ibuffer-generate-filter-groups
       (after reverse-ibuffer-groups () activate)
