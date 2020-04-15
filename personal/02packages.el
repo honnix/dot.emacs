@@ -466,19 +466,19 @@
                      (name . "^\\*Completions\\*$")
                      (name . "^\\*Help\\*$")
                      (name . "^\\*Kill Ring\\*$")
-                     (name . "^\\*Packages\\*$")
-                     (mode . emacs-lisp-mode)))
-           ("scratch" (or
-                       (name . "^\\*scratch\\*$")
-                       (name . "^\\*multi-scratch.*\\*$")))
-           ("java" (mode . java-mode))
+                     (name . "^\\*Packages\\*$")))
            ("scala" (mode . scala-mode))
            ("ttl" (mode . n3-mode))
            ("js" (or
                   (mode . js-mode)
                   (mode . js2-mode)))
            ("prolog" (mode . prolog-mode))
+           ("elisp" (mode . emacs-lisp-mode))
            ("markdown" (mode . markdown-mode))
+           ("java" (mode . java-mode))
+           ("scratch" (or
+                       (name . "^\\*scratch\\*$")
+                       (name . "^\\*multi-scratch.*\\*$")))
            ("python" (mode . python-mode))
            ("go" (mode . go-mode)))))
   :config
