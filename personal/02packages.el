@@ -474,7 +474,9 @@
                   (mode . js2-mode)))
            ("prolog" (mode . prolog-mode))
            ("elisp" (mode . emacs-lisp-mode))
-           ("markdown" (mode . markdown-mode))
+           ("markdown" (or
+                        (mode . markdown-mode)
+                        (mode . gfm-mode)))
            ("java" (mode . java-mode))
            ("scratch" (or
                        (name . "^\\*scratch\\*$")
