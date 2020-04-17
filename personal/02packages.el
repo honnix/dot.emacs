@@ -176,13 +176,21 @@
 ;;                              (invert-face 'mode-line)
 ;;                              (run-with-timer 0.1 nil 'invert-face 'mode-line))))
 
-(use-package hl-line
-  ;; :after faces
+(use-package hl-line+
+  :load-path "3rd"
   :config
-  (global-hl-line-mode 1)
-  ;; make it work better with zenburn
-  ;;(set-face-attribute 'hl-line nil :background "gray32"))
-  )
+  (hl-line-when-idle-interval 0.3)
+  (toggle-hl-line-when-idle 1))
+
+;; this is unfortunately slow on Mac
+;; (use-package hl-line
+;;   :disabled
+;;   ;; :after faces
+;;   :config
+;;   (global-hl-line-mode 1)
+;;   ;; make it work better with zenburn
+;;   ;;(set-face-attribute 'hl-line nil :background "gray32"))
+;;   )
 
 (use-package tool-bar
   :ensure nil
@@ -228,7 +236,9 @@
 
 (use-package display-line-numbers
   :ensure nil
-  :config
+  :disabled
+  :init
+  (setq display-line-numbers-width-start t)
   (global-display-line-numbers-mode))
 
 (use-package display-fill-column-indicator
