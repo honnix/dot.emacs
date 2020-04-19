@@ -772,6 +772,10 @@
         ;; lsp-ui-doc-position 'top
         lsp-ui-doc-enable nil))
 
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+
 (use-package autorevert
   :ensure nil
   :defer t
