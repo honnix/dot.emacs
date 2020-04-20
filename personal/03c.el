@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'cc-mode)
+
 (use-package ctypes
   :ensure t
   :config

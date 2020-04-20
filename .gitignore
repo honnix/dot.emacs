@@ -21,3 +21,4 @@ projectile.cache
 flycheck_*
 /.lsp-session-v1
 /bookmarks
+/workspace/

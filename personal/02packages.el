@@ -766,7 +766,8 @@
   :bind (:map lsp-ui-mode-map
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
          ([remap xref-find-references] . lsp-ui-peek-find-references)
-         ("C-M-d" . lsp-ui-doc-show))
+         ("C-M-d" . lsp-ui-doc-show)
+         ("<M-return>" . lsp-ui-sideline-apply-code-actions))
   :init
   (setq lsp-ui-peek-fontify 'always
         ;; lsp-ui-doc-position 'top
