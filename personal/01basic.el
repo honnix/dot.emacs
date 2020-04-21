@@ -179,8 +179,9 @@ that was stored with ska-point-to-register."
 
 ;; scroll before we reach the end of the screen
 (setq scroll-step 1
-      scroll-margin 3
-      scroll-conservatively 10000)
+      scroll-margin 2
+      scroll-conservatively 101)
+
 
 ;; https://github.com/emacs-lsp/lsp-mode#performance
 (setq gc-cons-threshold 200000000
