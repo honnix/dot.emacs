@@ -470,6 +470,7 @@
                    (name . "^\\*lsp.*\\*$")
                    (name . "^\\*gopls.*\\*$")
                    (name . "^\\*pyls.*\\*$")))
+           ("flycheck" (name . "^\\*Flycheck.*$"))
            ("emacs" (or
                      (name . "^\\*dashboard\\*$")
                      (name . "^\\*Messages\\*$")
