@@ -135,7 +135,7 @@ Load `multi-scratch-buffer-mode' when PREFIX is nil."
   ;; Create new scratch.
   (let* ((scratch-buffer (multi-scratch-get-buffer)))
     (set-buffer scratch-buffer)
-    ;; Load `multi-scratch-buffer-mode' mode when prefix is nil.
+    ;; Load `multi-scratch-buffer-mode' when prefix is nil.
     (unless prefix
       (funcall multi-scratch-buffer-mode))
     ;; Switch scratch buffer
