@@ -261,11 +261,15 @@
         highlight-indent-guides-character ?\xFFE8
         highlight-indent-guides-responsive 'top))
 
+(use-package rainbow-delimiters
+  :ensure t)
+
 (use-package prog-mode
   :ensure nil
   :after (display-fill-column-indicator highlight-indent-guides)
   :hook ((prog-mode . highlight-indent-guides-mode)
-         (prog-mode . display-fill-column-indicator-mode)))
+         (prog-mode . display-fill-column-indicator-mode)
+         (prog-mode . rainbow-delimiters-mode)))
 
 (use-package windmove
   :ensure nil
@@ -798,6 +802,10 @@
 (use-package git-timemachine
   :ensure t
   :defer t)
+
+(use-package goto-line-preview
+  :ensure t
+  :bind ([remap goto-line] . goto-line-preview))
 
 (use-package server
   :ensure nil
