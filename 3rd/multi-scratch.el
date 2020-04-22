@@ -63,6 +63,7 @@
 
 ;;; Customize:
 ;;
+;; `multi-scratch-buffer-mode' The mode of scratch buffer.
 ;; `multi-scratch-buffer-name' The name of scratch buffer.
 ;; `multi-scratch-try-create' Try to create new scratch buffer
 ;; when no scratch buffers exist.
@@ -75,7 +76,8 @@
 ;;
 ;; 2020/04/22
 ;;      * Possible to customize the mode to load when creating a new scratch buffer
-;;        `(setq multi-scratch-mode #'text-mode)' for example
+;;        `(setq multi-scratch-buffer-mode #'text-mode)' for example
+;;      * Require `cl-lib' instead of `cl' which has been deprecated
 ;;
 ;; 2009/03/13
 ;;      * If type `C-u' before command `multi-scratch-new'
@@ -106,7 +108,7 @@
   "Multiple scratch manager."
   :group 'lisp)
 
-(defcustom multi-scratch-mode #'lisp-interaction-mode
+(defcustom multi-scratch-buffer-mode #'lisp-interaction-mode
   "The mode of scratch buffer."
   :type 'function
   :group 'multi-scratch)
@@ -128,16 +130,16 @@ scratch buffer if no scratch buffers exist."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun multi-scratch-new (&optional prefix)
   "Create a new multi-scratch buffer.
-Load `multi-scratch-mode' mode when PREFIX is nil."
+Load `multi-scratch-buffer-mode' when PREFIX is nil."
   (interactive)
   ;; Set prefix if prefix is nil.
   (or prefix (setq prefix current-prefix-arg))
   ;; Create new scratch.
   (let* ((scratch-buffer (multi-scratch-get-buffer)))
     (set-buffer scratch-buffer)
-    ;; Load `multi-scratch-mode' mode when prefix is nil.
+    ;; Load `multi-scratch-buffer-mode' mode when prefix is nil.
     (unless prefix
-      (funcall multi-scratch-mode))
+      (funcall multi-scratch-buffer-mode))
     ;; Switch scratch buffer
     (switch-to-buffer scratch-buffer)))
 
