@@ -72,8 +72,9 @@
 ;;
 
 ;;; Change log:
+;;
 ;; 2020/04/22
-;;      * Possible to customize the mode to load when creatoing a new scratch buffer
+;;      * Possible to customize the mode to load when creating a new scratch buffer
 ;;        `(setq multi-scratch-mode #'text-mode)' for example
 ;;
 ;; 2009/03/13
