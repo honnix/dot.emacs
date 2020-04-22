@@ -6,16 +6,16 @@
 ;; Maintainer: Andy Stewart <lazycat.manatee@gmail.com>
 ;; Copyright (C) 2009, Andy Stewart, all rights reserved.
 ;; Created: 2009-01-25 01:00:38
-;; Version: 0.2
-;; Last-Updated: 2009-03-13 16:43:56
-;;           By: Andy Stewart
+;; Version: 0.3
+;; Last-Updated: 2020-04-22 20:27:36
+;;           By: Hongxin Liang
 ;; URL: http://www.emacswiki.org/emacs/download/multi-scratch.el
 ;; Keywords:
-;; Compatibility: GNU Emacs 22 ~ 23
+;; Compatibility: GNU Emacs 24.3 ~ 27
 ;;
 ;; Features that might be required by this library:
 ;;
-;; `cl'
+;; `cl-lib'
 ;;
 
 ;;; This file is NOT part of GNU Emacs
@@ -99,7 +99,6 @@
 
 ;;; Require
 (require 'cl-lib)
-;; (require 'cl)
 
 ;;; Code:
 
