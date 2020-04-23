@@ -807,6 +807,15 @@
   :ensure t
   :bind ([remap goto-line] . goto-line-preview))
 
+(use-package string-inflection
+  :ensure t
+  :defer t)
+
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
 (use-package server
   :ensure nil
   :config

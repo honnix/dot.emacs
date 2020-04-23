@@ -20,4 +20,9 @@
       (lsp-format-buffer)
       (lsp-organize-imports))))
 
+(use-package gorepl-mode
+  :ensure t
+  :ensure-system-package gore
+  :hook (go-mode . gorepl-mode))
+
 ;;; 27go.el ends here
