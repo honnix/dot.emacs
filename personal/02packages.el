@@ -816,6 +816,11 @@
   :config
   (global-undo-tree-mode))
 
+(use-package visual-regexp
+  :ensure t
+  :bind (([remap query-replace-regexp] . vr/query-replace)
+         ("C-c m" . vr/mc-mark)))
+
 (use-package server
   :ensure nil
   :config
