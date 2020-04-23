@@ -25,4 +25,7 @@
   :ensure-system-package gore
   :hook (go-mode . gorepl-mode))
 
+(use-package gotest
+  :ensure t)
+
 ;;; 27go.el ends here
