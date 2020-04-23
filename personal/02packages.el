@@ -4,6 +4,10 @@
 
 ;;; Code:
 
+(use-package try
+  :ensure t
+  :commands try)
+
 ;; Use clipboard when copy/paste in X
 (use-package select
   :ensure nil
@@ -806,6 +810,12 @@
 (use-package goto-line-preview
   :ensure t
   :bind ([remap goto-line] . goto-line-preview))
+
+(use-package browse-at-remote
+  :ensure t
+  :commands browse-at-remote
+  :init
+  (add-to-list 'browse-at-remote-remote-type-domains '("ghe.spotify.net" . "github")))
 
 (use-package string-inflection
   :ensure t
