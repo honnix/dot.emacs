@@ -614,8 +614,9 @@
   :ensure-system-package aspell
   :after text-mode
   :init
-  (setq ispell-program-name "aspell")
-  :hook (text-mode . flyspell-mode)
+  ;; (setq ispell-program-name "aspell")
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
   :config
   (unbind-key "C-;" flyspell-mode-map))
 
