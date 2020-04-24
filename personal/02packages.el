@@ -609,12 +609,15 @@
   :init
   (setq company-dabbrev-downcase nil))
 
-(use-package flyspell
-  :ensure t
-  :ensure-system-package aspell
-  :after text-mode
+(use-package ispell
+  :ensure nil
   :init
-  ;; (setq ispell-program-name "aspell")
+  (setq ispell-program-name "aspell"
+        ispell-extra-args '("--sug-mode=ultra")))
+
+(use-package flyspell
+  :ensure nil
+  :ensure-system-package aspell
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :config
