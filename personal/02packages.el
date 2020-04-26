@@ -818,7 +818,7 @@
 (use-package browse-at-remote
   :ensure t
   :commands browse-at-remote
-  :init
+  :config
   (add-to-list 'browse-at-remote-remote-type-domains '("ghe.spotify.net" . "github")))
 
 (use-package string-inflection
