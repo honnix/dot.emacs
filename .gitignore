@@ -22,3 +22,4 @@ flycheck_*
 /.lsp-session-v1
 /bookmarks
 /workspace/
+/eshell/

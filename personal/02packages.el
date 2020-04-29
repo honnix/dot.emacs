@@ -182,19 +182,18 @@
 
 (use-package hl-line+
   :load-path "3rd"
+  :disabled
   :config
-  (hl-line-when-idle-interval 0.3)
+  (hl-line-when-idle-interval 0.1)
   (toggle-hl-line-when-idle 1))
 
-;; this is unfortunately slow on Mac
-;; (use-package hl-line
-;;   :disabled
-;;   ;; :after faces
-;;   :config
-;;   (global-hl-line-mode 1)
-;;   ;; make it work better with zenburn
-;;   ;;(set-face-attribute 'hl-line nil :background "gray32"))
-;;   )
+(use-package hl-line
+  :ensure t
+  :config
+  (global-hl-line-mode 1)
+  ;; make it work better with zenburn
+  ;;(set-face-attribute 'hl-line nil :background "gray32"))
+  )
 
 (use-package tool-bar
   :ensure nil
@@ -617,6 +616,7 @@
 
 (use-package flyspell
   :ensure nil
+  :delight flyspell-mode
   :ensure-system-package aspell
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
@@ -732,10 +732,10 @@
 
 (use-package projectile
   :ensure t
-  :delight '(:eval (concat " " (projectile-project-name)))
   :bind-keymap ("s-p" . projectile-command-map)
   :init
-  (setq projectile-completion-system 'ivy)
+  (setq projectile-completion-system 'ivy
+        projectile-mode-line-function '(lambda () (format " [%s]" (projectile-project-name))))
   :config
   (projectile-mode +1))
 
@@ -827,6 +827,7 @@
 
 (use-package undo-tree
   :ensure t
+  :delight undo-tree-mode
   :config
   (global-undo-tree-mode))
 
