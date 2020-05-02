@@ -487,7 +487,9 @@
                      (name . "^\\*Kill Ring\\*$")
                      (name . "^\\*Packages\\*$")))
            ("scala" (mode . scala-mode))
+           ("rst" (mode . rst-mode))
            ("ttl" (mode . n3-mode))
+           ("conf-unix" (mode . conf-unix-mode))
            ("js" (or
                   (mode . js-mode)
                   (mode . js2-mode)))
@@ -497,9 +499,12 @@
                         (mode . markdown-mode)
                         (mode . gfm-mode)))
            ("java" (mode . java-mode))
+           ("Dockerfile" (mode . dockerfile-mode))
+           ("Makefile" (mode . makefile-bsdmake-mode))
            ("scratch" (or
                        (name . "^\\*scratch\\*$")
                        (name . "^\\*multi-scratch.*\\*$")))
+           ("shell" (mode . sh-mode))
            ("python" (mode . python-mode))
            ("go" (or
                   (mode . go-mode)
