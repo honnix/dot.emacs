@@ -246,6 +246,11 @@
 (use-package display-fill-column-indicator
   :ensure nil)
 
+;; (use-package cus-start
+;;   :ensure nil
+;;   :init
+;;   (setq display-fill-column-indicator-character ?\N{U+2506}))
+
 (use-package text-mode
   :ensure nil
   :after display-fill-column-indicator
@@ -261,7 +266,7 @@
   :init
   (setq highlight-indent-guides-method 'character
         ;; default is \x2502 but it is very slow on Mac
-        highlight-indent-guides-character ?\xFFE8
+        ;; highlight-indent-guides-character ?\xFFE8
         highlight-indent-guides-responsive 'top))
 
 (use-package rainbow-delimiters
