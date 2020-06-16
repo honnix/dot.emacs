@@ -457,7 +457,6 @@
   (setq ibuffer-saved-filter-groups
         '(("default"
            ("dired" (mode . dired-mode))
-           ("yaml" (mode . yaml-mode))
            ("vc" (or
                   (mode . git-commit-mode)
                   (mode . git-commit-major-mode)
@@ -500,6 +499,8 @@
                   (mode . js2-mode)))
            ("prolog" (mode . prolog-mode))
            ("elisp" (mode . emacs-lisp-mode))
+           ("yaml" (mode . yaml-mode))
+           ("terraform" (mode . terraform-mode))
            ("markdown" (or
                         (mode . markdown-mode)
                         (mode . gfm-mode)))
