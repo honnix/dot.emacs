@@ -266,7 +266,7 @@
   :init
   (setq highlight-indent-guides-method 'character
         ;; default is \x2502 but it is very slow on Mac
-        ;; highlight-indent-guides-character ?\xFFE8
+        highlight-indent-guides-character ?\xFFE8
         highlight-indent-guides-responsive 'top))
 
 (use-package rainbow-delimiters
@@ -850,5 +850,10 @@
   :ensure nil
   :config
   (server-start))
+
+(use-package hl-todo
+  :ensure t
+  :config
+  (global-hl-todo-mode))
 
 ;;; 02packages.el ends here
