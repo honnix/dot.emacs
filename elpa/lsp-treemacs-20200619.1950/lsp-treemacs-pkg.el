@@ -1,4 +1,4 @@
-(define-package "lsp-treemacs" "20200414.407" "LSP treemacs"
+(define-package "lsp-treemacs" "20200619.1950" "LSP treemacs"
   '((emacs "25.1")
     (dash "2.14.1")
     (dash-functional "2.14.1")
@@ -6,7 +6,7 @@
     (ht "2.0")
     (treemacs "2.5")
     (lsp-mode "6.0"))
-  :keywords
+  :commit "30c0a3e6e4bd5ac98c17600259368550fb3f3730" :keywords
   '("languages")
   :authors
   '(("Ivan Yonchovski"))

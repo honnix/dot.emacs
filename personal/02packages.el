@@ -857,4 +857,8 @@
   :config
   (global-hl-todo-mode))
 
+(use-package transpose-frame
+  :ensure t
+  :commands transpose-frame)
+
 ;;; 02packages.el ends here
