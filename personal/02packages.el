@@ -188,7 +188,7 @@
   (toggle-hl-line-when-idle 1))
 
 (use-package hl-line
-  :ensure t
+  :ensure nil
   :config
   (global-hl-line-mode 1)
   ;; make it work better with zenburn
@@ -715,6 +715,7 @@
   (setq dashboard-set-heading-icons t
         dashboard-startup-banner 2
         dashboard-set-file-icons t
+        initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
         dashboard-items '((recents  . 20)
                           (projects . 20)
                           (bookmarks . 20)))
@@ -762,7 +763,7 @@
          ("C-M--" . er/contract-region)))
 
 (use-package delsel
-  :ensure t
+  :ensure nil
   :config
   (pending-delete-mode t))
 

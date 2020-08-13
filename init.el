@@ -9,10 +9,11 @@
                          ("ELPA" . "http://tromey.com/elpa/")
                          ;; ("melpa-stable" . "http://stable.melpa.org/packages/")
                          ))
-(package-initialize)
 
-(mapc 'load
-      (directory-files
-       (expand-file-name "~/.emacs.d/personal") t "\\.el$"))
+(add-hook 'after-init-hook
+          (lambda () (mapc 'load
+                           (directory-files
+                            (expand-file-name "~/.emacs.d/personal") t "\\.el$"))))
+
 
 ;;; init.el ends here

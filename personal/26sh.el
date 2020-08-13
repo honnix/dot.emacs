@@ -5,7 +5,7 @@
 ;;; Code:
 
 (use-package sh-script
-  :ensure t
+  :ensure nil
   :mode (("\\.sh\\'" . sh-mode)
          ("\\.bash\\'" . sh-mode)
          ("\\.zshrc\\'" . sh-mode)
