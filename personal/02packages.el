@@ -24,6 +24,12 @@
   :preface (provide 'bindings)
   :bind ("M-o" . mode-line-other-buffer))
 
+(use-package frame
+  :unless (memq window-system '(mac ns))
+  :ensure nil
+  :config
+  (set-frame-font "DejaVu Sans Mono-10"))
+
 ;; appointment
 (use-package appt
   :ensure nil
