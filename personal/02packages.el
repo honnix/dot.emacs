@@ -45,6 +45,7 @@
   (set-language-environment 'UTF-8))
 
 (use-package ns-win
+  :if (memq window-system '(mac ns))
   :ensure nil
   :init
   (setq mac-command-modifier 'meta

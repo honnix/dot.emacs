@@ -168,7 +168,11 @@ that was stored with ska-point-to-register."
               fill-column 100)
 
 (setq locale-coding-system 'utf-8)
-(setq shell-file-name "/usr/local/bin/zsh")
+
+(if (memq window-system '(mac ns))
+    (setq shell-file-name "/usr/local/bin/zsh")
+  (setq shell-file-name "/usr/bin/zsh")
+)
 
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
