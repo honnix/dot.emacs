@@ -21,7 +21,7 @@
   :ensure t
   :init
   (setq exec-path-from-shell-check-startup-files nil
-                exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH"))
+        exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH"))
         ;; exec-path-from-shell-arguments (list "-l"))
   :config
   (exec-path-from-shell-initialize))
@@ -68,8 +68,7 @@ position."
   (interactive)
   (point-to-register 8))
 (defun ska-jump-to-register()
-  "Switches between current cursorposition and position
-that was stored with ska-point-to-register."
+  "Switches between current cursorposition and position that was stored with ska-point-to-register."
   (interactive)
   (let ((tmp (point-marker)))
     (jump-to-register 8)

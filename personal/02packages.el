@@ -616,6 +616,7 @@
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1)
   :bind (:map company-active-map
+         ("ESC" . company-abort)
          ("C-n" . company-select-next)
          ("C-p". company-select-previous))
   :config
