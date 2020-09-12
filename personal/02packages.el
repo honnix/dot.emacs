@@ -870,4 +870,11 @@
   :ensure t
   :commands transpose-frame)
 
+(use-package pyim
+  :ensure t
+  :demand t
+  :init
+  (setq default-input-method "pyim")
+  (setq pyim-default-scheme 'quanpin))
+
 ;;; 02packages.el ends here
