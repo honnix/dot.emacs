@@ -40,6 +40,10 @@
 (use-package mule
   :ensure nil
   :init
+  (if (memq window-system '(mac ns))
+      (setq default-input-method 'MacOSX)
+    (setq default-input-method "pyim"))
+
   (setq default-input-method 'MacOSX)
   :config
   (set-terminal-coding-system 'utf-8)
@@ -874,7 +878,6 @@
   :ensure t
   :demand t
   :init
-  (setq default-input-method "pyim")
   (setq pyim-default-scheme 'quanpin))
 
 ;;; 02packages.el ends here
