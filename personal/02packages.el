@@ -630,6 +630,7 @@
 
 (use-package ispell
   :ensure nil
+  :ensure-system-package aspell
   :init
   (setq ispell-program-name "aspell"
         ispell-extra-args '("--sug-mode=ultra")))
@@ -764,7 +765,9 @@
   :ensure t
   :after projectile
   :bind (:map projectile-command-map
-              ("SPC" . counsel-projectile)))
+              ("SPC" . counsel-projectile))
+  :config
+  (counsel-projectile-mode))
 
 (use-package expand-region
   :ensure t
@@ -873,8 +876,14 @@
 
 (use-package pyim
   :ensure t
-  :demand t
   :init
   (setq pyim-default-scheme 'quanpin))
+
+(use-package pyim-basedict
+  :ensure t
+  :requires pyim
+  :defer t
+  :config
+  (pyim-basedict-enable))
 
 ;;; 02packages.el ends here
