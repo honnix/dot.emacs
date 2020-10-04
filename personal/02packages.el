@@ -39,12 +39,6 @@
 
 (use-package mule
   :ensure nil
-  :init
-  (if (memq window-system '(mac ns))
-      (setq default-input-method 'MacOSX)
-    (setq default-input-method "pyim"))
-
-  (setq default-input-method 'MacOSX)
   :config
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8))
@@ -52,7 +46,10 @@
 (use-package mule-cmds
   :preface (provide 'mule-cmds)
   :config
-  (set-language-environment 'UTF-8))
+  (set-language-environment 'UTF-8)
+  (if (memq window-system '(mac ns))
+      (setq default-input-method 'MacOSX)
+    (setq default-input-method "pyim")))
 
 (use-package ns-win
   :if (memq window-system '(mac ns))
