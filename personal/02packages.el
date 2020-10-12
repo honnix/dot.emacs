@@ -694,7 +694,10 @@
         centaur-tabs-set-bar 'under
         centaur-tabs-set-icons t
         centaur-tabs-set-modified-marker t
-        centaur-tabs-modified-marker "⏺"
+        ;; This maps to a character in Chandas instead of fontawesome.ttf installed by all-the-icons
+        ;; centaur-tabs-modified-marker "\xf111"
+        centaur-tabs-modified-marker "\xf111"
+        centaur-tabs-close-button "\xf081"
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
