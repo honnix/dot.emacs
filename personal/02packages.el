@@ -775,7 +775,9 @@
 (use-package expand-region
   :ensure t
   :bind (("C-M-w" . er/expand-region)
-         ("C-M--" . er/contract-region)))
+         ("C-M--" . er/contract-region))
+  :init
+  (setq expand-region-fast-keys-enabled nil))
 
 (use-package delsel
   :ensure nil
