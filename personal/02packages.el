@@ -18,7 +18,9 @@
 (use-package env
   :ensure nil
   :config
-  (setenv "PYTHONIOENCODING" "utf-8"))
+  (setenv "PYTHONIOENCODING" "utf-8")
+  (if (memq window-system '(mac ns))
+        (setenv "DICTIONARY" "en_US")))
 
 (use-package bindings
   :preface (provide 'bindings)
