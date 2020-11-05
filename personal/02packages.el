@@ -520,6 +520,7 @@
                        (name . "^\\*multi-scratch.*\\*$")))
            ("shell" (mode . sh-mode))
            ("python" (mode . python-mode))
+           ("protobuf" (mode . protobuf-mode))
            ("go" (or
                   (mode . go-mode)
                   (mode . go-dot-mod-mode)
@@ -630,10 +631,14 @@
 
 (use-package ispell
   :ensure nil
-  :ensure-system-package aspell
+  :ensure-system-package hunspell
+  :demand t
   :init
-  (setq ispell-program-name "aspell"
-        ispell-extra-args '("--sug-mode=ultra")))
+  (setq ispell-program-name "hunspell")
+        ;; ispell-extra-args '("--sug-mode=ultra"))
+  :config
+  (ispell-set-spellchecker-params)
+  (ispell-init-process))
 
 (use-package flyspell
   :ensure nil
@@ -702,6 +707,7 @@
   :config
   (centaur-tabs-headline-match)
   (centaur-tabs-mode t)
+  (centaur-tabs-group-buffer-groups)
   (centaur-tabs-group-by-projectile-project))
 
 (use-package treemacs
