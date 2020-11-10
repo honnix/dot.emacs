@@ -98,7 +98,8 @@
           (:eval
            (if (buffer-file-name)
                (abbreviate-file-name (buffer-file-name))
-             "%b@emacs")))))
+             "%b@emacs")))
+        confirm-kill-emacs #'yes-or-no-p))
 
 (use-package mwheel
   :ensure nil
