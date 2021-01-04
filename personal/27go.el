@@ -28,4 +28,7 @@
 (use-package gotest
   :ensure t)
 
+(use-package dap-go
+  :ensure nil)
+
 ;;; 27go.el ends here

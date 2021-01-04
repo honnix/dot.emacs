@@ -28,4 +28,7 @@
 (use-package python-pytest
   :ensure t)
 
+(use-package dap-python
+  :ensure nil)
+
 ;;; 06python.el ends here

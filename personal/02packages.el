@@ -830,6 +830,11 @@
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
+(use-package dap-mode
+  :ensure t
+  :init
+  (setq dap-auto-configure-features '(sessions locals controls tooltip)))
+
 (use-package autorevert
   :ensure nil
   :defer t
