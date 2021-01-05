@@ -29,6 +29,11 @@
   :ensure t)
 
 (use-package dap-python
-  :ensure nil)
+  :ensure nil
+  :init
+  (setq dap-python-debugger 'debugpy)
+  :config
+  (defun dap-python--pyenv-executable-find (command)
+    (executable-find command)))
 
 ;;; 06python.el ends here

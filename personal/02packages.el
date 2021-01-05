@@ -830,8 +830,13 @@
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
+(use-package hydra
+  :ensure t)
+
 (use-package dap-mode
   :ensure t
+  :requires hydra
+  :hook (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra)))
   :init
   (setq dap-auto-configure-features '(sessions locals controls tooltip)))
 

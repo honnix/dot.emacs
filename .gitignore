@@ -24,3 +24,4 @@ flycheck_*
 /workspace/
 /eshell/
 /pyim/dcache/
+.dap-breakpoints
