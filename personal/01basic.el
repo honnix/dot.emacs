@@ -151,8 +151,8 @@ position."
 (global-set-key (kbd "C-c l") 'my-select-current-line)
 ;; (global-set-key (kbd "C-c C-c") 'comment-dwim)
 (global-set-key (kbd "C-%") 'match-paren)
-(global-set-key (kbd "<s-left>") 'backward-global-mark)
-(global-set-key (kbd "<s-right>") 'forward-global-mark)
+(global-set-key (kbd "<C-M-left>") 'backward-global-mark)
+(global-set-key (kbd "<C-M-right>") 'forward-global-mark)
 
 ;; (global-set-key (kbd "C-a") 'beginning-of-line)
 ;; (global-set-key (kbd "C-e") 'end-of-line)

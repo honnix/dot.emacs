@@ -693,10 +693,10 @@
   :ensure t
   :demand
   :requires all-the-icons
-  :bind (("<C-M-up>" . centaur-tabs-backward-group)
-         ("<C-M-down>" . centaur-tabs-forward-group)
-         ("<C-M-left>" . centaur-tabs-backward)
-         ("<C-M-right>" . centaur-tabs-forward))
+  :bind (("<C-s-up>" . centaur-tabs-backward-group)
+         ("<C-s-down>" . centaur-tabs-forward-group)
+         ("<C-s-left>" . centaur-tabs-backward)
+         ("<C-s-right>" . centaur-tabs-forward))
   :init
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
