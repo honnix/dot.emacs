@@ -28,6 +28,11 @@
 (use-package python-pytest
   :ensure t)
 
+(use-package lsp-pyls
+  :ensure nil
+  :init
+  (setq lsp-pyls-configuration-sources ["flake8"]))
+
 (use-package dap-python
   :ensure nil
   :init

@@ -820,7 +820,8 @@
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
          ([remap xref-find-references] . lsp-ui-peek-find-references)
          ("C-M-d" . lsp-ui-doc-show)
-         ("<M-return>" . lsp-ui-sideline-apply-code-actions))
+         ("<M-return>" . lsp-ui-sideline-apply-code-actions)
+         ("<M-down-mouse-1>" . lsp-find-definition-mouse))
   :init
   (setq lsp-ui-peek-fontify 'always
         ;; lsp-ui-doc-position 'top

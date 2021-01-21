@@ -4,7 +4,8 @@
 
 ;;; Code:
 
-(require 'cc-mode)
+(use-package cc-mode
+  :ensure nil)
 
 (use-package ctypes
   :ensure t
@@ -18,7 +19,6 @@
   (setq c-basic-offset 4
         c-default-style (quote ((c-mode . "stroustrup")
                                 (c++-mode . "stroustrup")
-                                (java-mode . "java")
                                 (other . "stroustrup"))))
   :config
   (defun my-c-hook-func ()
