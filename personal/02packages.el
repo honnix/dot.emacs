@@ -705,7 +705,7 @@
         ;; This maps to a character in Chandas instead of fontawesome.ttf installed by all-the-icons
         ;; centaur-tabs-modified-marker "\xf111"
         centaur-tabs-modified-marker "\xf111"
-        centaur-tabs-close-button "\xf081"
+        centaur-tabs-close-button "\xF00D"
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
