@@ -701,11 +701,11 @@
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
         centaur-tabs-set-icons t
-        centaur-tabs-set-modified-marker t
-        ;; This maps to a character in Chandas instead of fontawesome.ttf installed by all-the-icons
-        ;; centaur-tabs-modified-marker "\xf111"
-        centaur-tabs-modified-marker "\xf111"
-        centaur-tabs-close-button "\xF00D"
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-set-modified-marker nil
+        centaur-tabs-modified-marker "*"
+        centaur-tabs-set-close-button nil
+        centaur-tabs-close-button ""
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
