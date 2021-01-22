@@ -802,6 +802,7 @@
   :ensure t
   ;; uncomment to enable gopls http debug server
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
+  :bind (("<M-down-mouse-1>" . lsp-find-definition-mouse))
   :init
   (setq lsp-idle-delay 0.500)
   :commands (lsp lsp-deferred)
@@ -820,12 +821,16 @@
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
          ([remap xref-find-references] . lsp-ui-peek-find-references)
          ("C-M-d" . lsp-ui-doc-show)
-         ("<M-return>" . lsp-ui-sideline-apply-code-actions)
-         ("<M-down-mouse-1>" . lsp-find-definition-mouse))
+         ("<M-return>" . lsp-ui-sideline-apply-code-actions))
   :init
   (setq lsp-ui-peek-fontify 'always
         ;; lsp-ui-doc-position 'top
         lsp-ui-doc-enable nil))
+
+(use-package lsp-ui-imenu
+  :ensure nil
+  :init
+  (setq lsp-ui-imenu-auto-refresh t))
 
 (use-package lsp-ivy
   :ensure t
