@@ -836,6 +836,11 @@
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
+(use-package lsp-treemacs
+  :ensure t
+  :config
+  (lsp-treemacs-sync-mode 1))
+
 (use-package hydra
   :ensure t)
 
