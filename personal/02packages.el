@@ -701,11 +701,11 @@
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
         centaur-tabs-set-icons t
-        centaur-tabs-set-modified-marker t
-        ;; This maps to a character in Chandas instead of fontawesome.ttf installed by all-the-icons
-        ;; centaur-tabs-modified-marker "\xf111"
-        centaur-tabs-modified-marker "\xf111"
-        centaur-tabs-close-button "\xF00D"
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-set-modified-marker nil
+        centaur-tabs-modified-marker "*"
+        centaur-tabs-set-close-button nil
+        centaur-tabs-close-button ""
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
@@ -802,6 +802,7 @@
   :ensure t
   ;; uncomment to enable gopls http debug server
   ;; :custom (lsp-gopls-server-args '("-debug" "127.0.0.1:3000"))
+  :bind (("<M-down-mouse-1>" . lsp-find-definition-mouse))
   :init
   (setq lsp-idle-delay 0.500)
   :commands (lsp lsp-deferred)
@@ -820,16 +821,25 @@
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
          ([remap xref-find-references] . lsp-ui-peek-find-references)
          ("C-M-d" . lsp-ui-doc-show)
-         ("<M-return>" . lsp-ui-sideline-apply-code-actions)
-         ("<M-down-mouse-1>" . lsp-find-definition-mouse))
+         ("<M-return>" . lsp-ui-sideline-apply-code-actions))
   :init
   (setq lsp-ui-peek-fontify 'always
         ;; lsp-ui-doc-position 'top
         lsp-ui-doc-enable nil))
 
+(use-package lsp-ui-imenu
+  :ensure nil
+  :init
+  (setq lsp-ui-imenu-auto-refresh t))
+
 (use-package lsp-ivy
   :ensure t
   :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :ensure t
+  :config
+  (lsp-treemacs-sync-mode 1))
 
 (use-package hydra
   :ensure t)
