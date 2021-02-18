@@ -27,10 +27,11 @@
   :bind ("M-o" . mode-line-other-buffer))
 
 (use-package frame
-  :unless (memq window-system '(mac ns))
   :ensure nil
   :config
-  (set-frame-font "DejaVu Sans Mono-10"))
+  (if (memq window-system '(mac ns))
+      (set-frame-font "Fira Code-12")
+    (set-frame-font "DejaVu Sans Mono-10")))
 
 ;; appointment
 (use-package appt
@@ -54,11 +55,21 @@
     (setq default-input-method "pyim")))
 
 (use-package ns-win
+  :disabled
   :if (memq window-system '(mac ns))
   :ensure nil
   :init
   (setq mac-command-modifier 'meta
         mac-option-modifier 'super))
+
+(use-package mac-win
+  :if (memq window-system '(mac ns))
+  :ensure nil
+  :init
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super)
+  :config
+  (mac-auto-operator-composition-mode))
 
 (use-package hippie-exp
   :ensure nil
