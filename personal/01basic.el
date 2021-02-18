@@ -182,7 +182,7 @@ position."
 
 ;; scroll before we reach the end of the screen
 (setq scroll-step 1
-      scroll-margin 2
+      scroll-margin 0
       scroll-conservatively 101)
 
 
