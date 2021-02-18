@@ -8,6 +8,8 @@
   :ensure t
   :hook ((typescript-mode . lsp-deferred))
   :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescript-mode)))
+         ("\\.tsx\\'" . typescript-mode))
+  :init
+  (setq typescript-indent-level 2))
 
 ;;; 16ts.el ends here
