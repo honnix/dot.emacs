@@ -35,11 +35,13 @@
     (set-frame-font "Fira Code-10")))
 
 (use-package ligature
+  :unless (memq window-system '(mac ns))
   :load-path "3rd"
   :config
-  ;; Enable the "www" ligature in every possible major mode
+  ;; Enable the www ligature in every possible major mode
   (ligature-set-ligatures 't '("www"))
-  ;; Enable all Cascadia Code ligatures in programming modes
+
+  ;; Enable ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
                                        ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
                                        "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
@@ -50,8 +52,7 @@
                                        "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
                                        "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                                        "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
+
   (global-ligature-mode t))
 
 ;; appointment
@@ -651,7 +652,7 @@
   :demand t
   :init
   (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1)
+        company-minimum-prefix-length 0)
   :bind (:map company-active-map
          ("ESC" . company-abort)
          ("C-n" . company-select-next)
