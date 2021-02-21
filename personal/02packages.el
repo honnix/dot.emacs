@@ -35,7 +35,6 @@
     (set-frame-font "Fira Code-10")))
 
 (use-package ligature
-  :unless (memq window-system '(mac ns))
   :load-path "3rd"
   :config
   ;; Enable the www ligature in every possible major mode
@@ -77,7 +76,6 @@
     (setq default-input-method "pyim")))
 
 (use-package ns-win
-  :disabled
   :if (memq window-system '(mac ns))
   :ensure nil
   :init
@@ -85,6 +83,7 @@
         mac-option-modifier 'super))
 
 (use-package mac-win
+  :disabled
   :if (memq window-system '(mac ns))
   :ensure nil
   :init
@@ -953,5 +952,9 @@
   :defer t
   :config
   (pyim-basedict-enable))
+
+(use-package duplicate-thing
+  :ensure t
+  :bind ("C-c d" . duplicate-thing))
 
 ;;; 02packages.el ends here
