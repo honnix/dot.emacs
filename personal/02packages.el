@@ -310,7 +310,8 @@
   (if (memq window-system '(mac ns))
       ;; default is \x2502 but it is very slow on Mac
       (setq highlight-indent-guides-character ?\xFFE8))
-  (setq highlight-indent-guides-method 'character))
+  (setq highlight-indent-guides-method 'character
+        highlight-indent-guides-responsive 'stack))
 
 (use-package rainbow-delimiters
   :ensure t)
