@@ -307,14 +307,22 @@
   :ensure t
   :delight highlight-indent-guides-mode
   :init
-  (if (memq window-system '(mac ns))
-      ;; default is \x2502 but it is very slow on Mac
-      (setq highlight-indent-guides-character ?\xFFE8))
+  ;; (if (memq window-system '(mac ns))
+  ;;     ;; default is \x2502 but it is very slow on Mac
+  ;;     (setq highlight-indent-guides-character ?\x2502))
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-responsive 'stack))
 
 (use-package rainbow-delimiters
   :ensure t)
+
+(use-package conf-toml-mode
+  :ensure nil
+  :after (display-fill-column-indicator highlight-indent-guides)
+  :hook (
+         (conf-toml-mode . highlight-indent-guides-mode)
+         (conf-toml-mode . display-fill-column-indicator-mode))
+  :mode (("\\.toml\\'" . conf-toml-mode)))
 
 (use-package prog-mode
   :ensure nil
