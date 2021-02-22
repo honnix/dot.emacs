@@ -186,7 +186,7 @@ position."
       scroll-conservatively 101)
 
 
-;; https://github.com/emacs-lsp/lsp-mode#performance
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 200000000
       read-process-output-max (* 2048 1024))
 
