@@ -730,6 +730,15 @@
 (use-package all-the-icons
   :ensure t)
 
+(use-package all-the-icons-dired
+  :ensure t
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package all-the-icons-ibuffer
+  :ensure t
+  :config
+  (all-the-icons-ibuffer-mode 1))
+
 (use-package centaur-tabs
   :ensure t
   :demand
