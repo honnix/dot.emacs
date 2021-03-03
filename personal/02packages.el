@@ -303,13 +303,23 @@
   (setq initial-major-mode 'text-mode
         major-mode 'text-mode))
 
+(use-package prog-mode
+  :ensure nil
+  :after (display-fill-column-indicator)
+  :hook ((prog-mode . display-fill-column-indicator-mode)
+         (prog-mode . rainbow-delimiters-mode)))
+
 (use-package highlight-indent-guides
+  :unless (memq window-system '(mac ns))
   :ensure t
   :delight highlight-indent-guides-mode
+  :hook (prog-mode . highlight-indent-guides-mode)
   :init
   ;; (if (memq window-system '(mac ns))
   ;;     ;; default is \x2502 but it is very slow on Mac
-  ;;     (setq highlight-indent-guides-character ?\x2502))
+  ;;     ;; (setq highlight-indent-guides-character ?\|))
+  ;;     (setq highlight-indent-guides-method 'column)
+  ;;   (setq highlight-indent-guides-method 'character))
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-responsive 'stack))
 
@@ -323,13 +333,6 @@
          (conf-toml-mode . highlight-indent-guides-mode)
          (conf-toml-mode . display-fill-column-indicator-mode))
   :mode (("\\.toml\\'" . conf-toml-mode)))
-
-(use-package prog-mode
-  :ensure nil
-  :after (display-fill-column-indicator highlight-indent-guides)
-  :hook ((prog-mode . highlight-indent-guides-mode)
-         (prog-mode . display-fill-column-indicator-mode)
-         (prog-mode . rainbow-delimiters-mode)))
 
 (use-package windmove
   :ensure nil
