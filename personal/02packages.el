@@ -310,6 +310,7 @@
          (prog-mode . rainbow-delimiters-mode)))
 
 (use-package highlight-indent-guides
+  :disabled
   :unless (memq window-system '(mac ns))
   :ensure t
   :delight highlight-indent-guides-mode
