@@ -790,7 +790,7 @@
   (setq dashboard-set-heading-icons t
         dashboard-startup-banner 2
         dashboard-set-file-icons t
-        initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
+        ;; initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
         dashboard-items '((recents  . 20)
                           (projects . 20)
                           (bookmarks . 20)))
