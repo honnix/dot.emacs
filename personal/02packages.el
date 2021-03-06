@@ -646,6 +646,9 @@
   :ensure t
   :bind ("C-x RET" . magit-status))
 
+(use-package forge
+  :ensure t)
+
 (use-package autopair
   :ensure t
   :delight autopair-mode
