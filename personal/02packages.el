@@ -667,7 +667,7 @@
   :demand t
   :init
   (setq company-idle-delay 0.0
-        company-minimum-prefix-length 0)
+        company-minimum-prefix-length 1)
   :bind (:map company-active-map
          ("ESC" . company-abort)
          ("C-n" . company-select-next)
@@ -867,10 +867,6 @@
   ;; zenburn region background is a bit hard to see
   ;; (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
   )
-
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
 
 (use-package lsp-ui
   :ensure t
