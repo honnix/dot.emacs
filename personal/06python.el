@@ -41,4 +41,7 @@
   (defun dap-python--pyenv-executable-find (command)
     (executable-find command)))
 
+(use-package pyvenv
+  :ensure t)
+
 ;;; 06python.el ends here
