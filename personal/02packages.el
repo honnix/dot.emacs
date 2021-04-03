@@ -515,7 +515,6 @@
   :init
   (setq ibuffer-saved-filter-groups
         '(("default"
-           ("dired" (mode . dired-mode))
            ("vc" (or
                   (mode . git-commit-mode)
                   (mode . git-commit-major-mode)
@@ -535,12 +534,12 @@
                   (mode . magit-stashes-mode)
                   (mode . magit-status-mode)
                   (mode . diff-mode)))
+           ("flycheck" (name . "^\\*Flycheck.*$"))
            ("lsp" (or
                    (name . "^\\*LSP.*\\*$")
                    (name . "^\\*lsp.*\\*$")
                    (name . "^\\*gopls.*\\*$")
                    (name . "^\\*pyls.*\\*$")))
-           ("flycheck" (name . "^\\*Flycheck.*$"))
            ("emacs" (or
                      (name . "^\\*dashboard\\*$")
                      (name . "^\\*Messages\\*$")
@@ -553,6 +552,7 @@
            ("rst" (mode . rst-mode))
            ("ttl" (mode . n3-mode))
            ("conf-unix" (mode . conf-unix-mode))
+           ("java" (mode . java-mode))
            ("js" (or
                   (mode . js-mode)
                   (mode . js2-mode)))
@@ -563,12 +563,14 @@
            ("markdown" (or
                         (mode . markdown-mode)
                         (mode . gfm-mode)))
-           ("java" (mode . java-mode))
            ("Dockerfile" (mode . dockerfile-mode))
            ("Makefile" (mode . makefile-bsdmake-mode))
            ("scratch" (or
                        (name . "^\\*scratch\\*$")
                        (name . "^\\*multi-scratch.*\\*$")))
+           ("dired" (mode . dired-mode))
+           ("ruby" (mode . ruby-mode))
+           ("typescript" (mode . typescript-mode))
            ("shell" (mode . sh-mode))
            ("python" (mode . python-mode))
            ("protobuf" (mode . protobuf-mode))
