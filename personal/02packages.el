@@ -19,6 +19,7 @@
   :ensure nil
   :config
   (setenv "PYTHONIOENCODING" "utf-8")
+  (setenv "WORKON_HOME" "~/.pyenv/versions")
   (if (memq window-system '(mac ns))
         (setenv "DICTIONARY" "en_US")))
 
@@ -124,6 +125,7 @@
   :init
   (setq-default make-backup-files nil
                 require-final-newline t)
+  (setq auto-save-visited-interval 1)
   :config
   (setq frame-title-format
         '("" invocation-name ": "
@@ -131,7 +133,8 @@
            (if (buffer-file-name)
                (abbreviate-file-name (buffer-file-name))
              "%b@emacs")))
-        confirm-kill-emacs #'yes-or-no-p))
+        confirm-kill-emacs #'yes-or-no-p)
+  (auto-save-visited-mode))
 
 (use-package mwheel
   :ensure nil
