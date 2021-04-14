@@ -19,6 +19,7 @@
   :ensure nil
   :config
   (setenv "PYTHONIOENCODING" "utf-8")
+  (setenv "WORKON_HOME" "~/.pyenv/versions")
   (if (memq window-system '(mac ns))
         (setenv "DICTIONARY" "en_US")))
 
@@ -124,6 +125,7 @@
   :init
   (setq-default make-backup-files nil
                 require-final-newline t)
+  (setq auto-save-visited-interval 1)
   :config
   (setq frame-title-format
         '("" invocation-name ": "
@@ -131,7 +133,8 @@
            (if (buffer-file-name)
                (abbreviate-file-name (buffer-file-name))
              "%b@emacs")))
-        confirm-kill-emacs #'yes-or-no-p))
+        confirm-kill-emacs #'yes-or-no-p)
+  (auto-save-visited-mode))
 
 (use-package mwheel
   :ensure nil
@@ -512,7 +515,6 @@
   :init
   (setq ibuffer-saved-filter-groups
         '(("default"
-           ("dired" (mode . dired-mode))
            ("vc" (or
                   (mode . git-commit-mode)
                   (mode . git-commit-major-mode)
@@ -532,12 +534,12 @@
                   (mode . magit-stashes-mode)
                   (mode . magit-status-mode)
                   (mode . diff-mode)))
+           ("flycheck" (name . "^\\*Flycheck.*$"))
            ("lsp" (or
                    (name . "^\\*LSP.*\\*$")
                    (name . "^\\*lsp.*\\*$")
                    (name . "^\\*gopls.*\\*$")
                    (name . "^\\*pyls.*\\*$")))
-           ("flycheck" (name . "^\\*Flycheck.*$"))
            ("emacs" (or
                      (name . "^\\*dashboard\\*$")
                      (name . "^\\*Messages\\*$")
@@ -550,6 +552,7 @@
            ("rst" (mode . rst-mode))
            ("ttl" (mode . n3-mode))
            ("conf-unix" (mode . conf-unix-mode))
+           ("java" (mode . java-mode))
            ("js" (or
                   (mode . js-mode)
                   (mode . js2-mode)))
@@ -560,12 +563,14 @@
            ("markdown" (or
                         (mode . markdown-mode)
                         (mode . gfm-mode)))
-           ("java" (mode . java-mode))
            ("Dockerfile" (mode . dockerfile-mode))
            ("Makefile" (mode . makefile-bsdmake-mode))
            ("scratch" (or
                        (name . "^\\*scratch\\*$")
                        (name . "^\\*multi-scratch.*\\*$")))
+           ("dired" (mode . dired-mode))
+           ("ruby" (mode . ruby-mode))
+           ("typescript" (mode . typescript-mode))
            ("shell" (mode . sh-mode))
            ("python" (mode . python-mode))
            ("protobuf" (mode . protobuf-mode))
@@ -646,6 +651,9 @@
   :ensure t
   :bind ("C-x RET" . magit-status))
 
+(use-package forge
+  :ensure t)
+
 (use-package autopair
   :ensure t
   :delight autopair-mode
@@ -664,7 +672,7 @@
   :demand t
   :init
   (setq company-idle-delay 0.0
-        company-minimum-prefix-length 0)
+        company-minimum-prefix-length 1)
   :bind (:map company-active-map
          ("ESC" . company-abort)
          ("C-n" . company-select-next)
@@ -864,10 +872,6 @@
   ;; zenburn region background is a bit hard to see
   ;; (set-face-attribute 'lsp-face-highlight-textual nil :background "gray40"))
   )
-
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
 
 (use-package lsp-ui
   :ensure t
