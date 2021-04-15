@@ -31,7 +31,7 @@
   :ensure nil
   :config
   (if (memq window-system '(mac ns))
-      (set-frame-font "Fira Code-12")
+      (set-frame-font "Fira Code-12.5")
     ;; (set-frame-font "DejaVu Sans Mono-10")))
     (set-frame-font "Fira Code-10")))
 
