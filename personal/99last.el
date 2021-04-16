@@ -8,7 +8,7 @@
 ;; ======================== the last things should happen ======================
 ;; =============================================================================
 ;; set frame size
-(set-frame-height (selected-frame) 60)
-(set-frame-width (selected-frame) 180)
+;; (set-frame-height (selected-frame) 60)
+;; (set-frame-width (selected-frame) 180)
 
 ;;; 99last.el ends here

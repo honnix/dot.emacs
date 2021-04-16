@@ -173,6 +173,13 @@ position."
   (setq shell-file-name "/usr/bin/zsh")
 )
 
+(if (memq window-system '(mac ns))
+    (add-to-list 'default-frame-alist '(font . "Fira Code-12.5"))
+  (add-to-list 'default-frame-alist '(font . "Fira Code-10"))
+)
+(add-to-list 'default-frame-alist '(height . 60))
+(add-to-list 'default-frame-alist '(width . 180))
+
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
 
@@ -184,7 +191,6 @@ position."
 (setq scroll-step 1
       scroll-margin 0
       scroll-conservatively 101)
-
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 200000000
