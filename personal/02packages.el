@@ -643,7 +643,10 @@
   :ensure t
   :bind ("C-x RET" . magit-status))
 
+;; this doesn't work on Mac
+;; it throws "Selecting deleted buffer" every time I open a file
 (use-package forge
+  :disabled
   :ensure t)
 
 (use-package autopair
