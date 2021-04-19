@@ -10,6 +10,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(setq use-package-always-demand (daemonp))
+
 (use-package use-package-ensure-system-package
   :ensure t)
 

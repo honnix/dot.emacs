@@ -766,9 +766,16 @@
         x-underline-at-descent-line t)
   :config
   (centaur-tabs-headline-match)
-  (centaur-tabs-mode t)
   (centaur-tabs-group-buffer-groups)
-  (centaur-tabs-group-by-projectile-project))
+  (centaur-tabs-group-by-projectile-project)
+
+  ;; https://github.com/ema2159/centaur-tabs/issues/127
+  (if (not (daemonp))
+	 (centaur-tabs-mode)
+  (defun centaur-tabs-daemon-mode (frame)
+	 (unless (and (featurep 'centaur-tabs) (centaur-tabs-mode-on-p))
+		(run-at-time nil nil (lambda () (centaur-tabs-mode)))))
+  (add-hook 'after-make-frame-functions #'centaur-tabs-daemon-mode)))
 
 (use-package treemacs
   :ensure t
