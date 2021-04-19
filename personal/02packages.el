@@ -20,8 +20,8 @@
   :config
   (setenv "PYTHONIOENCODING" "utf-8")
   (setenv "WORKON_HOME" "~/.pyenv/versions")
-  (if (memq window-system '(mac ns))
-        (setenv "DICTIONARY" "en_US")))
+  (if (eq system-type 'darwin)
+      (setenv "DICTIONARY" "en_US")))
 
 (use-package bindings
   :preface (provide 'bindings)
@@ -64,12 +64,12 @@
   :preface (provide 'mule-cmds)
   :config
   (set-language-environment 'UTF-8)
-  (if (memq window-system '(mac ns))
+  (if (eq system-type 'darwin)
       (setq default-input-method 'MacOSX)
     (setq default-input-method "pyim")))
 
 (use-package ns-win
-  :if (memq window-system '(mac ns))
+  :if (eq system-type 'darwin)
   :ensure nil
   :init
   (setq mac-command-modifier 'meta
@@ -77,7 +77,7 @@
 
 (use-package mac-win
   :disabled
-  :if (memq window-system '(mac ns))
+  :if (eq system-type 'darwin)
   :ensure nil
   :init
   (setq mac-command-modifier 'meta
@@ -306,12 +306,12 @@
 
 (use-package highlight-indent-guides
   :disabled
-  :unless (memq window-system '(mac ns))
+  :unless (eq system-type 'darwin)
   :ensure t
   :delight highlight-indent-guides-mode
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
-  ;; (if (memq window-system '(mac ns))
+  ;; (if (eq system-type 'darwin)
   ;;     ;; default is \x2502 but it is very slow on Mac
   ;;     ;; (setq highlight-indent-guides-character ?\|))
   ;;     (setq highlight-indent-guides-method 'column)

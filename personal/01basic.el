@@ -17,7 +17,7 @@
   :ensure t)
 
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
+  :if (eq system-type 'darwin)
   :ensure t
   :init
   (setq exec-path-from-shell-check-startup-files nil
@@ -168,12 +168,12 @@ position."
 
 (setq locale-coding-system 'utf-8)
 
-(if (memq window-system '(mac ns))
+(if (eq system-type 'darwin)
     (setq shell-file-name "/usr/local/bin/zsh")
   (setq shell-file-name "/usr/bin/zsh")
 )
 
-(if (memq window-system '(mac ns))
+(if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Fira Code-12.5"))
   (add-to-list 'default-frame-alist '(font . "Fira Code-10"))
 )
