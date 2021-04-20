@@ -126,7 +126,14 @@
                (abbreviate-file-name (buffer-file-name))
              "%b@emacs")))
         confirm-kill-emacs #'yes-or-no-p)
-  (auto-save-visited-mode))
+  (auto-save-visited-mode)
+  (defun ask-before-closing ()
+    (interactive)
+    (if (y-or-n-p (format "Really exit Emacs? "))
+        (save-buffers-kill-terminal)
+      (message "Canceled frame close!")))
+  (when (daemonp)
+    (global-set-key (kbd "C-x C-c") 'ask-before-closing)))
 
 (use-package mwheel
   :ensure nil
