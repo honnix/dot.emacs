@@ -7,8 +7,12 @@
 ;; =============================================================================
 ;; ======================== the last things should happen ======================
 ;; =============================================================================
-;; set frame size
-;; (set-frame-height (selected-frame) 60)
-;; (set-frame-width (selected-frame) 180)
+;; disable things for speed
+
+(defun nfs ()
+  "Disable stuff for speed."
+  (interactive)
+  (global-hl-line-mode -1)
+  (display-line-numbers-mode -1))
 
 ;;; 99last.el ends here

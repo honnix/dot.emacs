@@ -312,8 +312,6 @@
          (prog-mode . rainbow-delimiters-mode)))
 
 (use-package highlight-indent-guides
-  :disabled
-  :unless (eq system-type 'darwin)
   :ensure t
   :delight highlight-indent-guides-mode
   :hook (prog-mode . highlight-indent-guides-mode)
