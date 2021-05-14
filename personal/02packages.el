@@ -117,7 +117,7 @@
   :init
   (setq-default make-backup-files nil
                 require-final-newline t)
-  (setq auto-save-visited-interval 1)
+  ;; (setq auto-save-visited-interval 10)
   :config
   (setq frame-title-format
         '("" invocation-name ": "
@@ -312,6 +312,7 @@
          (prog-mode . rainbow-delimiters-mode)))
 
 (use-package highlight-indent-guides
+  :disabled
   :ensure t
   :delight highlight-indent-guides-mode
   :hook (prog-mode . highlight-indent-guides-mode)

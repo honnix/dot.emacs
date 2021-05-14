@@ -177,7 +177,7 @@ position."
 
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Fira Code-12.5"))
-  (add-to-list 'default-frame-alist '(font . "Fira Code-10"))
+  (add-to-list 'default-frame-alist '(font . "Fira Code-9.5"))
 )
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 180))
