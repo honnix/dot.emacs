@@ -991,4 +991,7 @@
   :ensure t
   :bind ("C-c d" . duplicate-thing))
 
+(use-package presentation
+   :ensure t)
+
 ;;; 02packages.el ends here

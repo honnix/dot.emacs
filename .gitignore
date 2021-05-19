@@ -27,3 +27,6 @@ flycheck_*
 .dap-breakpoints
 eln-cache/
 projects
+tramp
+add
+forge-database.sqlite
