@@ -30,3 +30,4 @@ projects
 tramp
 add
 forge-database.sqlite
+elpy/
