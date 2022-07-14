@@ -31,3 +31,4 @@ tramp
 add
 forge-database.sqlite
 elpy/
+multisession/
