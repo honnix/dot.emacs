@@ -171,7 +171,7 @@ position."
 (setq locale-coding-system 'utf-8)
 
 (if (eq system-type 'darwin)
-    (setq shell-file-name "/usr/local/bin/zsh")
+    (setq shell-file-name "/bin/zsh")
   (setq shell-file-name "/usr/bin/zsh")
 )
 
