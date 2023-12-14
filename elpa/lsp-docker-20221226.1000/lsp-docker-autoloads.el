@@ -12,6 +12,7 @@
 ;;; Generated autoloads from lsp-docker.el
 
 (register-definition-prefixes "lsp-docker" '("lsp-docker-"))
+
 
 ;;; End of scraped data
 

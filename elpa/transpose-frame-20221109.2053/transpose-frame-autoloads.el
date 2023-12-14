@@ -42,6 +42,7 @@ Omitting FRAME means currently selected frame.
 
 (fn &optional FRAME)" t)
 (register-definition-prefixes "transpose-frame" '("transpose-frame-"))
+
 
 ;;; End of scraped data
 

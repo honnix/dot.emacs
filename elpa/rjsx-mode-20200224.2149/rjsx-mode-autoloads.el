@@ -48,6 +48,7 @@ instead.
 
 (fn ARG)" t)
 (register-definition-prefixes "rjsx-mode" '("rjsx-"))
+
 
 ;;; End of scraped data
 

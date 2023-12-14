@@ -36,6 +36,7 @@ FOO_BAR format" t)
 (autoload 'string-inflection-kebab-case "string-inflection" "\
 foo-bar format" t)
 (register-definition-prefixes "string-inflection" '("string-inflection-"))
+
 
 ;;; End of scraped data
 

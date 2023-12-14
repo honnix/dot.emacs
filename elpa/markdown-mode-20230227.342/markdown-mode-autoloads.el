@@ -48,6 +48,7 @@ it is disabled.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "markdown-mode" '("defun-markdown-" "gfm-" "markdown"))
+
 
 ;;; End of scraped data
 

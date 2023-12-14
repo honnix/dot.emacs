@@ -798,6 +798,7 @@ it is disabled.
 ;;; Generated autoloads from lsp-zig.el
 
 (register-definition-prefixes "lsp-zig" '("lsp-zig-zls-executable"))
+
 
 ;;; End of scraped data
 

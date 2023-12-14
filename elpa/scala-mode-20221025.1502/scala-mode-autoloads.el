@@ -93,6 +93,7 @@ When started, runs `scala-mode-hook'.
 ;;; Generated autoloads from scala-organise.el
 
 (register-definition-prefixes "scala-organise" '("scala-organise"))
+
 
 ;;; End of scraped data
 

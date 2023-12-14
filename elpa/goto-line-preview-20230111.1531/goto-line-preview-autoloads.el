@@ -17,6 +17,7 @@ Preview goto line." t)
 Preview goto line relative." t)
 (define-obsolete-function-alias 'goto-line-preview-goto-line 'goto-line-preview "0.1.1")
 (register-definition-prefixes "goto-line-preview" '("goto-line-preview-"))
+
 
 ;;; End of scraped data
 

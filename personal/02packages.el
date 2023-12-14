@@ -299,8 +299,7 @@
 (use-package text-mode
   :ensure nil
   :after display-fill-column-indicator
-  :hook ((text-mode . auto-fill-mode)
-         (text-mode . display-fill-column-indicator-mode)
+  :hook ((text-mode . display-fill-column-indicator-mode)
          (text-mode . pixel-scroll-precision-mode))
   :init
   (setq initial-major-mode 'text-mode

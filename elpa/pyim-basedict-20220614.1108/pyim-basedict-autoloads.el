@@ -18,6 +18,7 @@ Add pyim-basedict.pyim file to `pyim-extra-dicts'." t)
 ;;; Generated autoloads from pyim-basedict-utils.el
 
 (register-definition-prefixes "pyim-basedict-utils" '("pyim-basedict-"))
+
 
 ;;; End of scraped data
 

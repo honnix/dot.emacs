@@ -77,6 +77,7 @@ With prefix 2 show both.
 ;;; Generated autoloads from lsp-treemacs-themes.el
 
 (register-definition-prefixes "lsp-treemacs-themes" '("lsp-treemacs-theme"))
+
 
 ;;; End of scraped data
 

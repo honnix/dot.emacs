@@ -34,6 +34,7 @@ Launch go run on current buffer file.
 
 (fn &optional ARGS)" t)
 (register-definition-prefixes "gotest" '("go-"))
+
 
 ;;; End of scraped data
 

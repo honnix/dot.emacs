@@ -24,6 +24,7 @@ When called with prefix ARG the default selection will be symbol at point.
 (autoload 'lsp-ivy-workspace-folders-remove "lsp-ivy" "\
 Remove a project-root from the list of workspace folders." t)
 (register-definition-prefixes "lsp-ivy" '("lsp-ivy-"))
+
 
 ;;; End of scraped data
 

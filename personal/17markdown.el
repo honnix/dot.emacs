@@ -11,7 +11,8 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :hook (markdown-mode . flyspell-mode)
+  :hook ((markdown-mode . flyspell-mode)
+         (text-mode . auto-fill-mode))
   :init
   (setq markdown-command "pandoc"))
 

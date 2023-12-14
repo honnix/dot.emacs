@@ -12,6 +12,7 @@
 ;;; Generated autoloads from yaml.el
 
 (register-definition-prefixes "yaml" '("yaml-"))
+
 
 ;;; End of scraped data
 

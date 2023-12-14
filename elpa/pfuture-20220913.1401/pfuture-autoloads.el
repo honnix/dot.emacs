@@ -25,6 +25,7 @@ this is right: (pfuture-new \"git\" \"status\")
 
 (fn &rest CMD)")
 (register-definition-prefixes "pfuture" '("pfuture-"))
+
 
 ;;; End of scraped data
 
