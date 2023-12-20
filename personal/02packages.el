@@ -818,7 +818,7 @@
   :load-path "3rd"
   :bind ("C-c s" . multi-scratch-new)
   :init
-  (setq multi-scratch-buffer-mode #'text-mode))
+  (setq multi-scratch-buffer-mode #'fundamental-mode))
 
 (use-package compile
   :ensure nil
