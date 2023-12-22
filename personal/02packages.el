@@ -187,8 +187,12 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package nerd-icons
+  :ensure t)
+
 (use-package doom-modeline
   :ensure t
+  :requires nerd-icons
   :init
   (setq doom-modeline-minor-modes t
         doom-modeline-vcs-max-length 20)
@@ -751,6 +755,7 @@
   :ensure t
   :config
   (all-the-icons-ibuffer-mode 1))
+
 
 (use-package centaur-tabs
   :ensure t
