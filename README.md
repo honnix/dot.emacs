@@ -1,7 +1,7 @@
 # My Emacs Configurations
 
 Everything included in this repository has been verified to work with
-[Emacs Plus](https://github.com/d12frosted/homebrew-emacs-plus) latest version.
+[build-emacs-for-macos](https://github.com/jimeh/build-emacs-for-macos).
 
 ## Structure
 
