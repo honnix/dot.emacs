@@ -19,5 +19,3 @@ Everything included in this repository has been verified to work with
 1. `cd $HOME`
 
 2. `git clone git@github.com:honnix/dot.emacs.git .emacs.d`
-
-3. `ln -s .emacs.d/dot.emacs .emacs`
