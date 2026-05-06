@@ -23,7 +23,7 @@
 
 (use-package prettier-js
   :ensure t
-  :ensure-system-package prettier
+  ;; :ensure-system-package prettier  ; install prettier and re-enable
   :after js2-mode
   :hook (js2-mode . prettier-js-mode))
 

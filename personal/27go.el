@@ -6,7 +6,7 @@
 
 (use-package go-mode
   :ensure t
-  :ensure-system-package gopls
+  ;; :ensure-system-package gopls  ; install gopls and re-enable
   :hook ((go-mode . my-go-mode-hook)
 		 (go-mode . lsp-deferred)
          (before-save . my-go-before-save-hook))
@@ -22,7 +22,7 @@
 
 (use-package gorepl-mode
   :ensure t
-  :ensure-system-package gore
+  ;; :ensure-system-package gore  ; install gore and re-enable
   :hook (go-mode . gorepl-mode))
 
 (use-package gotest

@@ -622,9 +622,10 @@
          ("C-c g" . avy-goto-line)
          ("C-c C-j" . avy-resume)))
 
-(use-package redo+
-  :ensure t
-  :bind ("C-?" . redo))
+;; redo+ is abandoned (2013) and incompatible with Emacs 31.
+;; undo-tree (configured below) provides redo, and Emacs 28+ has built-in
+;; `undo-redo'. Bind C-? to undo-tree's redo.
+(global-set-key (kbd "C-?") #'undo-tree-redo)
 
 ;; do not use Emacs built-in page down/up
 (use-package pager
@@ -948,7 +949,8 @@
   :ensure t
   :commands browse-at-remote
   :config
-  (add-to-list 'browse-at-remote-remote-type-domains '("ghe.spotify.net" . "github")))
+  (add-to-list 'browse-at-remote-remote-type-regexps
+               '(:host "^ghe\\.spotify\\.net$" :type "github")))
 
 (use-package string-inflection
   :ensure t

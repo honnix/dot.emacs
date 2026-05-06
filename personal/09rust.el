@@ -6,7 +6,7 @@
 
 (use-package rust-mode
   :ensure t
-  :ensure-system-package rls
+  ;; :ensure-system-package rls  ; install rls (or rust-analyzer) and re-enable
   :hook ((rust-mode . lsp-deferred)
          (before-save . my-rust-before-save-hook))
   :config

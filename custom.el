@@ -19,7 +19,7 @@
                    hl-todo hungry-delete isearch js2-refactor json-mode lsp-ivy lsp-java lsp-mode
                    lsp-solargraph lsp-treemacs lsp-ui magit magit-section multi-scratch n3-mode
                    pager plantuml-mode presentation prettier-js protobuf-mode puppet-mode pyim
-                   pyim-basedict python-pytest pyvenv rainbow-delimiters redo+ restart-emacs
+                   pyim-basedict python-pytest pyvenv rainbow-delimiters restart-emacs
                    reveal-in-finder rjsx-mode rubocop rust-mode sbt-mode scala-mode session sh-mode
                    sh-script solaire-mode string-inflection system-packages terraform-mode text
                    text-mode

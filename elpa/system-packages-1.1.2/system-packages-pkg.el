@@ -1,0 +1,2 @@
+;; Generated package description from system-packages.el  -*- no-byte-compile: t -*-
+(define-package "system-packages" "1.1.2" "functions to manage system packages" '((emacs "24.3")) :commit "de2a98caad223ded3b58512d8f44a8307a228a93" :authors '(("J. Alexander Branham" . "alex.branham@gmail.com")) :maintainer '("J. Alexander Branham" . "alex.branham@gmail.com") :url "https://gitlab.com/jabranham/system-packages")
