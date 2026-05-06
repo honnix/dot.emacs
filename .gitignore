@@ -32,3 +32,5 @@ add
 forge-database.sqlite
 elpy/
 multisession/
+*.~undo-tree~
+.*.~undo-tree~

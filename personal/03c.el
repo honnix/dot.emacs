@@ -7,10 +7,10 @@
 (use-package cc-mode
   :ensure nil)
 
-(use-package ctypes
-  :ensure t
-  :config
-  (ctypes-auto-parse-mode 1))
+;; (use-package ctypes
+;;   :ensure t
+;;   :config
+;;   (ctypes-auto-parse-mode 1))
 
 (use-package cc-vars
   :preface (provide 'cc-vars)

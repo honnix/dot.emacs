@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -5,9 +6,26 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "855eb24c0ea67e3b64d5d07730b96908bac6f4cd1e5a5986493cbac45e9d9636" default))
+   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+     "855eb24c0ea67e3b64d5d07730b96908bac6f4cd1e5a5986493cbac45e9d9636" default))
  '(package-selected-packages
-   '(bazel gotest yaml-mode typescript-mode rjsx-mode scala-mode rust-mode lsp-java python-pytest protobuf-mode terraform-mode pyim-basedict pyim transpose-frame hl-todo string-inflection goto-line-preview git-timemachine dap-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode expand-region dashboard treemacs-projectile treemacs centaur-tabs magit dired-single doom-themes magit-section elpy doom-modeline git-gutter presentation rubocop all-the-icons-ibuffer all-the-icons-dired duplicate-thing lsp-solargraph all-the-icons sh-script delsel hl-line try browse-at-remote diff-hl gotest.el visual-regexp gorepl-mode rainbow-delimiters avy pyvenv solaire-mode delight use highlight-indent-guides unbind-key js2-refactor prettier-js bindings counsel-projectile textmodes/text-mode text text-mode flyspell-mode sh-mode helm-flyspell isearch multi-scratch uniquify restart-emacs vimish-fold sbt-mode yasnippet undo-tree session reveal-in-finder redo+ puppet-mode plantuml-mode pager n3-mode json-mode hungry-delete highlight-symbol groovy-mode golint godoctor go-errcheck go-dlv gist furl flycheck-mypy drag-stuff ctypes company-restclient company-go cal-china-x browse-kill-ring blacken autopair))
+   '(all-the-icons all-the-icons-dired all-the-icons-ibuffer autopair avy bazel bindings blacken
+                   browse-at-remote browse-kill-ring cal-china-x centaur-tabs company-go
+                   company-restclient counsel-projectile ctypes dap-mode dashboard delight delsel
+                   diff-hl dired-single doom-modeline doom-themes drag-stuff duplicate-thing elpy
+                   expand-region flycheck-mypy flyspell-mode furl gist git-gutter git-timemachine
+                   go-dlv go-errcheck godoctor golint gorepl-mode gotest gotest.el goto-line-preview
+                   groovy-mode helm-flyspell highlight-indent-guides highlight-symbol hl-line
+                   hl-todo hungry-delete isearch js2-refactor json-mode lsp-ivy lsp-java lsp-mode
+                   lsp-solargraph lsp-treemacs lsp-ui magit magit-section multi-scratch n3-mode
+                   pager plantuml-mode presentation prettier-js protobuf-mode puppet-mode pyim
+                   pyim-basedict python-pytest pyvenv rainbow-delimiters redo+ restart-emacs
+                   reveal-in-finder rjsx-mode rubocop rust-mode sbt-mode scala-mode session sh-mode
+                   sh-script solaire-mode string-inflection system-packages terraform-mode text
+                   text-mode
+                   textmodes/text-mode transpose-frame treemacs treemacs-projectile try
+                   typescript-mode unbind-key undo-tree uniquify use vimish-fold visual-regexp
+                   yaml-mode yasnippet))
  '(session-use-package t nil (session))
  '(warning-suppress-types '((comp))))
 (custom-set-faces

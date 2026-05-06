@@ -692,11 +692,10 @@
 
 (use-package ispell
   :ensure nil
-  :ensure-system-package hunspell
+  :ensure-system-package aspell
   :demand t
   :init
-  (setq ispell-program-name "hunspell")
-        ;; ispell-extra-args '("--sug-mode=ultra"))
+  (setq ispell-program-name "aspell")
   :config
   (ispell-set-spellchecker-params)
   (ispell-init-process))

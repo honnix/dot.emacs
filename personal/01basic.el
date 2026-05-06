@@ -7,13 +7,12 @@
 ;; =============================================================================
 ;; ============================ load use-package ===============================
 ;; =============================================================================
-(eval-when-compile
-  (require 'use-package))
+;(eval-when-compile
+;  (require 'use-package))
 
 (setq use-package-always-demand (daemonp))
 
-(use-package use-package-ensure-system-package
-  :ensure t)
+(use-package use-package-ensure-system-package)
 
 (use-package delight
   :ensure t)
@@ -30,15 +29,8 @@
 ;; =============================================================================
 ;; =============================================================================
 
-;; =============================== customize ===================================
-(setq-default custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (use-package cus-edit
-    :preface (provide 'cus-edit)
-    :config
-    (load custom-file)))
-;;==============================================================================
-;;==============================================================================
+;; customize: `custom-file' is set and loaded in early-init.el so that
+;; Custom auto-saves don't end up in init.el during package initialization.
 
 ;; =============================================================================
 ;; ============================ custom functions ===============================
