@@ -15,6 +15,7 @@ transient/
 elpa/*-readme.txt
 vimish-fold/
 recentf
+recentf.eld
 projectile-bookmarks.eld
 projectile.cache
 /.mc-lists.el
