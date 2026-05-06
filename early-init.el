@@ -19,10 +19,19 @@
 
 ;; Point Custom at its own file before package init runs, so Custom
 ;; auto-saves (e.g. `package-selected-packages' written by package-install)
-;; don't fall back to user-init-file.
+;; don't fall back to user-init-file. The actual load happens later in
+;; personal/01basic.el, after package.el has initialized — custom.el
+;; references packages (e.g. session) that need to be on the load path.
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file nil 'nomessage))
+
+;; Frame geometry must be set before the initial frame is created;
+;; defaults from after-init-hook would only affect subsequent frames.
+(add-to-list 'default-frame-alist '(height . 60))
+(add-to-list 'default-frame-alist '(width . 180))
+(add-to-list 'default-frame-alist
+             (cons 'font (if (eq system-type 'darwin)
+                             "Fira Code-12.5"
+                           "Fira Code-9.5")))
 
 (provide 'early-init)
 ;;; early-init.el ends here

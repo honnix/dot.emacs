@@ -29,8 +29,10 @@
 ;; =============================================================================
 ;; =============================================================================
 
-;; customize: `custom-file' is set and loaded in early-init.el so that
-;; Custom auto-saves don't end up in init.el during package initialization.
+;; customize: `custom-file' is set in early-init.el so Custom auto-saves
+;; don't fall back to init.el; actual load happens here, after package init.
+(when (file-exists-p custom-file)
+  (load custom-file nil 'nomessage))
 
 ;; =============================================================================
 ;; ============================ custom functions ===============================
@@ -167,12 +169,9 @@ position."
   (setq shell-file-name "/usr/bin/zsh")
 )
 
-(if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(font . "Fira Code-12.5"))
-  (add-to-list 'default-frame-alist '(font . "Fira Code-9.5"))
-)
-(add-to-list 'default-frame-alist '(height . 60))
-(add-to-list 'default-frame-alist '(width . 180))
+;; Frame geometry and font are set in early-init.el so they apply
+;; to the initial frame (default-frame-alist after frame creation
+;; only affects subsequent frames).
 
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil)
