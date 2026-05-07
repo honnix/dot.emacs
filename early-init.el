@@ -6,6 +6,11 @@
 
 ;;; Code:
 
+;; Disable GC during startup for speed; runtime value is restored in
+;; personal/01basic.el after init finishes.
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+
 ;; Emacs 30+ warns when loading .el files without a lexical-binding cookie.
 ;; Many ELPA packages (and a few hand-written files here) predate that
 ;; convention; suppress the warning class globally rather than patching each.

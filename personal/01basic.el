@@ -180,8 +180,11 @@ position."
       scroll-margin 0
       scroll-conservatively 101)
 
+;; Restore GC to runtime values (effectively disabled during init via
+;; early-init.el). 200MB threshold is recommended by lsp-mode.
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 200000000
+      gc-cons-percentage 0.1
       read-process-output-max (* 2048 1024))
 
 ;; y/n for short (Emacs 28+ idiom; replaces fset of yes-or-no-p)
