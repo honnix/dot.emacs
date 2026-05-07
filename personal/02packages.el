@@ -828,16 +828,16 @@
 (use-package compile
   :ensure nil
   :init
-  (setq compilation-window-height 8
-        compilation-finish-functions
-      (lambda (buf str)
-        (if (string-match "exited abnormally" str)
-            ;;there were errors
-            (message "COMPILATION ERROR!, press C-x ` to visit")
-          ;;no errors, make the compilation window go away in 0.5 seconds
-          (if (string-match "*compilation*" buf)
-              (run-at-time 0.5 nil 'delete-windows-on buf))
-          (message "no compilation error.")))))
+  (setq compilation-window-height 8)
+  (defun my-compilation-finish (buf str)
+    (if (string-match "exited abnormally" str)
+        ;; there were errors
+        (message "COMPILATION ERROR!, press C-x ` to visit")
+      ;; no errors, make the compilation window go away in 0.5 seconds
+      (when (string-match "*compilation*" (buffer-name buf))
+        (run-at-time 0.5 nil 'delete-windows-on buf))
+      (message "no compilation error.")))
+  (add-hook 'compilation-finish-functions #'my-compilation-finish))
 
 (use-package projectile
   :ensure t
