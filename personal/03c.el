@@ -4,6 +4,10 @@
 
 ;;; Code:
 
+;; cc-mode references this from autoloaded code; declare it early so
+;; protobuf-mode (which transitively pulls cc-mode) doesn't see it as void.
+(defvar objc-font-lock-extra-types nil)
+
 (use-package cc-vars
   :preface (provide 'cc-vars)
   :hook (c-mode-common . my-c-hook-func)

@@ -18,8 +18,7 @@
                 js2-strict-inconsistent-return-warning nil
                 js2-basic-offset 2
                 js-indent-level 2
-                indent-tabs-mode nil)
-  (setq-default objc-font-lock-extra-types))
+                indent-tabs-mode nil))
 
 (use-package prettier-js
   :ensure t
