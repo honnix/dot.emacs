@@ -1,4 +1,4 @@
-;;; 08c.el --- c
+;;; 03c.el --- c -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -28,4 +28,4 @@
 (use-package cc-styles
   :preface (provide 'cc-styles))
 
-;;; 08c.el ends here
+;;; 03c.el ends here

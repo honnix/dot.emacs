@@ -1,4 +1,4 @@
-;;; 01basic.el --- basic config
+;;; 01basic.el --- basic config -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

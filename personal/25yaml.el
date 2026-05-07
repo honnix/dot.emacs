@@ -1,4 +1,4 @@
-;;; 25yaml.el --- yaml
+;;; 25yaml.el --- yaml -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

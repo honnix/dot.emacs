@@ -1,4 +1,4 @@
-;;; 04terraform.el --- terraform
+;;; 04terraform.el --- terraform -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

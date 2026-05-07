@@ -1,4 +1,4 @@
-;;; 08rust.el --- rust
+;;; 09rust.el --- rust -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -15,4 +15,4 @@
       (lsp-format-buffer))))
 
 
-;;; 08rust.el ends here
+;;; 09rust.el ends here

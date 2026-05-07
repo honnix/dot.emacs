@@ -1,4 +1,4 @@
-;;; 24prolog.el --- prolog
+;;; 24prolog.el --- prolog -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

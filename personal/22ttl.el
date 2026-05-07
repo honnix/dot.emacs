@@ -1,4 +1,4 @@
-;;; 22ttl.el --- ttl
+;;; 22ttl.el --- ttl -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

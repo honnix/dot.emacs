@@ -1,4 +1,4 @@
-;;; 99last.el --- the last things should happen
+;;; 99last.el --- the last things should happen -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

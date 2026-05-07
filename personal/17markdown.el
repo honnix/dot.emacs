@@ -1,4 +1,4 @@
-;;; 17markdown.el --- markdown
+;;; 17markdown.el --- markdown -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

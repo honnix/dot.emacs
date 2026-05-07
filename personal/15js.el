@@ -1,4 +1,4 @@
-;;; 15js.el --- javascript
+;;; 15js.el --- javascript -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

@@ -1,4 +1,4 @@
-;;; 02packages.el --- configure all packages
+;;; 02packages.el --- configure all packages -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

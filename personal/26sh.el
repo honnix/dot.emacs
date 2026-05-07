@@ -1,4 +1,4 @@
-;;; 26sh.el --- sh
+;;; 26sh.el --- sh -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

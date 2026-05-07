@@ -1,4 +1,4 @@
-;;; 05protobuf.el --- protobuf
+;;; 05protobuf.el --- protobuf -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

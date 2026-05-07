@@ -1,4 +1,4 @@
-;;; 30org.el --- python
+;;; 30org.el --- org -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

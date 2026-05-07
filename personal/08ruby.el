@@ -1,4 +1,4 @@
-;;; 08ruby.el --- ruby
+;;; 08ruby.el --- ruby -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

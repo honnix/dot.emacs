@@ -1,4 +1,4 @@
-;;; 12scala.el --- configure all packages
+;;; 12scala.el --- scala -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

@@ -1,4 +1,4 @@
-;;; 16ts.el --- markdown
+;;; 16ts.el --- typescript -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

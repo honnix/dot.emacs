@@ -1,4 +1,4 @@
-;;; 06python.el --- python
+;;; 06python.el --- python -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

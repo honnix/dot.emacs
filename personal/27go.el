@@ -1,4 +1,4 @@
-;;; 27go.el --- go
+;;; 27go.el --- go -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

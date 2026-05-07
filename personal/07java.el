@@ -1,4 +1,4 @@
-;;; 07java.el --- java
+;;; 07java.el --- java -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
