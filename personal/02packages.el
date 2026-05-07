@@ -581,9 +581,9 @@
                   (mode . go-dot-mod-mode)
                   (name . "^go.sum$"))))))
   :config
-  (defadvice ibuffer-generate-filter-groups
-      (after reverse-ibuffer-groups () activate)
-    (setq ad-return-value (nreverse ad-return-value))))
+  (define-advice ibuffer-generate-filter-groups
+      (:filter-return (groups) reverse-ibuffer-groups)
+    (nreverse groups)))
 
 (use-package session
   :ensure t
