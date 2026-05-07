@@ -8,10 +8,10 @@
 
 (use-package lsp-java
   :ensure t
-  :hook ((java-mode . lsp-deferred)
-         (java-mode . my-java-mode-hook))
-  :config
+  :preface
   (defun my-java-mode-hook ()
-    (setq c-basic-offset 2)))
+    (setq c-basic-offset 2))
+  :hook ((java-mode . lsp-deferred)
+         (java-mode . my-java-mode-hook)))
 
 ;;; 07java.el ends here

@@ -6,13 +6,13 @@
 
 (use-package ruby-mode
   :ensure nil
-  :hook ((ruby-mode . lsp-deferred)
-         (before-save . my-rb-before-save-hook))
-  :config
+  :preface
   (defun my-rb-before-save-hook ()
     (when (eq major-mode 'ruby-mode)
       (lsp-format-buffer)
-      (lsp-organize-imports))))
+      (lsp-organize-imports)))
+  :hook ((ruby-mode . lsp-deferred)
+         (before-save . my-rb-before-save-hook)))
 
 (use-package rubocop
   :ensure t

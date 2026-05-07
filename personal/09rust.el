@@ -6,13 +6,13 @@
 
 (use-package rust-mode
   :ensure t
-  ;; :ensure-system-package rls  ; install rls (or rust-analyzer) and re-enable
-  :hook ((rust-mode . lsp-deferred)
-         (before-save . my-rust-before-save-hook))
-  :config
+  ;; :ensure-system-package rls  ; install rust-analyzer and re-enable
+  :preface
   (defun my-rust-before-save-hook ()
     (when (eq major-mode 'rust-mode)
-      (lsp-format-buffer))))
+      (lsp-format-buffer)))
+  :hook ((rust-mode . lsp-deferred)
+         (before-save . my-rust-before-save-hook)))
 
 
 ;;; 09rust.el ends here

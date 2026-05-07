@@ -6,6 +6,11 @@
 
 (use-package elpy
   :ensure t
+  :preface
+  (defun my-py-before-save-hook ()
+    (when (eq major-mode 'python-mode)
+      (lsp-format-buffer)
+      (lsp-organize-imports)))
   :hook ((python-mode . lsp-deferred)
          (elpy-mode . flycheck-mode)
          (before-save . my-py-before-save-hook))
@@ -15,11 +20,6 @@
   :config
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)
         elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-  (defun my-py-before-save-hook ()
-    (when (eq major-mode 'python-mode)
-      (lsp-format-buffer)
-      (lsp-organize-imports)))
-
   (elpy-enable))
 
 (use-package python-pytest

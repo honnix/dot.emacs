@@ -7,18 +7,18 @@
 (use-package go-mode
   :ensure t
   ;; :ensure-system-package gopls  ; install gopls and re-enable
-  :hook ((go-mode . my-go-mode-hook)
-		 (go-mode . lsp-deferred)
-         (before-save . my-go-before-save-hook))
-  :config
+  :preface
   (defun my-go-mode-hook ()
-    (if (not (string-match "go" compile-command))
-        (set (make-local-variable 'compile-command)
-             "go build -v && go test -v && go vet")))
+    (when (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+           "go build -v && go test -v && go vet")))
   (defun my-go-before-save-hook ()
     (when (eq major-mode 'go-mode)
       (lsp-format-buffer)
-      (lsp-organize-imports))))
+      (lsp-organize-imports)))
+  :hook ((go-mode . my-go-mode-hook)
+         (go-mode . lsp-deferred)
+         (before-save . my-go-before-save-hook)))
 
 (use-package gorepl-mode
   :ensure t
