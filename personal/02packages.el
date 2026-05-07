@@ -167,6 +167,7 @@
   :config
   (load-theme 'doom-one t)
 
+
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
