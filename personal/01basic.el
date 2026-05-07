@@ -7,12 +7,7 @@
 ;; =============================================================================
 ;; ============================ load use-package ===============================
 ;; =============================================================================
-;(eval-when-compile
-;  (require 'use-package))
-
 (setq use-package-always-demand (daemonp))
-
-(use-package use-package-ensure-system-package)
 
 (use-package delight
   :ensure t)
