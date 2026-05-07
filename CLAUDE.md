@@ -82,3 +82,17 @@ initial frame already exists.
   cross-session undo. They are gitignored.
 - Auto-generated state files (`recentf.eld`, `.session`, `custom.el`'s
   ordering) will churn on each Emacs session — don't bother diffing.
+- **Known issue**: `windmove-default-keybindings` (in `02packages.el`)
+  binds `S-<arrow>` to window movement, conflicting with org-mode's
+  shifted-arrow semantics (TODO cycling, priorities, date adjustments).
+  Not currently fixed — user uses org-mode rarely. To fix later:
+  `(windmove-default-keybindings 'meta)` to move windmove to
+  `M-S-<arrow>`, or `(setq org-replace-disputed-keys t)` to rebind
+  org's conflicting keys instead.
+- **Built-in core libraries** like `mule-cmds`, `indent`, `startup`,
+  `subr`, `cc-vars`, and `bindings` (for itself) do **not** call
+  `(provide 'foo)`. They're preloaded by Emacs core. The
+  `:preface (provide 'foo)` shim in `02packages.el` and `03c.el` is
+  load-bypassing — without it, use-package's default `(require 'foo)`
+  loads the file but errors with "failed to provide feature". Don't
+  remove these shims thinking they're cosmetic.
