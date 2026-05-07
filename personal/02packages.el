@@ -960,6 +960,7 @@
   :bind ("C-c d" . duplicate-thing))
 
 (use-package presentation
-   :ensure t)
+  :ensure t
+  :commands presentation-mode)
 
 ;;; 02packages.el ends here

@@ -34,7 +34,10 @@
 
 (use-package js2-refactor
   :ensure t
-  :after js2-mode)
+  :after js2-mode
+  :hook (js2-mode . js2-refactor-mode)
+  :config
+  (js2r-add-keybindings-with-prefix "C-c C-r"))
 
 (use-package json-mode
   :ensure t
