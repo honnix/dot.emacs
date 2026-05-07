@@ -68,6 +68,10 @@ initial frame already exists.
   Run `M-x nerd-icons-install-fonts` once and install the resulting
   `NFM.ttf` via Font Book.
 - **Editor font**: Fira Code (`brew install --cask font-fira-code`).
+- **Auto-start the daemon at login (macOS)**: edit
+  `launchd/gnu.emacs.daemon.plist` and run `launchd/install.sh`. The
+  script copies the plist into `~/Library/LaunchAgents/` and
+  bootstraps the agent.
 
 ## Things to know
 
@@ -89,6 +93,12 @@ initial frame already exists.
   `(windmove-default-keybindings 'meta)` to move windmove to
   `M-S-<arrow>`, or `(setq org-replace-disputed-keys t)` to rebind
   org's conflicting keys instead.
+- **macOS launchd refuses symlinked/hard-linked plist files** in
+  `~/Library/LaunchAgents/` (`Bootstrap failed: 5: Input/output
+  error`). The file must be a regular file with link count 1. That's
+  why `launchd/install.sh` copies the plist instead of linking it —
+  the canonical version-tracked file lives in the repo and the script
+  syncs it.
 - **Built-in core libraries** like `mule-cmds`, `indent`, `startup`,
   `subr`, `cc-vars`, and `bindings` (for itself) do **not** call
   `(provide 'foo)`. They're preloaded by Emacs core. The
