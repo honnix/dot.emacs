@@ -945,13 +945,13 @@
 
 (use-package pyim
   :ensure t
+  :defer t
   :init
   (setq pyim-default-scheme 'quanpin))
 
 (use-package pyim-basedict
   :ensure t
-  :requires pyim
-  :defer t
+  :after pyim
   :config
   (pyim-basedict-enable))
 
