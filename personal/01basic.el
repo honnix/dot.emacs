@@ -189,7 +189,7 @@ position."
 (setq gc-cons-threshold 200000000
       read-process-output-max (* 2048 1024))
 
-;; y/n for short
-(fset 'yes-or-no-p 'y-or-n-p)
+;; y/n for short (Emacs 28+ idiom; replaces fset of yes-or-no-p)
+(setq use-short-answers t)
 
 ;;; 01basic.el ends here
