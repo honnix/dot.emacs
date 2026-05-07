@@ -11,7 +11,7 @@
  '(package-selected-packages
    '(all-the-icons all-the-icons-dired all-the-icons-ibuffer autopair avy bazel bindings blacken
                    browse-at-remote browse-kill-ring cal-china-x centaur-tabs company-go
-                   company-restclient counsel-projectile ctypes dap-mode dashboard delight delsel
+                   company-restclient counsel-projectile dap-mode dashboard delight delsel
                    diff-hl dired-single doom-modeline doom-themes drag-stuff duplicate-thing elpy
                    expand-region flycheck-mypy flyspell-mode furl gist git-gutter git-timemachine
                    go-dlv go-errcheck godoctor golint gorepl-mode gotest gotest.el goto-line-preview

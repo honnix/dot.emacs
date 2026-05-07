@@ -14,9 +14,6 @@
       (lsp-format-buffer)
       (lsp-organize-imports))))
 
-(use-package lsp-solargraph
-  :ensure nil)
-
 (use-package rubocop
   :ensure t
   :hook (ruby-mode . rubocop-mode))
