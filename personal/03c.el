@@ -9,7 +9,9 @@
 (defvar objc-font-lock-extra-types nil)
 
 (use-package cc-vars
-  :preface (provide 'cc-vars)
+  :preface
+  (load "cc-vars" nil t)
+  (provide 'cc-vars)
   :hook (c-mode-common . my-c-hook-func)
   :init
   (setq c-basic-offset 4
