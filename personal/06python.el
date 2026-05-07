@@ -6,7 +6,6 @@
 
 (use-package elpy
   :ensure t
-  ;; :requires bind-key
   :hook ((python-mode . lsp-deferred)
          (elpy-mode . flycheck-mode)
          (before-save . my-py-before-save-hook))
@@ -22,8 +21,6 @@
       (lsp-organize-imports)))
 
   (elpy-enable))
-  ;; (unbind-key "C-c C-c" python-mode-map)
-  ;; (unbind-key "C-c C-c" elpy-mode-map))
 
 (use-package python-pytest
   :ensure t)

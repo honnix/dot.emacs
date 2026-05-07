@@ -158,15 +158,6 @@
   :init
   (add-hook 'comint-output-filter-functions #'comint-watch-for-password-prompt))
 
-;; (use-package custom
-;;   :ensure nil
-;;   :config
-;;   ;; (add-to-list 'custom-theme-load-path
-;;   ;;   (file-name-as-directory "~/.emacs.d/personal/themes"))
-;;   ;; (load-theme 'monokai t t)
-;;   ;; (enable-theme 'monokai)
-;;   (load-theme 'zenburn t))
-
 (use-package doom-themes
   :ensure t
   :init
@@ -213,21 +204,6 @@
     :preface (provide 'subr)
     :init
     (setq tab-stop-list (number-sequence 4 120 4))))
-
-;; (use-package faces
-;;   :ensure nil
-;;   :config
-;;   ;; zenburn region background is a bit hard to see
-;;   (set-face-attribute 'region nil :background "gray13"))
-
-;; (use-package timer
-;;   :ensure nil
-;;   :after faces
-;;   :config
-;;   (setq visible-bell nil
-;;         ring-bell-function (lambda ()
-;;                              (invert-face 'mode-line)
-;;                              (run-with-timer 0.1 nil 'invert-face 'mode-line))))
 
 (use-package hl-line+
   :load-path "3rd"
@@ -294,11 +270,6 @@
 
 (use-package display-fill-column-indicator
   :ensure nil)
-
-;; (use-package cus-start
-;;   :ensure nil
-;;   :init
-;;   (setq display-fill-column-indicator-character ?\N{U+2506}))
 
 (use-package text-mode
   :ensure nil
@@ -501,16 +472,7 @@
      ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
      ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
      ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-     (t (format "%8d" (buffer-size)))))
-  ;; (defun ibuffer-previous-line ()
-  ;;   (interactive) (previous-line)
-  ;;   (if (<= (line-number-at-pos) 2)
-  ;;       (goto-line (- (count-lines (point-min) (point-max)) 2))))
-  ;; (defun ibuffer-next-line ()
-  ;;   (interactive) (next-line)
-  ;;   (if (>= (line-number-at-pos) (- (count-lines (point-min) (point-max)) 1))
-  ;;       (goto-line 3)))
-  )
+     (t (format "%8d" (buffer-size))))))
 
 (use-package ibuf-ext
   :ensure nil
