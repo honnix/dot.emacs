@@ -923,6 +923,7 @@
   :ensure t
   :delight undo-tree-mode
   :config
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree-history/")))
   (global-undo-tree-mode))
 
 (use-package visual-regexp

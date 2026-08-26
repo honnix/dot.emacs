@@ -35,3 +35,4 @@ elpy/
 multisession/
 *.~undo-tree~
 .*.~undo-tree~
+undo-tree-history/
